@@ -19,7 +19,8 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "preinstall": "npx npm-only-allow@latest --PM yarn",
     "postinstall": "npx patch-package -y",
-    "coupling-graph": "npx madge --extensions js,jsx,ts,tsx,css,md,mdx ./ --exclude '.next|tailwind.config.js|reset.d.ts|prettier.config.js|postcss.config.js|playwright.config.ts|next.config.js|next-env.d.ts|instrumentation.ts|e2e/|README.md|.storybook/|.eslintrc.js' --image graph.svg"
+    "coupling-graph": "npx madge --extensions js,jsx,ts,tsx,css,md,mdx ./ --exclude '.next|tailwind.config.js|reset.d.ts|prettier.config.js|postcss.config.js|playwright.config.ts|next.config.js|next-env.d.ts|instrumentation.ts|e2e/|README.md|.storybook/|.eslintrc.js' --image graph.svg",
+    "prepare": "husky"
   },
   "dependencies": {
     "@ant-design/nextjs-registry": "^1.0.0",
@@ -51,6 +52,8 @@
     "@babel/plugin-syntax-flow": "^7.23.3",
     "@babel/plugin-transform-optional-chaining": "^7.23.4",
     "@babel/plugin-transform-react-jsx": "^7.23.4",
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
     "@opentelemetry/api": "1.7.0",
     "@opentelemetry/resources": "1.18.1",
     "@opentelemetry/sdk-node": "0.45.1",
@@ -85,6 +88,7 @@
     "eslint-plugin-tailwindcss": "^3.13.0",
     "fetch-mock": "^9.11.0",
     "gzip-size": "6",
+    "husky": "^9.0.11",
     "mkdirp": "^3.0.1",
     "patch-package": "^8.0.0",
     "postcss": "^8.4.31",
