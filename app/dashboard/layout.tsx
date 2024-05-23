@@ -54,9 +54,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </div>
           <div className="mb-8">
             <form>
-              <button className="flex items-center gap-2 py-2 px-4 bg-white hover:bg-gray-100 transition-colors duration-300 rounded-lg
-
-">
+              <button className="flex items-center gap-2 py-2 px-4
+               bg-white hover:bg-gray-100 transition-colors duration-300 rounded-lg">
                 <CiLogout className="text-xl" />
                 <span>Sign Out</span>
               </button>
