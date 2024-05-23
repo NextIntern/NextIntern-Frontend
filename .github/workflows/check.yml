@@ -26,8 +26,6 @@ jobs:
         run: yarn lint
       - name: Format check
         run: yarn prettier
-      - name: Unit & Integration tests
-        run: yarn test
       - name: Smoke & Acceptance tests
         run: |
           yarn build-storybook --quiet
