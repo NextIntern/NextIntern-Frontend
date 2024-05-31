@@ -1,70 +1,56 @@
-import { FC } from "react";
-import { CiLogout, CiHome, CiViewBoard, CiSettings, CiCalendar, CiViewList, CiEdit, CiStickyNote    } from "react-icons/ci";
+"use client"
 
-interface NavLinkProps {
-  href: string;
-  children: React.ReactNode;
-  icon: React.ReactNode;
-}
+import NavLink from "components/NavLink"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 
-const NavLink: FC<NavLinkProps> = ({ href, children, icon }) => {  
-  return (
-    <a
-      href={href}
-      className="flex items-center py-2 px-4 text-sm hover:bg-gray-200 transition-colors duration-300"
-    >
-      {icon}
-      <span className="ml-2">{children}</span>
-    </a>
-  );
-};
+import { CiCalendar, CiEdit, CiHome, CiLogout, CiSettings, CiStickyNote, CiViewList } from "react-icons/ci"
+
+const NAV_LINKS = [
+  { href: "/dashboard", icon: CiHome, children: "Dashboard" },
+  { href: "/", icon: CiViewList, children: "Intern Management" },
+  { href: "/", icon: CiEdit, children: "Training Campaign" },
+  { href: "/", icon: CiStickyNote, children: "Learning Material" },
+  { href: "/", icon: CiCalendar, children: "Training Calendar" },
+  { href: "/", icon: CiSettings, children: "Settings" },
+]
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+  // Pathname
+  const pathname = usePathname()
+
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
       {/* Sidebar */}
-      <div className="bg-white text-gray-600 w-64 flex flex-col rounded-lg overflow-hidden shadow-xl">
+      <div className="flex w-full flex-col overflow-hidden rounded-lg bg-white text-gray-600 md:w-64">
         {/* Logo */}
-        <div className="h-16 flex items-center justify-center bg-gray-800 text-white">
-          <h1 className="text-2xl font-bold">NextIntern</h1>
+        <div className="hidden h-16 items-center justify-center text-white md:flex">
+          <h1 className="mt-2 bg-gradient-to-r from-blue-500 to-green-500 bg-clip-text text-2xl font-extrabold text-transparent">
+            NextIntern
+          </h1>
         </div>
-        {/* Navigation Links */}
-        <div className="flex-1 flex flex-col justify-between mt-6 hover:bg-gray-100 transition-colors duration-300 rounded-lg">
-          <div>
-            <NavLink href="/" icon={<CiHome size={20} />}>Home</NavLink>
-            <div className="mt-6 ">
-              <NavLink href="/" icon={<CiViewBoard size={20} />}>Dashboard</NavLink>
-            </div>
-            <div className="mt-6 ">
-              <NavLink href="/" icon={<CiViewList  size={20} />}>Intern Management</NavLink>
-            </div>
-            <div className="mt-6 ">
-              <NavLink href="/" icon={<CiEdit size={20} />}>Training Campaign</NavLink>
-            </div>
-            <div className="mt-6 ">
-              <NavLink href="/" icon={<CiStickyNote  size={20} />}>Learning Material</NavLink>
-            </div>
-            <div className="mt-6 ">
-              <NavLink href="/" icon={<CiCalendar  size={20} />}>Training Calendar</NavLink>
-            </div>
-            <div className="mt-6 ">
-              <NavLink href="/" icon={<CiSettings  size={20} />}>Setting</NavLink>
-            </div>
-            {/* Add more navigation links */}
+        <div className="my-2 flex flex-1 flex-col justify-between rounded-lg transition-colors duration-300 md:my-4">
+          {/* Navigation Links */}
+          <div className="hidden md:block">
+            {NAV_LINKS.map((link) => (
+              <NavLink key={link.children} href={link.href} Icon={link.icon} isActive={pathname === link.href}>
+                {link.children}
+              </NavLink>
+            ))}
           </div>
-          <div className="mb-8">
-            <form>
-              <button className="flex items-center gap-2 py-2 px-4
-               bg-white hover:bg-gray-100 transition-colors duration-300 rounded-lg">
-                <CiLogout className="text-xl" />
-                <span>Sign Out</span>
-              </button>
-            </form>
-          </div>
+          {/* Sign out */}
+          <Link
+            href="/"
+            className="mx-4 my-2 flex w-fit cursor-pointer items-center gap-2 rounded-xl bg-white p-4 font-medium transition-colors duration-300 hover:bg-gray-100 md:w-auto md:flex-none md:justify-start"
+          >
+            <CiLogout className="text-xl" />
+            <span className="hidden md:block">Sign Out</span>
+          </Link>
         </div>
       </div>
+
       {/* Main Content */}
-      <div className="flex-1 p-8">{children}</div>
+      <div className="m-4 flex-1 rounded-[50px] bg-slate-50 p-8">{children}</div>
     </div>
-  );
+  )
 }
