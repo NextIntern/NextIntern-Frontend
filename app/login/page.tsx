@@ -25,7 +25,7 @@ export default function RootLayout() {
   }
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100">
-      <div className="mx-56 flex w-full items-center rounded-3xl bg-white shadow-lg p-8">
+      <div className="mx-56 flex w-full items-center rounded-3xl bg-white p-8 shadow-lg">
         <div className=" flex w-1/2 flex-col items-center justify-center  ">
           <Image
             src="/company-logo.png" // Path to your company logo
