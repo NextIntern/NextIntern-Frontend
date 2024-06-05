@@ -42,6 +42,9 @@ jobs:
           # change this if you prefer a more strict cache
           key: ${{ runner.os }}-build-${{ env.cache-name }}
 
+      - name: Add .env file
+        run: echo "${{ secrets.ENVIROMENT_VARIABLES }}" >> .env
+
       - name: Build next.js app
         env:
           SKIP_BUILD_PRODUCT_REDIRECTS: 1
