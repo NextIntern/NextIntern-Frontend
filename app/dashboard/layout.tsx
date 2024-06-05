@@ -1,8 +1,8 @@
-import NavLink from "components/NavLink"
-import config from "config"
 import { Metadata } from "next"
 import Link from "next/link"
 import { CiCalendar, CiEdit, CiHome, CiLogout, CiSettings, CiStickyNote, CiViewList } from "react-icons/ci"
+import NavLink from "@/components/NavLink"
+import config from "@/config"
 
 export const metadata: Metadata = {
   title: "Dashboard",
