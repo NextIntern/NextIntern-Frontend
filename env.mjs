@@ -9,7 +9,10 @@ export const env = createEnv({
       .transform((value) => value === "true"),
   },
   client: {
-    NEXT_PUBLIC_API_URL: z.string().url(),
+    NEXT_PUBLIC_API_URL: z
+      .string()
+      .url()
+      .transform((value) => (!value ? "http://localhost:8080" : value)),
   },
   runtimeEnv: {
     ANALYZE: process.env.ANALYZE,
