@@ -1,24 +1,23 @@
-"use client"
-
-import NavLink from "components/NavLink"
+import { Metadata } from "next"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
-
 import { CiCalendar, CiEdit, CiHome, CiLogout, CiSettings, CiStickyNote, CiViewList } from "react-icons/ci"
+import NavLink from "@/components/NavLink"
+import config from "@/config"
+
+export const metadata: Metadata = {
+  title: "Dashboard",
+}
 
 const NAV_LINKS = [
-  { href: "/dashboard", icon: CiHome, children: "Dashboard" },
-  { href: "/", icon: CiViewList, children: "Intern Management" },
-  { href: "/", icon: CiEdit, children: "Training Campaign" },
-  { href: "/", icon: CiStickyNote, children: "Learning Material" },
-  { href: "/", icon: CiCalendar, children: "Training Calendar" },
-  { href: "/", icon: CiSettings, children: "Settings" },
+  { href: config.routes.dashboard, icon: CiHome, children: "Dashboard" },
+  { href: config.routes.campaignList, icon: CiEdit, children: "Training Campaign" },
+  { href: config.routes.home, icon: CiViewList, children: "Intern Management" },
+  { href: config.routes.home, icon: CiStickyNote, children: "Learning Material" },
+  { href: config.routes.home, icon: CiCalendar, children: "Training Calendar" },
+  { href: config.routes.home, icon: CiSettings, children: "Settings" },
 ]
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  // Pathname
-  const pathname = usePathname()
-
   return (
     <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
       {/* Sidebar */}
@@ -32,11 +31,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div className="my-2 flex flex-1 flex-col justify-between rounded-lg transition-colors duration-300 md:my-4">
           {/* Navigation Links */}
           <div className="hidden md:block">
-            {NAV_LINKS.map((link) => (
-              <NavLink key={link.children} href={link.href} Icon={link.icon} isActive={pathname === link.href}>
-                {link.children}
-              </NavLink>
-            ))}
+            {NAV_LINKS.map((link) => {
+              const Icon = link.icon
+              return (
+                <NavLink key={link.href} href={link.href} Icon={<Icon size="20" />}>
+                  {link.children}
+                </NavLink>
+              )
+            })}
           </div>
           {/* Sign out */}
           <Link
