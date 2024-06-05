@@ -35,7 +35,9 @@ jobs:
     needs: deploy-image
 
     steps:
-      - name: Pull the latest image
-        run: docker-compose pull
-      - name: Recreate and restart service
-        run: docker-compose up -d --no-deps frontend
+      - name: Pull the latest Docker image
+        run: docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE }}:latest
+      - name: Stop and remove the running container (if any)
+        run: docker stop ${{ secrets.DOCKER_IMAGE }} && docker rm ${{ secrets.DOCKER_IMAGE }} || true
+      - name: Run the latest image
+        run: docker run -d --name ${{ secrets.DOCKER_IMAGE }} -p 3005:3000 ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE }}:latest
