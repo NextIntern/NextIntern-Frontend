@@ -5,7 +5,7 @@ on:
     branches:
       - main
       - master
-      - develop
+      - development
   pull_request:
   workflow_dispatch:
 
@@ -22,6 +22,8 @@ jobs:
           node-version: "${{ env.node_version }}"
       - name: Install dependencies
         run: yarn install --frozen-lockfile
+      - name: Add .env file
+        run: echo "${{ secrets.ENVIROMENT_VARIABLES }}" >> .env
       - name: Lint check
         run: yarn lint
       - name: Format check
