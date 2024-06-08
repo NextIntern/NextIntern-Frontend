@@ -61,12 +61,14 @@ export default function Page() {
       endDate: '2023-12-31',
       status: 'Active',
     },
-    
+
    
   ]);
 
   const [editIdx, setEditIdx] = useState<number | null>(null);
   const [formData, setFormData] = useState<Partial<Campaign>>({});
+  const [searchTerm, setSearchTerm] = useState<string>('');
+
 
   const handleEdit = (index: number) => {
     const campaign = campaigns[index];
@@ -93,13 +95,30 @@ export default function Page() {
   const handleCancel = () => {
     setEditIdx(null);
   };
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
+  const filteredCampaigns = campaigns.filter(campaign =>
+    campaign.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
 
   return (
     <>
       <h1>Campaign Page</h1>
       <section className="container px-4 mx-auto">
-        <h2 className="text-lg font-medium text-gray-800 dark:text-white">Customers</h2>
-        <p className="mt-1 text-sm text-gray-500 dark:text-gray-300">These companies have purchased in the last 12 months.</p>
+      <div className="flex items-center justify-between mt-6 mb-4">
+          <input
+            type="text"
+            placeholder="Search campaigns..."
+            value={searchTerm}
+            onChange={handleSearch}
+            className="px-4 py-2 text-sm text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:outline-none focus:ring"
+          />
+          <button className="px-4 py-2 text-sm text-gray-700 bg-white border rounded-md hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700">
+            Search
+          </button>
+        </div>
         <div className="flex flex-col mt-6">
           <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
