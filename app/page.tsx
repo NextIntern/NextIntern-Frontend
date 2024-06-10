@@ -4,6 +4,9 @@ import Image from "next/image"
 export const metadata: Metadata = {
   title: "NextIntern",
   description: "NextIntern - Internship Managemenet System for NextBean Text",
+  icons: {
+    icon: "/favicon.ico",
+  },
   twitter: {
     card: "summary_large_image",
   },
