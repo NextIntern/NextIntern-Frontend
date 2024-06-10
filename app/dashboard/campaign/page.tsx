@@ -1,74 +1,26 @@
 "use client";
 
-import { useState } from 'react';
-
-type Campaign = {
-  id: string;
-  name: string;
-  description: string;
-  startDate: string;
-  endDate: string;
-  status: string;
-};
+import { useState, useEffect } from 'react';
+import { Campaign, DateDetails } from '@/types';
+import { getCampaigns } from '@/services/campaign.service';
 
 export default function Page() {
-  const [campaigns, setCampaigns] = useState<Campaign[]>([
-    {
-      id: '1',
-      name: 'Catalog',
-      description: 'Content curating app',
-      startDate: '2023-01-01',
-      endDate: '2023-12-31',
-      status: 'Active',
-    },
-    {
-      id: '1',
-      name: 'Catalog',
-      description: 'Content curating app',
-      startDate: '2023-01-01',
-      endDate: '2023-12-31',
-      status: 'Active',
-    },
-    {
-      id: '1',
-      name: 'Catalog',
-      description: 'Content curating app',
-      startDate: '2023-01-01',
-      endDate: '2023-12-31',
-      status: 'Active',
-    },
-    {
-      id: '1',
-      name: 'Catalog',
-      description: 'Content curating app',
-      startDate: '2023-01-01',
-      endDate: '2023-12-31',
-      status: 'Active',
-    },
-    {
-      id: '1',
-      name: 'Catalog',
-      description: 'Content curating app',
-      startDate: '2023-01-01',
-      endDate: '2023-12-31',
-      status: 'Active',
-    },
-    {
-      id: '1',
-      name: 'Catalog',
-      description: 'Content curating app',
-      startDate: '2023-01-01',
-      endDate: '2023-12-31',
-      status: 'Active',
-    },
-
-   
-  ]);
-
+  const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const [editIdx, setEditIdx] = useState<number | null>(null);
   const [formData, setFormData] = useState<Partial<Campaign>>({});
   const [searchTerm, setSearchTerm] = useState<string>('');
 
+  useEffect(() => {
+    const fetchCampaigns = async () => {
+      try {
+        const response = await getCampaigns();
+        setCampaigns(response.data);
+      } catch (error) {
+        console.error("Error fetching campaigns:", error);
+      }
+    };
+    fetchCampaigns();
+  }, []);
 
   const handleEdit = (index: number) => {
     const campaign = campaigns[index];
@@ -83,6 +35,17 @@ export default function Page() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>, dateType: 'startDate' | 'endDate', field: keyof DateDetails) => {
+    const { value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [dateType]: {
+        ...prev[dateType],
+        [field]: Number(value),
+      }
+    }));
+  };
+
   const handleSave = () => {
     if (editIdx !== null) {
       const updatedCampaigns = [...campaigns];
@@ -95,19 +58,20 @@ export default function Page() {
   const handleCancel = () => {
     setEditIdx(null);
   };
+
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
-  const filteredCampaigns = campaigns.filter(campaign =>
-    campaign.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
+  const filteredCampaigns = campaigns.filter(campaign =>
+    campaign.campaignName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <>
       <h1>Campaign Page</h1>
       <section className="container px-4 mx-auto">
-      <div className="flex items-center justify-between mt-6 mb-4">
+        <div className="flex items-center justify-between mt-6 mb-4">
           <input
             type="text"
             placeholder="Search campaigns..."
@@ -127,6 +91,8 @@ export default function Page() {
                   <tr>
                     <th className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Campaign ID</th>
                     <th className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Campaign Name</th>
+                    <th className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">University ID</th>
+                    <th className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">University Name</th>
                     <th className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">StartDate</th>
                     <th className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">EndDate</th>
                     <th className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Status</th>
@@ -136,20 +102,20 @@ export default function Page() {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
-                  {campaigns.map((campaign, index) => (
-                    <tr key={campaign.id}>
-                      <td className="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                  {filteredCampaigns.map((campaign, index) => (
+                    <tr key={campaign.campaignId}>
+                      <td className="px-20 py-4 text-sm font-medium whitespace-nowrap">
                         {editIdx === index ? (
                           <input
                             type="text"
-                            name="id"
-                            value={formData.id || ''}
+                            name="campaignId"
+                            value={formData.campaignId || ''}
                             onChange={handleChange}
                             className="text-gray-700 dark:text-gray-200"
                           />
                         ) : (
                           <div>
-                            <h2 className="font-medium text-gray-800 dark:text-white">{campaign.id}</h2>
+                            <h2 className="font-medium text-gray-800 dark:text-white">{campaign.campaignId}</h2>
                           </div>
                         )}
                       </td>
@@ -157,45 +123,112 @@ export default function Page() {
                         {editIdx === index ? (
                           <input
                             type="text"
-                            name="name"
-                            value={formData.name || ''}
+                            name="campaignName"
+                            value={formData.campaignName || ''}
                             onChange={handleChange}
                             className="text-gray-700 dark:text-gray-200"
                           />
                         ) : (
                           <div>
-                            <h4 className="text-gray-700 dark:text-gray-200">{campaign.name}</h4>
-                            <p className="text-gray-500 dark:text-gray-400">{campaign.description}</p>
+                            <h4 className="text-gray-700 dark:text-gray-200">{campaign.campaignName}</h4>
+                          </div>
+                        )}
+                      </td>
+                      <td className="px-20 py-4 text-sm font-medium whitespace-nowrap">
+                        {editIdx === index ? (
+                          <input
+                            type="text"
+                            name="universityId"
+                            value={formData.universityId || ''}
+                            onChange={handleChange}
+                            className="text-gray-700 dark:text-gray-200"
+                          />
+                        ) : (
+                          <div>
+                            <h2 className="font-medium text-gray-800 dark:text-white">{campaign.universityId}</h2>
+                          </div>
+                        )}
+                      </td>
+                      <td className="px-4 py-4 text-sm whitespace-nowrap">
+                        {editIdx === index ? (
+                          <input
+                            type="text"
+                            name="universityName"
+                            value={formData.universityName || ''}
+                            onChange={handleChange}
+                            className="text-gray-700 dark:text-gray-200"
+                          />
+                        ) : (
+                          <div>
+                            <h4 className="text-gray-700 dark:text-gray-200">{campaign.universityName}</h4>
                           </div>
                         )}
                       </td>
                       <td className="px-4 py-4 text-sm text-gray-700 dark:text-gray-200">
                         {editIdx === index ? (
-                          <input
-                            type="date"
-                            name="startDate"
-                            value={formData.startDate || ''}
-                            onChange={handleChange}
-                            className="text-gray-700 dark:text-gray-200"
-                          />
+                          <>
+                            <input
+                              type="number"
+                              name="startDateYear"
+                              value={formData.startDate?.year || ''}
+                              onChange={(e) => handleDateChange(e, 'startDate', 'year')}
+                              placeholder="Year"
+                              className="text-gray-700 dark:text-gray-200"
+                            />
+                            <input
+                              type="number"
+                              name="startDateMonth"
+                              value={formData.startDate?.month || ''}
+                              onChange={(e) => handleDateChange(e, 'startDate', 'month')}
+                              placeholder="Month"
+                              className="text-gray-700 dark:text-gray-200"
+                            />
+                            <input
+                              type="number"
+                              name="startDateDay"
+                              value={formData.startDate?.day || ''}
+                              onChange={(e) => handleDateChange(e, 'startDate', 'day')}
+                              placeholder="Day"
+                              className="text-gray-700 dark:text-gray-200"
+                            />
+                          </>
                         ) : (
-                          campaign.startDate
+                          <div>{`${campaign.startDate.year}-${campaign.startDate.month}-${campaign.startDate.day}`}</div>
                         )}
                       </td>
                       <td className="px-4 py-4 text-sm text-gray-700 dark:text-gray-200">
                         {editIdx === index ? (
-                          <input
-                            type="date"
-                            name="endDate"
-                            value={formData.endDate || ''}
-                            onChange={handleChange}
-                            className="text-gray-700 dark:text-gray-200"
-                          />
+                          <>
+                            <input
+                              type="number"
+                              name="endDateYear"
+                              value={formData.endDate?.year || ''}
+                              onChange={(e) => handleDateChange(e, 'endDate', 'year')}
+                              placeholder="Year"
+                              className="text-gray-700 dark:text-gray-200"
+                            />
+                            <input
+                              type="number"
+                              name="endDateMonth"
+                              value={formData.endDate?.month || ''}
+                              onChange={(e) => handleDateChange(e, 'endDate', 'month')}
+                              placeholder="Month"
+                              className="text-gray-700 dark:text-gray-200"
+                            />
+                            <input
+                              type="number"
+                              name="endDateDay"
+                              value={formData.endDate?.day || ''}
+                              onChange={(e) => handleDateChange(e, 'endDate', 'day')}
+                              placeholder="Day"
+                              className="text-gray-700 dark:text-gray-200"
+                            />
+                          </>
                         ) : (
-                          campaign.endDate
+                          <div>{`${campaign.endDate.year}-${campaign.endDate.month}-${campaign.endDate.day}`}</div>
                         )}
                       </td>
-                      <td className="px-3 py-4 text-sm font-medium whitespace-nowrap">
+                      <td className="px-4 py-4 text-sm whitespace-nowrap">
                         {editIdx === index ? (
                           <input
                             type="text"
@@ -205,24 +238,20 @@ export default function Page() {
                             className="text-gray-700 dark:text-gray-200"
                           />
                         ) : (
-                          <div className={`inline px-3 py-1 text-sm font-normal rounded-full text-emerald-500 gap-x-2 ${campaign.status === 'Active' ? 'bg-emerald-100/60 dark:bg-gray-800' : 'bg-red-100/60 dark:bg-gray-800'}`}>
-                            {campaign.status}
+                          <div>
+                            <h4 className="text-gray-700 dark:text-gray-200">{campaign.status}</h4>
                           </div>
                         )}
                       </td>
                       <td className="px-4 py-4 text-sm whitespace-nowrap">
                         {editIdx === index ? (
-                          <button
-                            onClick={handleSave}
-                            className="text-gray-500 transition-colors duration-200 dark:hover:text-blue-500 dark:text-gray-300 hover:text-blue-500 focus:outline-none"
-                          >
-                            Save
+                          <button onClick={handleSave} className="text-green-500 transition-colors duration-200 dark:hover:text-green-500 dark:text-gray-300 hover:text-green-500 focus:outline-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+                              <path d="M4.5 12.75l6 6 9-13.5" />
+                            </svg>
                           </button>
                         ) : (
-                          <button
-                            onClick={() => handleEdit(index)}
-                            className="text-gray-500 transition-colors duration-200 dark:hover:text-blue-500 dark:text-gray-300 hover:text-blue-500 focus:outline-none"
-                          >
+                          <button onClick={() => handleEdit(index)} className="text-gray-500 transition-colors duration-200 dark:hover:text-blue-500 dark:text-gray-300 hover:text-blue-500 focus:outline-none">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
                               <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l2.65 2.65a1 1 0 010 1.414L8.93 19.133l-3.39.632a1 1 0 01-1.186-1.186l.632-3.39L16.862 4.487zM19.882 2.464a2 2 0 00-2.828 0l-.878.878a1 1 0 101.414 1.414l.878-.878a2 2 0 000-2.828z" />
                             </svg>
@@ -250,8 +279,7 @@ export default function Page() {
             </div>
           </div>
         </div>
-
-        {/* Pagination */}
+        
         <div className="flex items-center justify-between mt-6">
           <button className="px-4 py-2 text-sm text-gray-700 bg-white border rounded-md hover:bg-gray-100">
             Previous
