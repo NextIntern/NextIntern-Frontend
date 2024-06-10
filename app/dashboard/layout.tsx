@@ -1,6 +1,7 @@
 import { Metadata } from "next"
 import Link from "next/link"
 import { CiCalendar, CiEdit, CiHome, CiLogout, CiSettings, CiStickyNote, CiViewList } from "react-icons/ci"
+
 import NavLink from "@/components/NavLink"
 import config from "@/config"
 
@@ -24,7 +25,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <div className="flex w-full flex-col overflow-hidden rounded-lg bg-white text-gray-600 md:w-64">
         {/* Logo */}
         <div className="hidden h-16 items-center justify-center text-white md:flex">
-          <h1 className="mt-2 bg-gradient-to-r from-blue-500 to-green-500 bg-clip-text text-2xl font-extrabold text-transparent">
+          <h1 className="mt-2 bg-gradient-to-r from-secondary to-primary bg-clip-text text-2xl font-extrabold text-transparent">
             NextIntern
           </h1>
         </div>
@@ -34,7 +35,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             {NAV_LINKS.map((link) => {
               const Icon = link.icon
               return (
-                <NavLink key={link.href} href={link.href} Icon={<Icon size="20" />}>
+                <NavLink key={link.children} href={link.href} Icon={<Icon size="20" />}>
                   {link.children}
                 </NavLink>
               )
