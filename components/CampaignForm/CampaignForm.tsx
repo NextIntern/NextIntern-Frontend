@@ -5,9 +5,9 @@ import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 import toast from "react-hot-toast"
 
+import { CampaignFormType } from "./CampaignForm.type"
 import config from "@/config"
 import { campaignService } from "@/services"
-import { CampaignFormType } from "./CampaignForm.type"
 
 const CampaignForm = () => {
   // Router instance
@@ -36,7 +36,8 @@ const CampaignForm = () => {
     try {
       await campaignService.createCampaign(data)
       toast.success("Campaign created successfully")
-      router.push(config.routes.campaignList)
+      const TOAST_TIMEOUT = 3000
+      setTimeout(() => router.push(config.routes.campaignList), TOAST_TIMEOUT)
     } catch (error) {
       toast.error("Failed to create campaign")
     }
