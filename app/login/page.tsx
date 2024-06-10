@@ -1,5 +1,6 @@
 "use client"
 
+
 import "styles/tailwind.css"
 import { GithubOutlined, GoogleOutlined, TwitterOutlined } from "@ant-design/icons"
 import { Button, ConfigProvider, Divider, Form, Input } from "antd"
@@ -7,8 +8,10 @@ import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
 
+
 export default function RootLayout() {
   const [_, setLoading] = useState(false)
+
 
   const onFinish = (values: any) => {
     console.log("Success:", values)
@@ -20,30 +23,33 @@ export default function RootLayout() {
     }, 2000)
   }
 
+
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo)
   }
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-r from-blue-300 to-green-300">
       <div className="mx-56 flex w-full items-center rounded-3xl bg-white p-8 shadow-lg">
         <div className=" flex w-1/2 flex-col items-center justify-center  ">
           <Image
-            src="/company-logo.png" // Path to your company logo
+            src="/logo.png" // Path to your company logo
             alt=""
-            width={400} // Adjust the width as needed
+            width={300} // Adjust the width as needed
             height={400} // Adjust the height as needed
             className="object-contain"
           />
-          <h2 className="mt-2 bg-gradient-to-r from-blue-500 to-green-500 bg-clip-text text-center text-2xl font-extrabold text-transparent">
+          <h2 className="mt-8 bg-gradient-to-r from-blue-500 to-green-500 bg-clip-text text-center text-2xl font-extrabold text-transparent">
             NEXTINTERN
           </h2>
         </div>
+
 
         <div className=" w-1/2 md:mx-0 md:ml-4 md:mr-8 ">
           <div className="flex flex-col items-center justify-center gap-y-1 pb-8">
             <h2 className="text-2xl font-bold">Welcome Back</h2>
             <p className="text-xs italic text-gray-500">Please login to your account</p>
           </div>
+
 
           <ConfigProvider
             theme={{
@@ -73,6 +79,7 @@ export default function RootLayout() {
                   </ConfigProvider>
                 </Form.Item>
 
+
                 <Form.Item name="password" rules={[{ required: true, message: "Please input your password!" }]}>
                   <ConfigProvider
                     theme={{
@@ -88,12 +95,14 @@ export default function RootLayout() {
                   </ConfigProvider>
                 </Form.Item>
 
+
                 <Form.Item>
                   <Link href="#" className="float-right text-sm text-[gray]">
                     Forgot Password?
                   </Link>
                 </Form.Item>
               </div>
+
 
               <Form.Item>
                 <ConfigProvider
@@ -120,6 +129,7 @@ export default function RootLayout() {
                 </ConfigProvider>
               </Form.Item>
 
+
               <div>
                 <ConfigProvider
                   theme={{
@@ -137,6 +147,7 @@ export default function RootLayout() {
                 <Button icon={<TwitterOutlined />} shape="circle" />
               </div>
 
+
               <div className="flex items-center justify-center text-[#9a9fa9]">
                 <p>Don't have an account?</p>
                 <Link href="#" className="font-semibold text-green-500 underline">
@@ -150,3 +161,6 @@ export default function RootLayout() {
     </div>
   )
 }
+
+
+
