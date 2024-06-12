@@ -56,9 +56,12 @@ export default function Page() {
       </div>
 
       <div className="mt-8 flex flex-col">
-  <div className="overflow-x-auto border border-gray-200 dark:border-gray-700 md:rounded-lg" style={{ maxHeight: '500px' }}>
-    <div className="overflow-x-auto">
-      <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+        <div
+          className="overflow-x-auto border border-gray-200 dark:border-gray-700 md:rounded-lg"
+          style={{ maxHeight: "500px" }}
+        >
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
               <thead className="bg-gray-50 dark:bg-gray-800">
                 <tr>
                   {headerName.map((name) => (
@@ -97,12 +100,12 @@ export default function Page() {
                 ))}
               </tbody>
             </table>
-            </div>
-            {filteredCampaigns.length === 0 && (
-      <div className="px-4 py-3 text-center text-gray-500 dark:text-gray-200">No campaigns found.</div>
-    )}
-  </div>
-</div>
+          </div>
+          {filteredCampaigns.length === 0 && (
+            <div className="px-4 py-3 text-center text-gray-500 dark:text-gray-200">No campaigns found.</div>
+          )}
+        </div>
+      </div>
       <div className="mt-6 flex items-center justify-between">
         <button className="rounded-md border bg-white px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
           Previous
