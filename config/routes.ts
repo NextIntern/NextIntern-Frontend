@@ -9,8 +9,8 @@ const routes = {
   // Campaign routes
   campaignList: "/dashboard/campaign",
   campaignCreate: "/dashboard/campaign/create",
-  campaignEdit: "/dashboard/campaign/edit/:id",
-  campaignDetail: "/dashboard/campaign/:id",
+  campaignEdit: "/dashboard/campaign/edit",
+  campaignDetail: "/dashboard/campaign",
 }
 
 export default routes
