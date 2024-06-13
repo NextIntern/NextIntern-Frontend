@@ -1,3 +1,4 @@
-import loginService  from "./login.service"
+import campaignService from "./campaign.service"
+import loginService from "./login.service"
 
-export { loginService }
+export { campaignService, loginService }
