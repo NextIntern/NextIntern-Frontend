@@ -2,7 +2,6 @@
 
 import { Col, DatePicker, Form, Input, Row, Select } from "antd"
 import { useRouter } from "next/navigation"
-import { useEffect } from "react"
 import toast from "react-hot-toast"
 
 import { CampaignFormType } from "./CampaignForm.type"
@@ -10,6 +9,13 @@ import config from "@/config"
 import { campaignService } from "@/services"
 
 const CampaignForm = () => {
+  // TODO: Get universities
+  // const { data: universities } = useQuery({
+  //   queryKey: ["universities"],
+  //   queryFn: () => universitiesService.getUniversities(),
+  //   select: (data) => data.data.data,
+  // })
+
   // Router instance
   const router = useRouter()
 
@@ -42,15 +48,6 @@ const CampaignForm = () => {
       toast.error("Failed to create campaign")
     }
   }
-
-  // TODO: Get universities
-  useEffect(() => {
-    async function getUniversities() {
-      // const { data } = await campaignService.getCampaigns()
-      // setUniversities(data)
-    }
-    getUniversities()
-  }, [])
 
   // Form elements
   const FORM_ELEMENTS = [

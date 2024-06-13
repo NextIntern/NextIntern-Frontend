@@ -32,6 +32,8 @@
     "@semantic-release/npm": "^11.0.1",
     "@semantic-release/release-notes-generator": "^12.1.0",
     "@t3-oss/env-nextjs": "^0.7.1",
+    "@tanstack/react-query": "^5.44.0",
+    "@tanstack/react-query-devtools": "^5.44.0",
     "@vercel/otel": "^1.8.2",
     "antd": "^5.17.3",
     "class-variance-authority": "^0.7.0",

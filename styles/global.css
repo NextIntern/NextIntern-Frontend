@@ -1,0 +1,28 @@
+:root {
+  --primary-color: #21b568;
+  --secondary-color: #2091f6;
+  --white-color: #ffffff;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  border-radius: 0;
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 0;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+/* Selection */
+::selection {
+  color: var(--white-color);
+  background: var(--primary-color);
+}
