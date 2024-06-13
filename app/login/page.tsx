@@ -49,7 +49,7 @@ export default function RootLayout() {
       <div className="mx-56 flex w-full items-center rounded-3xl bg-white p-8 shadow-lg">
         <div className=" flex w-1/2 flex-col items-center justify-center  ">
           <Image src="/logo.png" alt="" width={300} height={400} className="object-contain" />
-          <h2 className="from-secondary to-primary mt-8 bg-gradient-to-r bg-clip-text text-center text-2xl font-extrabold text-transparent">
+          <h2 className="mt-8 bg-gradient-to-r from-secondary to-primary bg-clip-text text-center text-2xl font-extrabold text-transparent">
             NEXTINTERN
           </h2>
         </div>
@@ -86,7 +86,7 @@ export default function RootLayout() {
             <Form.Item>
               <Button
                 htmlType="submit"
-                className="background-transparent text-bold from-secondary to-primary w-full bg-gradient-to-r text-white shadow-lg"
+                className="background-transparent text-bold w-full bg-gradient-to-r from-secondary to-primary text-white shadow-lg"
               >
                 Login
               </Button>
