@@ -34,7 +34,7 @@ export default function Page() {
         <div>
           <div className="flex items-center gap-x-3">
             <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Campaign</h2>
-            <span className="rounded-full bg-blue-100 px-3 py-1 text-xs text-blue-600 dark:bg-gray-800 dark:text-blue-400">
+            <span className="rounded-full bg-blue-100 px-3 py-1 text-xs text-secondary dark:bg-gray-800 dark:text-blue-400">
               {campaigns?.length} campaigns
             </span>
           </div>

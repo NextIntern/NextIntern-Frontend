@@ -24,7 +24,7 @@ export const request = (
   return axios({
     url: env.NEXT_PUBLIC_API_URL + endpoint,
     method: method,
-    headers: Object.assign({}, headers, { Authorization: `Bearer ${token}` }),
+    headers: Object.assign({}, headers, token ? { Authorization: `Bearer ${token}` } : {}),
     params: Object.assign(params),
     data: body,
   })
