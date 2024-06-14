@@ -11,6 +11,9 @@ const routes = {
   campaignCreate: "/dashboard/campaign/create",
   campaignEdit: "/dashboard/campaign/edit",
   campaignDetail: "/dashboard/campaign",
+
+  // Universe routes
+  universityList: "dashboard/university",
 }
 
 export default routes
