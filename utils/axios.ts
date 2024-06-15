@@ -2,6 +2,8 @@ import axios, { AxiosResponse } from "axios"
 import { getCookie } from "cookies-next"
 import { env } from "env.mjs"
 
+import config from "@/config"
+
 /**
  * Creates an Axios instance for making HTTP requests.
  *
@@ -19,12 +21,12 @@ export const request = (
   params: object = {},
   body: object = {}
 ): Promise<AxiosResponse> => {
-  const token = getCookie("token")
+  const accessToken = getCookie(config.cookies.accessToken)
 
   return axios({
     url: env.NEXT_PUBLIC_API_URL + endpoint,
     method: method,
-    headers: Object.assign({}, headers, token ? { Authorization: `Bearer ${token}` } : {}),
+    headers: Object.assign({}, headers, accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
     params: Object.assign(params),
     data: body,
   })

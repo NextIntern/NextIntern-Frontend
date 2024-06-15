@@ -3,6 +3,7 @@
 import "styles/tailwind.css"
 import { GithubOutlined, GoogleOutlined, TwitterOutlined } from "@ant-design/icons"
 import { Button, ConfigProvider, Divider, Form, Input } from "antd"
+import { setCookie } from "cookies-next"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -32,7 +33,13 @@ export default function RootLayout() {
   const router = useRouter()
   const onFinish = async (values: LoginFormType) => {
     try {
-      await loginService.postLogin(values.username, values.password)
+      const { data } = await loginService.postLogin(values.username, values.password)
+
+      // Set cookie
+      setCookie(config.cookies.accessToken, data.token.accessToken)
+      setCookie(config.cookies.refreshToken, data.token.refreshToken)
+
+      // Redirect page
       toast.success("Logged in successfully!")
       router.push(config.routes.dashboard)
     } catch (error) {
@@ -46,15 +53,15 @@ export default function RootLayout() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-r from-blue-300 to-green-300">
-      <div className="mx-56 flex w-full items-center rounded-3xl bg-white p-8 shadow-lg">
-        <div className=" flex w-1/2 flex-col items-center justify-center  ">
+      <div className="mx-16 flex w-full items-center rounded-3xl bg-white p-8 shadow-lg md:mx-36 lg:mx-56">
+        <div className="hidden w-1/2 flex-col items-center justify-center lg:flex">
           <Image src="/logo.png" alt="" width={300} height={400} className="object-contain" />
           <h2 className="mt-8 bg-gradient-to-r from-secondary to-primary bg-clip-text text-center text-2xl font-extrabold text-transparent">
             NEXTINTERN
           </h2>
         </div>
 
-        <div className=" w-1/2 md:mx-0 md:ml-4 md:mr-8 ">
+        <div className="w-full md:mx-0 md:ml-4 md:mr-8 lg:w-1/2">
           <div className="flex flex-col items-center justify-center gap-y-1 pb-8">
             <h2 className="text-2xl font-bold">Welcome Back</h2>
             <p className="text-xs italic text-gray-500">Please login to your account</p>

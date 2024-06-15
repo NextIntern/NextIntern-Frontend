@@ -2,7 +2,6 @@ import { PRIMARY_COLOR, SECONDARY_COLOR } from "@/utils/constants"
 
 const theme = {
   token: {
-    controlHeight: 50,
     borderRadius: 12,
     colorPrimary: PRIMARY_COLOR, // green
     colorSecondary: SECONDARY_COLOR, // blue

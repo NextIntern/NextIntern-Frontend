@@ -1,11 +1,12 @@
 import "styles/tailwind.css"
 import "styles/global.css"
+
 import { AntdRegistry } from "@ant-design/nextjs-registry"
 import { ConfigProvider } from "antd"
 import { Metadata } from "next"
 import { Toaster } from "react-hot-toast"
-import ReactQueryProvider from "@/components/ReactQueryProvider"
 
+import ReactQueryProvider from "@/components/ReactQueryProvider"
 import theme from "@/styles/antd.styles"
 
 export const metadata: Metadata = {
