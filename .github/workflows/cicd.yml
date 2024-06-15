@@ -8,6 +8,9 @@ on:
     branches:
       - main
       - development
+  pull_request:
+    branches:
+      - development
 
 jobs:
   deploy-image:
