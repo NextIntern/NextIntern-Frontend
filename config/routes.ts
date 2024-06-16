@@ -10,7 +10,10 @@ const routes = {
   campaignList: "/dashboard/campaign",
   campaignCreate: "/dashboard/campaign/create",
   campaignEdit: "/dashboard/campaign/edit",
-  campaignDetail: "/dashboard/campaign",
+  // Campaign Evaluation routes
+  campaignEvlList: "/dashboard/campaign-evaluation",
+  campaignEvlCreate: "/dashboard/campaign-evaluation/create",
+  campaignEvlEdit: "/dashboard/campaign-evaluation/edit",
 }
 
 export default routes
