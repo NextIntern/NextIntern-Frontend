@@ -3,6 +3,7 @@
 import { useQuery } from "@tanstack/react-query"
 import Link from "next/link"
 import { useState } from "react"
+import toast from "react-hot-toast"
 
 import config from "@/config"
 import campaignService from "@/services/campaign.service"
@@ -12,7 +13,7 @@ const headerName = ["Campaign ID", "Campaign Name", "University", "Start Date", 
 const viewData: (keyof Campaign)[] = ["campaignId", "campaignName", "universityName", "startDate", "endDate"]
 
 export default function Page() {
-  const { data: campaigns } = useQuery({
+  const { data: campaigns, refetch } = useQuery({
     queryKey: ["campaigns"],
     queryFn: () => campaignService.getCampaigns(),
     select: (data) => data.data.data,
@@ -22,6 +23,16 @@ export default function Page() {
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value)
+  }
+
+  const handleDelete = async (campaignId: string) => {
+    try {
+      await campaignService.deleteCampaign(campaignId)
+      toast.success("Campaign deleted successfully.")
+      refetch()
+    } catch (error) {
+      toast.error("Failed to delete campaign.")
+    }
   }
 
   const filteredCampaigns = Array.isArray(campaigns)
@@ -35,7 +46,7 @@ export default function Page() {
           <div className="flex items-center gap-x-3">
             <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Campaign</h2>
             <span className="rounded-full bg-blue-100 px-3 py-1 text-xs text-secondary dark:bg-gray-800 dark:text-blue-400">
-              {campaigns?.length} campaigns
+              {campaigns?.length ?? 0} campaigns
             </span>
           </div>
           <p className="mt-1 text-sm text-gray-500 dark:text-gray-300">These campaigns has been created.</p>
@@ -95,6 +106,10 @@ export default function Page() {
                       >
                         Edit
                       </Link>
+                      <span className="mx-2">|</span>
+                      <span className="cursor-pointer text-primary" onClick={() => handleDelete(campaign.campaignId)}>
+                        Delete
+                      </span>
                     </td>
                   </tr>
                 ))}

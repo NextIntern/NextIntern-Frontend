@@ -1,4 +1,3 @@
-// Put your types here
 export type CampaignRequest = {
   campaignName: string
   universityId: string
@@ -21,8 +20,8 @@ export type Campaign = {
   campaignName: string
   universityId: string
   universityName: string
-  startDate: DateDetails
-  endDate: DateDetails
+  startDate: Date
+  endDate: Date
   createDate: string
   modifyDate: string
   status: string
@@ -32,4 +31,14 @@ export type ResponseObject<T> = {
   data: T
   message: string
   status: number
+}
+
+export type University = {
+  universityId: string
+  universityName: string
+  address: string
+  phone: string
+  createDate: Date
+  modifyDate: Date
+  deletedDate?: Date
 }
