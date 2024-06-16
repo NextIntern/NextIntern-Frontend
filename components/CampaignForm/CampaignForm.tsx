@@ -13,6 +13,7 @@ import { CampaignFormType } from "./CampaignForm.type"
 import config from "@/config"
 import { campaignService, universityService } from "@/services"
 import { University } from "@/types"
+import * as constants from "@/utils/constants"
 
 const CampaignForm = () => {
   // Get universities
@@ -41,15 +42,15 @@ const CampaignForm = () => {
 
   // Populate form with campaign data
   useEffect(() => {
-    if (!campaign) return
+    if (!campaign || !campaignId) return
 
     form.setFieldsValue({
       campaignName: campaign.campaignName,
-      startDate: dayjs(campaign.startDate),
-      endDate: dayjs(campaign.endDate),
+      startDate: dayjs(campaign.startDate ?? Date.now()),
+      endDate: dayjs(campaign.endDate ?? Date.now()),
       universityId: campaign.universityId,
     })
-  }, [campaign, form])
+  }, [campaign, campaignId, form])
 
   // Input class name
   const className =
@@ -59,8 +60,8 @@ const CampaignForm = () => {
   const onFinish = async (values: CampaignFormType) => {
     const data = {
       ...values,
-      startDate: values.startDate?.format("YYYY-MM-DD"),
-      endDate: values.endDate?.format("YYYY-MM-DD"),
+      startDate: values.startDate?.format(constants.DATE_FORMAT),
+      endDate: values.endDate?.format(constants.DATE_FORMAT),
       id: campaignId,
     }
 
@@ -88,12 +89,12 @@ const CampaignForm = () => {
     {
       label: "Start Date",
       name: "startDate",
-      Input: <DatePicker format="YYYY-MM-DD" className={className} />,
+      Input: <DatePicker format={constants.DATE_FORMAT} className={className} />,
     },
     {
       label: "End Date",
       name: "endDate",
-      Input: <DatePicker format="YYYY-MM-DD" className={className} />,
+      Input: <DatePicker format={constants.DATE_FORMAT} className={className} />,
     },
     {
       label: "University",
