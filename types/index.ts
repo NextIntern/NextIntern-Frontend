@@ -58,3 +58,22 @@ export type EvaluationFormRequest = {
   universityId: string
   isActive: boolean
 }
+
+export type FormCriteria = {
+  formCriteriaId: string
+  name: string
+  guide: string
+  minScore: number
+  maxScore: number
+  deletedDate?: Date
+  evaluationFormId: string
+}
+
+export type FormCriteriaRequest = {
+  id: string
+  formCriteriaName: string
+  guide: string
+  minScore: number
+  maxScore: number
+  evaluationFormId: string
+}

@@ -3,30 +3,28 @@
 import "./styles.css"
 
 import { useQuery } from "@tanstack/react-query"
-import { Col, DatePicker, Form, Input, Row, Select } from "antd"
-import dayjs from "dayjs"
+import { Col, Form, Input, Row, Select } from "antd"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect } from "react"
 import toast from "react-hot-toast"
 
+import { FormCriteriaType } from "./FormCriteria.type"
 import config from "@/config"
-import { campaignService, universityService } from "@/services"
+import { evaluationFormService } from "@/services"
 import formCriteriaService from "@/services/form-criteria.service"
-import { University } from "@/types"
-import * as constants from "@/utils/constants"
-import { CampaignFormType } from "./CampaignForm.type"
+import { EvaluationForm } from "@/types"
 
 const FormCriteriaForm = () => {
   // Get all evaluation forms
   const { data: evaluationForms } = useQuery({
     queryKey: ["university"],
-    queryFn: () => universityService.getUniversities(),
+    queryFn: () => evaluationFormService.getEvaluationForms(),
     select: (data) => data.data.data,
   })
 
   // Get campaign id from query params
   const searchParams = useSearchParams()
-  const formCriteriaId = searchParams.get("evaluationFormId") ?? ""
+  const formCriteriaId = searchParams.get("formCriteriaId") ?? ""
 
   // Get form criteria by id
   const { data: formCriteria } = useQuery({
@@ -45,12 +43,7 @@ const FormCriteriaForm = () => {
   useEffect(() => {
     if (!formCriteria || !formCriteriaId) return
 
-    form.setFieldsValue({
-      campaignName: formCriteria.campaignName,
-      startDate: dayjs(formCriteria.startDate ?? Date.now()),
-      endDate: dayjs(formCriteria.endDate ?? Date.now()),
-      universityId: formCriteria.universityId,
-    })
+    form.setFieldsValue(formCriteria)
   }, [form, formCriteria, formCriteriaId])
 
   // Input class name
@@ -58,12 +51,11 @@ const FormCriteriaForm = () => {
     "h-[40px] focus:ring-opacity-40/40 mt-2 block w-full cursor-pointer rounded-md border bg-white px-4 py-2 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:focus:border-blue-300"
 
   // Form submit handler
-  const onFinish = async (values: CampaignFormType) => {
+  const onFinish = async (values: FormCriteriaType) => {
     const data = {
       ...values,
-      startDate: values.startDate?.format(constants.DATE_FORMAT),
-      endDate: values.endDate?.format(constants.DATE_FORMAT),
-      id: campaignId,
+      id: formCriteriaId,
+      formCriteriaName: values.name,
     }
 
     try {
@@ -90,24 +82,27 @@ const FormCriteriaForm = () => {
     {
       label: "Guide",
       name: "guide",
-      Input: <DatePicker format={constants.DATE_FORMAT} className={className} />,
+      Input: <Input type="text" className={className} />,
     },
     {
       label: "Min Score",
       name: "minScore",
-      Input: <DatePicker format={constants.DATE_FORMAT} className={className} />,
+      Input: <Input type="number" className={className} />,
     },
     {
       label: "Max Score",
       name: "maxScore",
-      Input: <DatePicker format={constants.DATE_FORMAT} className={className} />,
+      Input: <Input type="number" className={className} />,
     },
     {
       label: "Evaluation Form",
       name: "evaluationFormId",
       Input: (
         <Select
-          options={evaluationForms?.map((uni: University) => ({ value: uni.universityId, label: uni.universityName }))}
+          options={evaluationForms?.map((evlForm: EvaluationForm) => ({
+            value: evlForm.evaluationFormId,
+            label: evlForm.evaluationFormId,
+          }))}
         />
       ),
     },
@@ -126,7 +121,7 @@ const FormCriteriaForm = () => {
       </Row>
       <div className="mt-8 flex justify-end">
         <button className="rounded-md bg-gradient-to-r from-primary to-secondary px-8 py-2.5 font-semibold leading-5 text-white transition-colors duration-300 focus:outline-none">
-          {campaignId ? "Update" : "Create"}
+          {formCriteriaId ? "Update" : "Create"}
         </button>
       </div>
     </Form>
