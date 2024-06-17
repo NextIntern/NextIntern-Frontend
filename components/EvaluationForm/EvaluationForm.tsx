@@ -4,14 +4,15 @@ import "./styles.css"
 
 import { useQuery } from "@tanstack/react-query"
 import { Col, Form, Row, Select, Switch } from "antd"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useRouter } from "next/router"
 import { useEffect } from "react"
 import toast from "react-hot-toast"
 
+import { EvaluationFormType } from "./EvaluationForm.type"
 import config from "@/config"
+import { useParam } from "@/hooks"
 import { evaluationFormService, universityService } from "@/services"
 import { University } from "@/types"
-import { EvaluationFormType } from "./EvaluationForm.type"
 
 const EvaluationFormComponent = () => {
   // Get all universities
@@ -22,8 +23,7 @@ const EvaluationFormComponent = () => {
   })
 
   // Get campaign id from query params
-  const searchParams = useSearchParams()
-  const evaluationFormId = searchParams.get("evaluationFormId") ?? ""
+  const evaluationFormId = useParam("evaluationFormId") ?? ""
 
   // Get form criteria by id
   const { data: evaluationForm } = useQuery({
@@ -42,7 +42,10 @@ const EvaluationFormComponent = () => {
   useEffect(() => {
     if (!evaluationForm || !evaluationFormId) return
 
-    form.setFieldsValue(evaluationForm)
+    form.setFieldsValue({
+      ...evaluationForm,
+      universityId: evaluationForm.university.universityId,
+    })
   }, [evaluationForm, evaluationFormId, form])
 
   // Form submit handler
