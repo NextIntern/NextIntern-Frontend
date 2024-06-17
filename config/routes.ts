@@ -12,10 +12,9 @@ const routes = {
   campaignEdit: "/dashboard/campaign/edit",
   campaignDetail: "/dashboard/campaign",
   // Form criteria
-  formCriteriaList: "/dashboard/form-criteria",
-  formCriteriaCreate: "/dashboard/form-criteria/create",
-  formCriteriaEdit: "/dashboard/form-criteria/edit",
-  formCriteriaDetail: "/dashboard/form-criteria",
+  evaluationFormList: "/dashboard/evaluation-form",
+  evaluationFormCreate: "/dashboard/evaluation-form/create",
+  evaluationFormEdit: "/dashboard/evaluation-form/edit",
 }
 
 export default routes

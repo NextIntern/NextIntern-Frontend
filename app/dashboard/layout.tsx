@@ -14,8 +14,8 @@ const NAV_LINKS = [
   { href: config.routes.campaignList, icon: CiEdit, children: "Training Campaign" },
   { href: config.routes.home, icon: CiViewList, children: "Intern Management" },
   { href: config.routes.home, icon: CiStickyNote, children: "Learning Material" },
-  { href: config.routes.home, icon: CiCalendar, children: "Training Calendar" },
-  { href: config.routes.formCriteriaList, icon: CiSettings, children: "Form Criteria" },
+  { href: config.routes.evaluationFormList, icon: CiCalendar, children: "Evaluation Form" },
+  { href: config.routes.home, icon: CiSettings, children: "Settings" },
 ]
 
 export default function Layout({ children }: { children: React.ReactNode }) {
