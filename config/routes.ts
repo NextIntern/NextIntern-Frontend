@@ -11,7 +11,7 @@ const routes = {
   campaignCreate: "/dashboard/campaign/create",
   campaignEdit: "/dashboard/campaign/edit",
   campaignDetail: "/dashboard/campaign",
-  // Form criteria
+  // Evaluation form routes
   evaluationFormList: "/dashboard/evaluation-form",
   evaluationFormCreate: "/dashboard/evaluation-form/create",
   evaluationFormEdit: "/dashboard/evaluation-form/edit",
