@@ -42,3 +42,22 @@ export type University = {
   modifyDate: Date
   deletedDate?: Date
 }
+
+export type FormCriteria = {
+  formCriteriaId: string
+  name: string
+  guide: string
+  minScore: number
+  maxScore: number
+  deletedDate?: Date
+  evaluationFormId: string
+}
+
+export type FormCriteriaRequest = {
+  id: string
+  formCriteriaName: string
+  guide: string
+  minScore: number
+  maxScore: number
+  evaluationFormId: string
+}
