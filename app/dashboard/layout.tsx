@@ -16,6 +16,7 @@ const NAV_LINKS = [
   { href: config.routes.home, icon: CiStickyNote, children: "Learning Material" },
   { href: config.routes.evaluationFormList, icon: CiCalendar, children: "Evaluation Form" },
   { href: config.routes.home, icon: CiSettings, children: "Settings" },
+  { href: config.routes.internshipList, icon: CiSettings, children: "Internships" },
 ]
 
 export default function Layout({ children }: { children: React.ReactNode }) {

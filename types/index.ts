@@ -43,18 +43,39 @@ export type University = {
   deletedDate?: Date
 }
 
-export type EvaluationForm = {
-  evaluationFormId: string
-  universityId: string
-  universityName: string
-  isActive: boolean
+export type Intern = {
+  userId: string
+  id: number
+  username: string
+  fullname: string
+  dob: string
+  gender: string
+  telephone: string
+  email: string
+  address: string
+  mentor?: string
+  campaign?: string
   createDate: Date
   modifyDate: Date
-  deletedDate?: Date
+  roleName?: string
 }
 
-export type EvaluationFormRequest = {
+export type InternRequest = {
+  dob: string
   id: string
-  universityId: string
-  isActive: boolean
+  username: string
+  password: string
+  fullname: string
+  email: string
+  gender: string
+  telephone: string
+  roleName: string
+  address: string
+  menterUsername?: string
+  campaignId?: string
+}
+
+export type Role = {
+  roleId: string
+  roleName: string
 }
