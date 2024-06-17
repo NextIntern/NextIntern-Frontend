@@ -8,10 +8,10 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect } from "react"
 import toast from "react-hot-toast"
 
+import { EvaluationFormType } from "./EvaluationForm.type"
 import config from "@/config"
 import { evaluationFormService, universityService } from "@/services"
 import { University } from "@/types"
-import { EvaluationFormType } from "./EvaluationForm.type"
 
 const EvaluationFormComponent = () => {
   // Get all universities
