@@ -1,5 +1,6 @@
 const cookies = {
-  // Add your cookie keys here
+  accessToken: "accessToken",
+  refreshToken: "refreshToken",
 }
 
 export default cookies

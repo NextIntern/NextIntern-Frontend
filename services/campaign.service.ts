@@ -1,15 +1,17 @@
 import { AxiosResponse } from "axios"
 import { Campaign, CampaignRequest, ResponseObject } from "@/types"
-import { get, post } from "@/utils/axios"
+import { get, post, put, remove } from "@/utils/axios"
 
 export const END_POINT = {
-  GET_CAMPAIGN: "/api/Campaign/campaigns",
-  CREATE_CAMPAIGN: "/api/Campaign/campaign",
+  GET_ALL_CAMPAIGN: "/api/v1/campaign/all",
+  GET_CAMPAIGN: "/api/v1/campaign",
+  CREATE_CAMPAIGN: "/api/v1/campaign/create",
+  UPDATE_CAMPAIGN: "/api/v1/campaign/update",
 }
 
 class CampaignService {
   getCampaigns(): Promise<AxiosResponse<ResponseObject<Campaign[]>>> {
-    return get(END_POINT.GET_CAMPAIGN)
+    return get(END_POINT.GET_ALL_CAMPAIGN)
   }
 
   getCampaignById(id: string): Promise<AxiosResponse<ResponseObject<Campaign>>> {
@@ -18,6 +20,14 @@ class CampaignService {
 
   createCampaign(campaign: CampaignRequest) {
     return post(END_POINT.CREATE_CAMPAIGN, campaign)
+  }
+
+  updateCampaign(campaign: CampaignRequest) {
+    return put(END_POINT.UPDATE_CAMPAIGN, campaign)
+  }
+
+  deleteCampaign(campaignId: string) {
+    return remove(`${END_POINT.GET_CAMPAIGN}/${campaignId}`)
   }
 }
 

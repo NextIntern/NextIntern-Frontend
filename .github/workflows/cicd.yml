@@ -16,10 +16,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
       - name: Add .env file
         run: echo "${{ secrets.ENVIROMENT_VARIABLES }}" >> .env
-
       - name: Build & push Dockerfile image
         uses: mr-smithers-excellent/docker-build-push@v6
         with:
@@ -30,14 +28,18 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-  pull-image:
-    runs-on: self-hosted
-    needs: deploy-image
+  # pull-image:
+  #   runs-on: self-hosted
+  #   needs: deploy-image
 
-    steps:
-      - name: Pull the latest Docker image
-        run: docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE }}:latest
-      - name: Stop and remove the running container (if any)
-        run: docker stop ${{ secrets.DOCKER_IMAGE }} && docker rm ${{ secrets.DOCKER_IMAGE }} || true
-      - name: Run the latest image
-        run: docker run -d --name ${{ secrets.DOCKER_IMAGE }} -p 3005:3000 ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE }}:latest
+  #   steps:
+  #     - name: Pull Docker image
+  #       run: docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE }}
+  #     - name: Create docker-compose.yml file
+  #       run: nano ${{ secrets.DOCKER_COMPOSE_FILE }} >> docker-compose.yml
+  #     - name: Stop Docker image
+  #       run: docker-compose down
+  #     - name: Run Docker image
+  #       run: docker-compose up -d
+  #     - name: Remove docker-compose.yml file
+  #       run: rm docker-compose.yml
