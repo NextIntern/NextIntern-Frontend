@@ -45,8 +45,7 @@ export type University = {
 
 export type EvaluationForm = {
   evaluationFormId: string
-  universityId: string
-  universityName: string
+  university: University
   isActive: boolean
   createDate: Date
   modifyDate: Date

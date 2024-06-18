@@ -4,12 +4,13 @@ import "./styles.css"
 
 import { useQuery } from "@tanstack/react-query"
 import { Col, Form, Input, Row, Select } from "antd"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 import toast from "react-hot-toast"
 
 import { FormCriteriaType } from "./FormCriteria.type"
 import config from "@/config"
+import { useParam } from "@/hooks"
 import { evaluationFormService } from "@/services"
 import formCriteriaService from "@/services/form-criteria.service"
 import { EvaluationForm } from "@/types"
@@ -23,14 +24,14 @@ const FormCriteriaForm = () => {
   })
 
   // Get campaign id from query params
-  const searchParams = useSearchParams()
-  const formCriteriaId = searchParams.get("formCriteriaId") ?? ""
+  const formCriteriaId = useParam("formCriteriaId")
 
   // Get form criteria by id
   const { data: formCriteria } = useQuery({
     queryKey: ["formCriteria"],
     queryFn: () => formCriteriaService.getFormCriteriaById(formCriteriaId),
     select: (data) => data.data.data,
+    enabled: !!formCriteriaId,
   })
 
   // Router instance

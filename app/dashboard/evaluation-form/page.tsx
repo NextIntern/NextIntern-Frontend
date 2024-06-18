@@ -10,13 +10,7 @@ import { evaluationFormService } from "@/services"
 import { EvaluationForm } from "@/types"
 
 const headerName = ["ID", "University", "Created Date", "Modified Date", "Status"]
-const viewData: (keyof EvaluationForm)[] = [
-  "evaluationFormId",
-  "universityName",
-  "createDate",
-  "modifyDate",
-  "isActive",
-]
+const viewData: (keyof EvaluationForm)[] = ["evaluationFormId", "university", "createDate", "modifyDate", "isActive"]
 
 export default function Page() {
   const { data: evaluationForms, refetch } = useQuery({
@@ -42,9 +36,8 @@ export default function Page() {
   }
 
   const filteredEvaluationForms = Array.isArray(evaluationForms)
-    ? evaluationForms.filter(
-        // (evaluationForm) => evaluationForm?.universityName?.toLowerCase().includes(searchTerm.toLowerCase())
-        (evaluationForm) => evaluationForm?.universityId?.toLowerCase().includes(searchTerm.toLowerCase()) // TODO: Remove this
+    ? evaluationForms.filter((evaluationForm) =>
+        evaluationForm.university.universityName.toLowerCase().includes(searchTerm.toLowerCase())
       )
     : []
 
@@ -102,14 +95,22 @@ export default function Page() {
                     {viewData.map((data) => (
                       <td key={data} className="whitespace-nowrap p-4 text-sm">
                         <div>
-                          <h4 className="text-gray-700 dark:text-gray-200">{String(evaluationForm[data])}</h4>
+                          {data === "university" ? (
+                            <h4 className="text-gray-700 dark:text-gray-200">{evaluationForm[data].universityName}</h4>
+                          ) : data === "isActive" ? (
+                            <h4 className="text-gray-700 dark:text-gray-200">
+                              {evaluationForm[data] ? "Active" : "Inactive"}
+                            </h4>
+                          ) : (
+                            <h4 className="text-gray-700 dark:text-gray-200">{String(evaluationForm[data])}</h4>
+                          )}
                         </div>
                       </td>
                     ))}
 
                     <td className="whitespace-nowrap p-4 text-sm">
                       <Link
-                        href={`${config.routes.evaluationFormEdit}?campaignId=${evaluationForm.evaluationFormId}`}
+                        href={`${config.routes.evaluationFormEdit}?evaluationFormId=${evaluationForm.evaluationFormId}`}
                         className="text-primary"
                       >
                         Edit
