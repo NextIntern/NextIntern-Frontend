@@ -1,4 +1,4 @@
-import FormCriteriaForm from "@/components/FormCriteriaForm/FormCriteriaForm"
+import FormCriteriaForm from "@/components/FormCriteriaForm"
 
 export default function Page() {
   return (

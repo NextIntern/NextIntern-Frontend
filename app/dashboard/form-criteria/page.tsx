@@ -53,8 +53,7 @@ export default function Page() {
         </div>
         <input
           className="my-2 mb-0 h-10 items-center rounded-lg bg-white pl-4 pr-9 outline-none drop-shadow dark:bg-gray-800"
-          name="campaignName"
-          placeholder="Search campaigns..."
+          placeholder="Search form criteria..."
           value={searchTerm}
           onChange={handleSearch}
         />
