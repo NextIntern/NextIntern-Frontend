@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 const NAV_LINKS = [
   { href: config.routes.dashboard, icon: CiHome, children: "Dashboard" },
   { href: config.routes.campaignList, icon: CiEdit, children: "Training Campaign" },
-  { href: config.routes.home, icon: CiViewList, children: "Intern Management" },
+  { href: config.routes.universityList, icon: CiViewList, children: "University Management" },
   { href: config.routes.evaluationFormList, icon: CiCalendar, children: "Evaluation Form" },
   { href: config.routes.formCriteriaList, icon: CiBadgeDollar, children: "Form Criteria" },
   { href: config.routes.home, icon: CiStickyNote, children: "Learning Material" },
