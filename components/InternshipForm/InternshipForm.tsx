@@ -4,14 +4,16 @@ import "./styles.css"
 
 import { useQuery } from "@tanstack/react-query"
 import { Col, DatePicker, Form, Input, Row, Select } from "antd"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 import toast from "react-hot-toast"
 
-import { InternshipFormType } from "./InternshipForm.type"
 import config from "@/config"
-import { internService, roleService } from "@/services"
+import { useParam } from "@/hooks"
+import { evaluationFormService, internService, roleService } from "@/services"
 import { DATE_FORMAT } from "@/utils/constants"
+
+import { InternshipFormType } from "./InternshipForm.type"
 
 const InternshipForm = () => {
   // Get all role
@@ -21,14 +23,20 @@ const InternshipForm = () => {
     select: (data) => data.data.data,
   })
 
+  // Get all role
+  const { data: evaluationForms } = useQuery({
+    queryKey: ["roles"],
+    queryFn: () => evaluationFormService.getEvaluationForms(),
+    select: (data) => data.data.data,
+  })
+
   const GENDERS = [
     { value: "Male", label: "Male" },
     { value: "Female", label: "Female" },
   ]
 
   // Get intern id from query params
-  const searchParams = useSearchParams()
-  const internId = searchParams.get("internId") ?? ""
+  const internId = useParam("internId")
 
   // Get form criteria by id
   const { data: intern } = useQuery({
@@ -117,6 +125,18 @@ const InternshipForm = () => {
       label: "Role",
       name: "roleName",
       Input: <Select options={roles?.map((role) => ({ value: role.roleId, label: role.roleName }))} />,
+    },
+    {
+      label: "Evaluation Form",
+      name: "evaluationFormId",
+      Input: (
+        <Select
+          options={evaluationForms?.map((evlForm) => ({
+            value: evlForm.evaluationFormId,
+            label: evlForm.evaluationFormId,
+          }))}
+        />
+      ),
     },
     {
       label: "Address",

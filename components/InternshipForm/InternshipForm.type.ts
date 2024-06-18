@@ -10,4 +10,5 @@ export type InternshipFormType = {
   dob: Dayjs
   roleName: string
   address: string
+  evaluationFormId: string
 }

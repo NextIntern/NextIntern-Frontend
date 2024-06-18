@@ -60,6 +60,31 @@ export type Intern = {
   deletedDate?: Date
 }
 
+export type InternRequest = {
+  dob: string
+  id: string
+  username: string
+  password: string
+  fullname: string
+  email: string
+  gender: string
+  telephone: string
+  roleName: string
+  address: string
+  menterUsername?: string
+  campaignId?: string
+  deletedDate?: Date
+  evaluationFormId: string
+}
+export type EvaluationForm = {
+  evaluationFormId: string
+  university: University
+  isActive: boolean
+  createDate: Date
+  modifyDate: Date
+  deletedDate?: Date
+}
+
 export type EvaluationFormRequest = {
   id: string
   universityId: string
@@ -83,4 +108,9 @@ export type FormCriteriaRequest = {
   minScore: number
   maxScore: number
   evaluationFormId: string
+}
+
+export type Role = {
+  roleId: string
+  roleName: string
 }
