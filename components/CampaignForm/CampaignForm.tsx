@@ -5,12 +5,13 @@ import "./styles.css"
 import { useQuery } from "@tanstack/react-query"
 import { Col, DatePicker, Form, Input, Row, Select } from "antd"
 import dayjs from "dayjs"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 import toast from "react-hot-toast"
 
 import { CampaignFormType } from "./CampaignForm.type"
 import config from "@/config"
+import { useParam } from "@/hooks"
 import { campaignService, universityService } from "@/services"
 import { University } from "@/types"
 import * as constants from "@/utils/constants"
@@ -24,8 +25,7 @@ const CampaignForm = () => {
   })
 
   // Get campaign id from query params
-  const searchParams = useSearchParams()
-  const campaignId = searchParams.get("campaignId") ?? ""
+  const campaignId = useParam("campaignId")
 
   // Get campaign by id
   const { data: campaign } = useQuery({

@@ -42,3 +42,18 @@ export type University = {
   modifyDate: Date
   deletedDate?: Date
 }
+
+export type EvaluationForm = {
+  evaluationFormId: string
+  university: University
+  isActive: boolean
+  createDate: Date
+  modifyDate: Date
+  deletedDate?: Date
+}
+
+export type EvaluationFormRequest = {
+  id: string
+  universityId: string
+  isActive: boolean
+}
