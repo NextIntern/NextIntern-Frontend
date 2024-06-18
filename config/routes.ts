@@ -19,6 +19,10 @@ const routes = {
   internshipList: "/dashboard/intern",
   internshipCreate: "/dashboard/intern/create",
   internshipEdit: "/dashboard/intern/edit",
+  // Form criteria
+  formCriteriaList: "/dashboard/form-criteria",
+  formCriteriaCreate: "/dashboard/form-criteria/create",
+  formCriteriaEdit: "/dashboard/form-criteria/edit",
 }
 
 export default routes
