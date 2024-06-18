@@ -115,7 +115,7 @@ const InternshipForm = () => {
     },
     {
       label: "Role",
-      name: "username",
+      name: "roleName",
       Input: <Select options={roles?.map((role) => ({ value: role.roleId, label: role.roleName }))} />,
     },
     {
