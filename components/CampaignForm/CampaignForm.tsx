@@ -32,6 +32,7 @@ const CampaignForm = () => {
     queryKey: ["campaign"],
     queryFn: () => campaignService.getCampaignById(campaignId),
     select: (data) => data.data.data,
+    enabled: !!campaignId,
   })
 
   // Router instance
