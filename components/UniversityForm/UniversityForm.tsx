@@ -1,11 +1,13 @@
 "use client"
-import { Col, DatePicker, Form, Input, Row } from "antd"
+
+import { Col, Form, Input, Row } from "antd"
 import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
 
 import { UniversityFormType } from "./UniversityForm.type"
 import config from "@/config"
-//import { universityService } from "@/services"
+import { universityService } from "@/services"
+
 const UniversityForm = () => {
   // Router instance
   const router = useRouter()
@@ -18,16 +20,10 @@ const UniversityForm = () => {
     "bg-red border-red-500 focus:ring-opacity-40/40 mt-2 block w-full cursor-pointer rounded-md border bg-white px-4 py-2 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:focus:border-blue-300"
 
   const onFinish = async (values: UniversityFormType) => {
-    const data = {
-      ...values,
-      createDate: values.createDate?.format("YYYY-MM-DD"),
-    }
-
     try {
-      //   await universityService.createUniversity(data)
+      await universityService.createUniversity(values)
       toast.success("University created successfully")
-      const TOAST_TIMEOUT = 3000
-      setTimeout(() => router.push(config.routes.universityList), TOAST_TIMEOUT)
+      router.push(config.routes.universityList)
     } catch (error) {
       toast.error("Failed to create university")
     }
@@ -49,11 +45,6 @@ const UniversityForm = () => {
       label: "Phone Number",
       name: "phone",
       Input: <Input type="text" className={className} />,
-    },
-    {
-      label: "Create Date",
-      name: "createDate",
-      Input: <DatePicker format="YYYY-MM-DD" />,
     },
   ]
 
