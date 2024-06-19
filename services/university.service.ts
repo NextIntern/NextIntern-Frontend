@@ -20,6 +20,5 @@ class UniversityService {
   }
 }
 
-
 const universityService = new UniversityService()
 export default universityService
