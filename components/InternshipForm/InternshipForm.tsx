@@ -8,12 +8,11 @@ import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 import toast from "react-hot-toast"
 
+import { InternshipFormType } from "./InternshipForm.type"
 import config from "@/config"
 import { useParam } from "@/hooks"
 import { evaluationFormService, internService, roleService } from "@/services"
-import { DATE_FORMAT } from "@/utils/constants"
-
-import { InternshipFormType } from "./InternshipForm.type"
+import { DATE_FORMAT, GENDERS } from "@/utils/constants"
 
 const InternshipForm = () => {
   // Get all role
@@ -29,11 +28,6 @@ const InternshipForm = () => {
     queryFn: () => evaluationFormService.getEvaluationForms(),
     select: (data) => data.data.data,
   })
-
-  const GENDERS = [
-    { value: "Male", label: "Male" },
-    { value: "Female", label: "Female" },
-  ]
 
   // Get intern id from query params
   const internId = useParam("internId")
@@ -109,7 +103,7 @@ const InternshipForm = () => {
     {
       label: "Gender",
       name: "gender",
-      Input: <Select options={GENDERS} />,
+      Input: <Select options={GENDERS.map((gender) => ({ value: gender, label: gender }))} />,
     },
     {
       label: "Telephone",
@@ -145,6 +139,16 @@ const InternshipForm = () => {
     },
   ]
 
+  const handleDownload = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.preventDefault()
+    toast.success("TODO: Download template")
+  }
+
+  const handleImport = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.preventDefault()
+    toast.success("TODO: Import file")
+  }
+
   return (
     <Form form={form} onFinish={onFinish} labelCol={{ span: 8 }} layout="horizontal">
       <Row>
@@ -157,6 +161,18 @@ const InternshipForm = () => {
         ))}
       </Row>
       <div className="mt-8 flex justify-end">
+        <button
+          onClick={handleDownload}
+          className="mr-2 rounded-md border border-primary bg-gradient-to-r from-secondary to-primary bg-clip-text px-8 py-2.5 font-semibold leading-5 text-transparent transition-colors duration-300 focus:outline-none"
+        >
+          Download Template
+        </button>
+        <button
+          onClick={handleImport}
+          className="mr-2 rounded-md border border-secondary bg-gradient-to-r from-secondary to-primary bg-clip-text px-8 py-2.5 font-semibold leading-5 text-transparent transition-colors duration-300 focus:outline-none"
+        >
+          Import File
+        </button>
         <button className="rounded-md bg-gradient-to-r from-primary to-secondary px-8 py-2.5 font-semibold leading-5 text-white transition-colors duration-300 focus:outline-none">
           {internId ? "Update" : "Create"}
         </button>
