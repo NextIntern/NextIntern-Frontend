@@ -10,7 +10,10 @@ const routes = {
   campaignList: "/dashboard/campaign",
   campaignCreate: "/dashboard/campaign/create",
   campaignEdit: "/dashboard/campaign/edit",
-  campaignDetail: "/dashboard/campaign",
+  // University routes
+  universityList: "/dashboard/university",
+  universtyCreate: "/dashboard/university/create",
+  universityEdit: "/dashboard/university/edit",
   // Evaluation form routes
   evaluationFormList: "/dashboard/evaluation-form",
   evaluationFormCreate: "/dashboard/evaluation-form/create",

@@ -33,6 +33,12 @@ export type ResponseObject<T> = {
   status: number
 }
 
+export type UniversityRequest = {
+  universityName: string
+  address: string
+  phone: number
+}
+
 export type University = {
   universityId: string
   universityName: string
