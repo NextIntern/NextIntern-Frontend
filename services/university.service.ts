@@ -16,13 +16,10 @@ class UniversityService {
   deleteUniversities(universityId: string) {
     return remove(`${END_POINT.GET_UNIVERSITY}/${universityId}`)
   }
-  createUniversity(university : UniversityRequest) {
+  createUniversity(university: UniversityRequest) {
     return post(END_POINT.CREATE_UNIVERSITY, university)
   }
-
-
 }
-
 
 const universityService = new UniversityService()
 export default universityService

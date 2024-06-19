@@ -16,7 +16,7 @@ const routes = {
   universtyCreate: "/dashboard/university/create",
   universityEdit: "/dashboard/campaign/edit",
   universityDetail: "/dashboard/campaign",
-  
+
   // Evaluation form routes
   evaluationFormList: "/dashboard/evaluation-form",
   evaluationFormCreate: "/dashboard/evaluation-form/create",

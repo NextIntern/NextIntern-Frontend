@@ -37,9 +37,7 @@ export type UniversityRequest = {
   address: string
   phone: number
   createDate: string
-  
 }
-
 
 export type University = {
   universityId: string

@@ -107,7 +107,10 @@ export default function Page() {
                         Edit
                       </Link>
                       <span className="mx-2">|</span>
-                      <span className="cursor-pointer text-primary" onClick={() => handleDelete(university.universityId)}>
+                      <span
+                        className="cursor-pointer text-primary"
+                        onClick={() => handleDelete(university.universityId)}
+                      >
                         Delete
                       </span>
                     </td>
