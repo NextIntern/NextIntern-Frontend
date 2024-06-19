@@ -1,6 +1,6 @@
 import { Metadata } from "next"
 import Link from "next/link"
-import { CiCalendar, CiEdit, CiHome, CiLogout, CiSettings, CiStickyNote, CiViewList } from "react-icons/ci"
+import { CiBadgeDollar, CiCalendar, CiEdit, CiHome, CiLogout, CiStickyNote, CiViewList } from "react-icons/ci"
 
 import NavLink from "@/components/NavLink"
 import config from "@/config"
@@ -13,9 +13,9 @@ const NAV_LINKS = [
   { href: config.routes.dashboard, icon: CiHome, children: "Dashboard" },
   { href: config.routes.campaignList, icon: CiEdit, children: "Training Campaign" },
   { href: config.routes.home, icon: CiViewList, children: "Intern Management" },
+  { href: config.routes.evaluationFormList, icon: CiCalendar, children: "Evaluation Form" },
+  { href: config.routes.formCriteriaList, icon: CiBadgeDollar, children: "Form Criteria" },
   { href: config.routes.home, icon: CiStickyNote, children: "Learning Material" },
-  { href: config.routes.home, icon: CiCalendar, children: "Training Calendar" },
-  { href: config.routes.home, icon: CiSettings, children: "Settings" },
 ]
 
 export default function Layout({ children }: { children: React.ReactNode }) {

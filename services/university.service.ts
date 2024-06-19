@@ -1,20 +1,25 @@
 import { AxiosResponse } from "axios"
-
-import { get, post } from "@/utils/axios"
-import { UniversityRequest } from "@/types"
+import { ResponseObject, University, UniversityRequest } from "@/types"
+import { get, post, remove } from "@/utils/axios"
 
 export const END_POINT = {
- 
-  CREATE_UNIVERSITY: "/api/University/university",
+  GET_ALL_UNIVERSITY: "/api/v1/university/all",
+  GET_UNIVERSITY: "/api/v1/university/{id}",
+  CREATE_UNIVERSITY: "/api/v1/university/create",
 }
 
 class UniversityService {
-  
-
-  createUniversity(university : UniversityRequest) {
+  getUniversities(): Promise<AxiosResponse<ResponseObject<University[]>>> {
+    return get(END_POINT.GET_ALL_UNIVERSITY)
+  }
+  deleteUniversities(universityId: string) {
+    return remove(`${END_POINT.GET_UNIVERSITY}/${universityId}`)
+  }
+  createUniversity(university: UniversityRequest) {
     return post(END_POINT.CREATE_UNIVERSITY, university)
   }
 }
+
 
 const universityService = new UniversityService()
 export default universityService
