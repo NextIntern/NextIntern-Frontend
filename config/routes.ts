@@ -10,17 +10,18 @@ const routes = {
   campaignList: "/dashboard/campaign",
   campaignCreate: "/dashboard/campaign/create",
   campaignEdit: "/dashboard/campaign/edit",
-  campaignDetail: "/dashboard/campaign",
   // University routes
-  universityList: "/dashboard/unviversity",
+  universityList: "/dashboard/university",
   universtyCreate: "/dashboard/university/create",
-  universityEdit: "/dashboard/campaign/edit",
-  universityDetail: "/dashboard/campaign",
-  
+  universityEdit: "/dashboard/university/edit",
   // Evaluation form routes
   evaluationFormList: "/dashboard/evaluation-form",
   evaluationFormCreate: "/dashboard/evaluation-form/create",
   evaluationFormEdit: "/dashboard/evaluation-form/edit",
+  // Internship routes
+  internshipList: "/dashboard/intern",
+  internshipCreate: "/dashboard/intern/create",
+  internshipEdit: "/dashboard/intern/edit",
   // Form criteria
   formCriteriaList: "/dashboard/form-criteria",
   formCriteriaCreate: "/dashboard/form-criteria/create",
