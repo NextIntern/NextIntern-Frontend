@@ -14,8 +14,8 @@ import { universityService } from "@/services"
 import * as constants from "@/utils/constants"
 
 const UniversityForm = () => {
-   // Get universities
-   const { data: universities } = useQuery({
+  // Get universities
+  const { data: universities } = useQuery({
     queryKey: ["university"],
     queryFn: () => universityService.getUniversities(),
     select: (data) => data.data.data,
@@ -24,9 +24,9 @@ const UniversityForm = () => {
   // Router instance
   const router = useRouter()
 
-// Get uni id from query params
-const universityId = useParam("universityId")
- // Get uni by id
+  // Get uni id from query params
+  const universityId = useParam("universityId")
+  // Get uni by id
   const { data: university } = useQuery({
     queryKey: ["university"],
     queryFn: () => universityService.getUniversitiesbyId(universityId),
@@ -43,10 +43,9 @@ const universityId = useParam("universityId")
 
     form.setFieldsValue({
       universityName: university.universityName,
-      address : university.address,
+      address: university.address,
       phone: university.phone,
       createdDate: dayjs(university.createdDate ?? Date.now()),
-      
     })
   }, [university, universityId, form])
 
@@ -54,7 +53,7 @@ const universityId = useParam("universityId")
   const className =
     "bg-red border-red-500 focus:ring-opacity-40/40 mt-2 block w-full cursor-pointer rounded-md border bg-white px-4 py-2 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:focus:border-blue-300"
 
-   const onFinish = async (values: UniversityFormType) => {
+  const onFinish = async (values: UniversityFormType) => {
     const data = {
       ...values,
       createdDate: values.createdDate?.format(constants.DATE_FORMAT),

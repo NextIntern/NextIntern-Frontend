@@ -26,7 +26,6 @@ class UniversityService {
   updateUniversities(university: UniversityRequest) {
     return put(END_POINT.UPDATE_UNIVERSITY, university)
   }
-
 }
 
 const universityService = new UniversityService()

@@ -5,5 +5,4 @@ export type UniversityFormType = {
   address: string
   phone: number
   createdDate: Dayjs
-
 }
