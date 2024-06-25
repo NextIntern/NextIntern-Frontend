@@ -19,7 +19,7 @@ export const metadata: Metadata = {
       {
         width: 1200,
         height: 630,
-        url: "https://nextintern.tech/og-image.png",
+        url: "https://nextintern.tech/open-graph.png",
       },
     ],
   },
