@@ -37,8 +37,8 @@ export default function Page() {
 
   const filteredCampaigns = Array.isArray(campaignEvaluations)
     ? campaignEvaluations.filter((campaignEvaluation) =>
-        campaignEvaluation.campaignId.toLowerCase().includes(searchTerm.toLowerCase())
-      ) // TODO: Fix this search
+        campaignEvaluation.campaignName.toLowerCase().includes(searchTerm.toLowerCase())
+      )
     : []
 
   return (
