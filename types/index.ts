@@ -120,6 +120,7 @@ export type Role = {
   roleId: string
   roleName: string
 }
+
 export type CampaignEvaluation = {
   campaignEvaluationId: string
   campaignId: string
@@ -133,4 +134,19 @@ export type CampaignEvaluationRequest = {
   campaignId: string
   startDate: string
   endDate: string
+}
+
+export type InternEvaluation = {
+  internEvaluationId: string
+  internId: string
+  internFullName: string
+  campaignEvaluationId: string
+  feedback: string
+}
+
+export type InternEvlRequest = {
+  id: string
+  internId: string
+  campaignEvaluationId: string
+  feedback: string
 }

@@ -16,18 +16,18 @@ import { Campaign } from "@/types"
 import * as constants from "@/utils/constants"
 
 const CampaignForm = () => {
-  // Get universities
+  // Get campaigns
   const { data: campaigns } = useQuery({
     queryKey: ["campaigns"],
     queryFn: () => campaignService.getCampaigns(),
     select: (data) => data.data.data,
   })
 
-  // Get campaign id from query params
+  // Get campaign evaluation id from query params
   const searchParams = useSearchParams()
   const campaignEvlId = searchParams.get("campaignEvaluationId") ?? ""
 
-  // Get campaign by id
+  // Get campaign evaluation by id
   const { data: campaignEvl } = useQuery({
     queryKey: ["campaignEvl"],
     queryFn: () => campaignEvaluationService.getCampaignEvaluationById(campaignEvlId),
@@ -41,7 +41,7 @@ const CampaignForm = () => {
   // Form instance
   const [form] = Form.useForm()
 
-  // Populate form with campaign data
+  // Populate form with campaign evaluation data
   useEffect(() => {
     if (!campaignEvl || !campaignEvlId) return
 
@@ -68,10 +68,10 @@ const CampaignForm = () => {
     try {
       if (campaignEvlId) {
         await campaignEvaluationService.updateCampaignEvaluation(data)
-        toast.success("Campaign updated successfully")
+        toast.success("Campaign evaluation updated successfully")
       } else {
         await campaignEvaluationService.createCampaignEvaluation(data)
-        toast.success("Campaign created successfully")
+        toast.success("Campaign evaluation created successfully")
       }
       router.push(config.routes.campaignEvlList)
     } catch (error) {
