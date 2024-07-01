@@ -3,36 +3,36 @@
 import "./styles.css"
 
 import { useQuery } from "@tanstack/react-query"
-import { Col, DatePicker, Form, Input, Row, Select } from "antd"
+import { Col, DatePicker, Form, Row, Select } from "antd"
 import dayjs from "dayjs"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect } from "react"
 import toast from "react-hot-toast"
 
-import { CampaignFormType } from "./CampaignForm.type"
+import { CampaignEvlFormType } from "./CampaignEvaluationForm.type"
 import config from "@/config"
-import { useParam } from "@/hooks"
-import { campaignService, universityService } from "@/services"
-import { University } from "@/types"
+import { campaignEvaluationService, campaignService } from "@/services"
+import { Campaign } from "@/types"
 import * as constants from "@/utils/constants"
 
 const CampaignForm = () => {
   // Get universities
-  const { data: universities } = useQuery({
-    queryKey: ["university"],
-    queryFn: () => universityService.getUniversities(),
+  const { data: campaigns } = useQuery({
+    queryKey: ["campaigns"],
+    queryFn: () => campaignService.getCampaigns(),
     select: (data) => data.data.data,
   })
 
   // Get campaign id from query params
-  const campaignId = useParam("campaignId")
+  const searchParams = useSearchParams()
+  const campaignEvlId = searchParams.get("campaignEvaluationId") ?? ""
 
   // Get campaign by id
-  const { data: campaign } = useQuery({
-    queryKey: ["campaign"],
-    queryFn: () => campaignService.getCampaignById(campaignId),
+  const { data: campaignEvl } = useQuery({
+    queryKey: ["campaignEvl"],
+    queryFn: () => campaignEvaluationService.getCampaignEvaluationById(campaignEvlId),
     select: (data) => data.data.data,
-    enabled: !!campaignId,
+    enabled: !!campaignEvlId,
   })
 
   // Router instance
@@ -43,50 +43,44 @@ const CampaignForm = () => {
 
   // Populate form with campaign data
   useEffect(() => {
-    if (!campaign || !campaignId) return
+    if (!campaignEvl || !campaignEvlId) return
 
     form.setFieldsValue({
-      campaignName: campaign.campaignName,
-      startDate: dayjs(campaign.startDate ?? Date.now()),
-      endDate: dayjs(campaign.endDate ?? Date.now()),
-      universityId: campaign.universityId,
+      startDate: dayjs(campaignEvl.startDate ?? Date.now()),
+      endDate: dayjs(campaignEvl.endDate ?? Date.now()),
+      universityId: campaignEvl.campaignEvaluationId,
     })
-  }, [campaign, campaignId, form])
+  }, [campaignEvl, campaignEvlId, form])
 
   // Input class name
   const className =
     "h-[40px] focus:ring-opacity-40/40 mt-2 block w-full cursor-pointer rounded-md border bg-white px-4 py-2 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:focus:border-blue-300"
 
   // Form submit handler
-  const onFinish = async (values: CampaignFormType) => {
+  const onFinish = async (values: CampaignEvlFormType) => {
     const data = {
       ...values,
       startDate: values.startDate?.format(constants.DATE_FORMAT),
       endDate: values.endDate?.format(constants.DATE_FORMAT),
-      id: campaignId,
+      id: campaignEvlId,
     }
 
     try {
-      if (campaignId) {
-        await campaignService.updateCampaign(data)
+      if (campaignEvlId) {
+        await campaignEvaluationService.updateCampaignEvaluation(data)
         toast.success("Campaign updated successfully")
       } else {
-        await campaignService.createCampaign(data)
+        await campaignEvaluationService.createCampaignEvaluation(data)
         toast.success("Campaign created successfully")
       }
-      router.push(config.routes.campaignList)
+      router.push(config.routes.campaignEvlList)
     } catch (error) {
-      toast.error("Failed to create campaign")
+      toast.error("Failed to create campaign evaluation")
     }
   }
 
   // Form elements
   const FORM_ELEMENTS = [
-    {
-      label: "Campaign Name",
-      name: "campaignName",
-      Input: <Input type="text" className={className} />,
-    },
     {
       label: "Start Date",
       name: "startDate",
@@ -98,11 +92,14 @@ const CampaignForm = () => {
       Input: <DatePicker format={constants.DATE_FORMAT} className={className} />,
     },
     {
-      label: "University",
-      name: "universityId",
+      label: "Campaign",
+      name: "campaignId",
       Input: (
         <Select
-          options={universities?.map((uni: University) => ({ value: uni.universityId, label: uni.universityName }))}
+          options={campaigns?.map((campaign: Campaign) => ({
+            value: campaign.campaignId,
+            label: campaign.campaignName,
+          }))}
         />
       ),
     },
@@ -121,7 +118,7 @@ const CampaignForm = () => {
       </Row>
       <div className="mt-8 flex justify-end">
         <button className="rounded-md bg-gradient-to-r from-primary to-secondary px-8 py-2.5 font-semibold leading-5 text-white transition-colors duration-300 focus:outline-none">
-          {campaignId ? "Update" : "Create"}
+          {campaignEvlId ? "Update" : "Create"}
         </button>
       </div>
     </Form>

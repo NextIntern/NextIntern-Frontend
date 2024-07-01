@@ -14,6 +14,22 @@ const routes = {
   campaignEvlList: "/dashboard/campaign-evaluation",
   campaignEvlCreate: "/dashboard/campaign-evaluation/create",
   campaignEvlEdit: "/dashboard/campaign-evaluation/edit",
+  // University routes
+  universityList: "/dashboard/university",
+  universtyCreate: "/dashboard/university/create",
+  universityEdit: "/dashboard/university/edit",
+  // Evaluation form routes
+  evaluationFormList: "/dashboard/evaluation-form",
+  evaluationFormCreate: "/dashboard/evaluation-form/create",
+  evaluationFormEdit: "/dashboard/evaluation-form/edit",
+  // Internship routes
+  internshipList: "/dashboard/intern",
+  internshipCreate: "/dashboard/intern/create",
+  internshipEdit: "/dashboard/intern/edit",
+  // Form criteria
+  formCriteriaList: "/dashboard/form-criteria",
+  formCriteriaCreate: "/dashboard/form-criteria/create",
+  formCriteriaEdit: "/dashboard/form-criteria/edit",
 }
 
 export default routes
