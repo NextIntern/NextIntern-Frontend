@@ -10,6 +10,10 @@ const routes = {
   campaignList: "/dashboard/campaign",
   campaignCreate: "/dashboard/campaign/create",
   campaignEdit: "/dashboard/campaign/edit",
+  // Campaign Evaluation routes
+  campaignEvlList: "/dashboard/campaign-evaluation",
+  campaignEvlCreate: "/dashboard/campaign-evaluation/create",
+  campaignEvlEdit: "/dashboard/campaign-evaluation/edit",
   // University routes
   universityList: "/dashboard/university",
   universtyCreate: "/dashboard/university/create",

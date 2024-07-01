@@ -98,7 +98,7 @@ export default function Web() {
             <FaAngleRight className="absolute right-5 ml-2 transition-all duration-300 ease-in-out group-hover:right-4" />
           </Link>
         </div>
-        <Image src="/preview.png" alt="Preview" width="960" height="520" className="shadow-preview" />
+        <Image src="/preview.png" alt="Preview" width="960" height="520" className="rounded-lg shadow-preview" />
       </main>
     </>
   )

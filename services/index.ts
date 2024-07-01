@@ -1,3 +1,4 @@
+import campaignEvaluationService from "./campaign-evaluation.service"
 import campaignService from "./campaign.service"
 import evaluationFormService from "./evaluation-form.service"
 import formCriteriaService from "./form-criteria.service"
@@ -14,4 +15,5 @@ export {
   roleService,
   evaluationFormService,
   formCriteriaService,
+  campaignEvaluationService
 }
