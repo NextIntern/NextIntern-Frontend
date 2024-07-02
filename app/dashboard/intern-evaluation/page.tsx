@@ -9,13 +9,8 @@ import config from "@/config"
 import { internEvaluationService } from "@/services"
 import { InternEvaluation } from "@/types"
 
-const headerName = ["Intern Evaluation ID", "Intern Name", "Campaign Evaluation ID", "Feedback"]
-const viewData: (keyof InternEvaluation)[] = [
-  "internEvaluationId",
-  "internFullName",
-  "campaignEvaluationId",
-  "feedback",
-]
+const headerName = ["Intern Evaluation ID", "Intern Full Name", "Campaign Evaluation ID", "Feedback"]
+const viewData: (keyof InternEvaluation)[] = ["internEvaluationId", "internName", "campaignEvaluationId", "feedback"]
 
 export default function Page() {
   const { data: internEvls, refetch } = useQuery({
@@ -41,7 +36,7 @@ export default function Page() {
   }
 
   const filteredInternEvls = Array.isArray(internEvls)
-    ? internEvls.filter((internEvl) => internEvl.internFullName.toLowerCase().includes(searchTerm.toLowerCase()))
+    ? internEvls.filter((internEvl) => internEvl.internName.toLowerCase().includes(searchTerm.toLowerCase()))
     : []
 
   return (

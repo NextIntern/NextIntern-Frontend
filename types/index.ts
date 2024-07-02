@@ -139,7 +139,7 @@ export type CampaignEvaluationRequest = {
 export type InternEvaluation = {
   internEvaluationId: string
   internId: string
-  internFullName: string
+  internName: string
   campaignEvaluationId: string
   feedback: string
 }

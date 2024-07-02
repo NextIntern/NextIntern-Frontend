@@ -50,10 +50,7 @@ const InternEvaluationForm = () => {
   useEffect(() => {
     if (!internEvl || !internEvlId) return
 
-    form.setFieldsValue({
-      internId: internEvl.internId,
-      campaignEvaluationId: internEvl.campaignEvaluationId,
-    })
+    form.setFieldsValue(internEvl)
   }, [form, internEvl, internEvlId])
 
   // Input class name
