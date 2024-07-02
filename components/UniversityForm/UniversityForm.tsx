@@ -70,7 +70,7 @@ const UniversityForm = () => {
       }
       router.push(config.routes.universityList)
     } catch (error) {
-      toast.error("Failed to create Univeristy")
+      toast.error("Failed to create univeristy")
     }
   }
   // Form elements
