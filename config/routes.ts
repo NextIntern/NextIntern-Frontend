@@ -30,6 +30,10 @@ const routes = {
   formCriteriaList: "/dashboard/form-criteria",
   formCriteriaCreate: "/dashboard/form-criteria/create",
   formCriteriaEdit: "/dashboard/form-criteria/edit",
+  // Internship evaluation routes
+  internEvlList: "/dashboard/intern-evaluation",
+  internEvlCreate: "/dashboard/intern-evaluation/create",
+  internEvlEdit: "/dashboard/intern-evaluation/edit",
 }
 
 export default routes
