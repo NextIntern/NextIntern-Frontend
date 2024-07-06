@@ -3,7 +3,7 @@ import { ResponseObject, Role } from "@/types"
 import { get } from "@/utils/axios"
 
 export const END_POINT = {
-  GET_ALL_ROLE: "/api/v1/role",
+  GET_ALL_ROLE: "/api/v1/role/all",
 }
 class RoleService {
   getAllRole(): Promise<AxiosResponse<ResponseObject<Role[]>>> {
