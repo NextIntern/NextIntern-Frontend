@@ -98,7 +98,7 @@ const FormCriteriaForm = () => {
     {
       label: "Evaluation Form",
       name: "evaluationFormId",
-      Input: (e
+      Input: (
         <Select
           options={evaluationForms?.map((evlForm: EvaluationForm) => ({
             value: evlForm.evaluationFormId,
