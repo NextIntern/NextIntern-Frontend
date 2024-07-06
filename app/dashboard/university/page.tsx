@@ -101,7 +101,7 @@ export default function Page() {
 
                     <td className="whitespace-nowrap p-4 text-sm">
                       <Link
-                        href={`${config.routes.campaignEdit}?campaignId=${university.universityId}`}
+                        href={`${config.routes.universityEdit}?universityId=${university.universityId}`}
                         className="text-primary"
                       >
                         Edit

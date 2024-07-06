@@ -46,7 +46,7 @@ const CampaignForm = () => {
     if (!campaign || !campaignId) return
 
     form.setFieldsValue({
-      campaignName: campaign.campaignName,
+      campaignName: campaign.campaignId,
       startDate: dayjs(campaign.startDate ?? Date.now()),
       endDate: dayjs(campaign.endDate ?? Date.now()),
       universityId: campaign.universityId,
