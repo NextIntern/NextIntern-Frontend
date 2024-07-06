@@ -3,7 +3,7 @@
 import "./styles.css"
 
 import { useQuery } from "@tanstack/react-query"
-import { Col, DatePicker, Form, Input, Row, Select, Upload } from "antd"
+import { Col, DatePicker, Form, Input, Row, Select } from "antd"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 import toast from "react-hot-toast"
