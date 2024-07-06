@@ -48,7 +48,7 @@ const CampaignForm = () => {
     form.setFieldsValue({
       startDate: dayjs(campaignEvl.startDate ?? Date.now()),
       endDate: dayjs(campaignEvl.endDate ?? Date.now()),
-      universityId: campaignEvl.campaignEvaluationId,
+      campaignId: campaignEvl.campaignName,
     })
   }, [campaignEvl, campaignEvlId, form])
 

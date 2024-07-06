@@ -3,7 +3,7 @@
 import "./styles.css"
 
 import { useQuery } from "@tanstack/react-query"
-import { Col, DatePicker, Form, Input, Row, Select } from "antd"
+import { Col, DatePicker, Form, Input, Row, Select, Upload } from "antd"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 import toast from "react-hot-toast"
@@ -11,17 +11,10 @@ import toast from "react-hot-toast"
 import { InternshipFormType } from "./InternshipForm.type"
 import config from "@/config"
 import { useParam } from "@/hooks"
-import { evaluationFormService, internService, roleService } from "@/services"
+import { evaluationFormService, fileService, internService } from "@/services"
 import { DATE_FORMAT, GENDERS } from "@/utils/constants"
 
 const InternshipForm = () => {
-  // Get all role
-  const { data: roles } = useQuery({
-    queryKey: ["roles"],
-    queryFn: () => roleService.getAllRole(),
-    select: (data) => data.data.data,
-  })
-
   // Get all role
   const { data: evaluationForms } = useQuery({
     queryKey: ["evlForm"],
@@ -37,6 +30,7 @@ const InternshipForm = () => {
     queryKey: ["intern"],
     queryFn: () => internService.getInternById(internId),
     select: (data) => data.data.data,
+    enabled: !!internId
   })
 
   // Router instance
@@ -62,6 +56,7 @@ const InternshipForm = () => {
       ...values,
       dob: values.dob?.format(DATE_FORMAT),
       id: internId,
+      roleName: "User"
     }
 
     try {
@@ -72,7 +67,7 @@ const InternshipForm = () => {
         await internService.createIntern(data)
         toast.success("Intern created successfully")
       }
-      router.push(config.routes.evaluationFormList)
+      router.push(config.routes.internshipList)
     } catch (error) {
       toast.error("An error occurred")
     }
@@ -88,6 +83,11 @@ const InternshipForm = () => {
     {
       label: "Password",
       name: "password",
+      Input: <Input type="password" className={className} />,
+    },
+    {
+      label: "Confirm Password",
+      name: "confirmedPassword",
       Input: <Input type="password" className={className} />,
     },
     {
@@ -116,11 +116,6 @@ const InternshipForm = () => {
       Input: <DatePicker format="YYYY-MM-DD" />,
     },
     {
-      label: "Role",
-      name: "roleName",
-      Input: <Select options={roles?.map((role) => ({ value: role.roleId, label: role.roleName }))} />,
-    },
-    {
       label: "Evaluation Form",
       name: "evaluationFormId",
       Input: (
@@ -139,14 +134,20 @@ const InternshipForm = () => {
     },
   ]
 
-  const handleDownload = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleDownload = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault()
-    toast.success("TODO: Download template")
+    await fileService.downloadTemplate();
+    toast.success("Download template successfully")
   }
 
-  const handleImport = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleImport = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault()
-    toast.success("TODO: Import file")
+    // const file = event.target.files?.[0];
+    const formData = new FormData();
+    formData.append('File', ""); // "File", file
+    formData.append('CampaignId', "");
+    toast.success("Import successfully")
+    router.push(config.routes.internshipList)
   }
 
   return (
@@ -167,12 +168,13 @@ const InternshipForm = () => {
         >
           Download Template
         </button>
-        <button
-          onClick={handleImport}
+        <input
+          type="file"
+          onChange={handleImport}
           className="mr-2 rounded-md border border-secondary bg-gradient-to-r from-secondary to-primary bg-clip-text px-8 py-2.5 font-semibold leading-5 text-transparent transition-colors duration-300 focus:outline-none"
         >
           Import File
-        </button>
+        </input>
         <button className="rounded-md bg-gradient-to-r from-primary to-secondary px-8 py-2.5 font-semibold leading-5 text-white transition-colors duration-300 focus:outline-none">
           {internId ? "Update" : "Create"}
         </button>

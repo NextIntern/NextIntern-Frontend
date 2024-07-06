@@ -14,13 +14,6 @@ import { universityService } from "@/services"
 import * as constants from "@/utils/constants"
 
 const UniversityForm = () => {
-  // Get universities
-  const { data: universities } = useQuery({
-    queryKey: ["university"],
-    queryFn: () => universityService.getUniversities(),
-    select: (data) => data.data.data,
-  })
-
   // Router instance
   const router = useRouter()
 
@@ -29,7 +22,7 @@ const UniversityForm = () => {
   // Get uni by id
   const { data: university } = useQuery({
     queryKey: ["university"],
-    queryFn: () => universityService.getUniversitiesbyId(universityId),
+    queryFn: () => universityService.getUniversitiesById(universityId),
     select: (data) => data.data.data,
     enabled: !!universityId,
   })
@@ -42,9 +35,7 @@ const UniversityForm = () => {
     if (!university || !universityId) return
 
     form.setFieldsValue({
-      universityName: university.universityName,
-      address: university.address,
-      phone: university.phone,
+      ...university,
       createdDate: dayjs(university.createdDate ?? Date.now()),
     })
   }, [university, universityId, form])
@@ -57,7 +48,6 @@ const UniversityForm = () => {
     const data = {
       ...values,
       createdDate: values.createdDate?.format(constants.DATE_FORMAT),
-      id: universityId,
     }
 
     try {

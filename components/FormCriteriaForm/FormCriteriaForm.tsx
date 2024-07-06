@@ -13,7 +13,7 @@ import config from "@/config"
 import { useParam } from "@/hooks"
 import { evaluationFormService } from "@/services"
 import formCriteriaService from "@/services/form-criteria.service"
-import { EvaluationForm } from "@/types"
+import { EvaluationForm, type ResponseObject } from "@/types"
 
 const FormCriteriaForm = () => {
   // Get all evaluation forms
@@ -102,7 +102,7 @@ const FormCriteriaForm = () => {
         <Select
           options={evaluationForms?.map((evlForm: EvaluationForm) => ({
             value: evlForm.evaluationFormId,
-            label: evlForm.university.universityName,
+            label: "", // TODO: evlForm.university.universityName,
           }))}
         />
       ),
