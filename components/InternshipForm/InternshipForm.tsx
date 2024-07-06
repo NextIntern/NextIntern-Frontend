@@ -24,7 +24,7 @@ const InternshipForm = () => {
 
   // Get all role
   const { data: evaluationForms } = useQuery({
-    queryKey: ["roles"],
+    queryKey: ["evllForm"],
     queryFn: () => evaluationFormService.getEvaluationForms(),
     select: (data) => data.data.data,
   })
@@ -127,7 +127,7 @@ const InternshipForm = () => {
         <Select
           options={evaluationForms?.map((evlForm) => ({
             value: evlForm.evaluationFormId,
-            label: evlForm.evaluationFormId,
+            label: evlForm.university.universityNam,
           }))}
         />
       ),
