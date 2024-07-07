@@ -64,7 +64,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </div>
 
       {/* Main Content */}
-      <div className="m-4 flex-1 rounded-[50px] bg-slate-50 p-8">{children}</div>
+      <div className="m-4 flex-1 overflow-y-auto rounded-[50px] bg-slate-50 p-8">{children}</div>
     </div>
   )
 }
