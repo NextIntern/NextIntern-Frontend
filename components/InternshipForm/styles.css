@@ -3,3 +3,7 @@
   height: 40px;
   width: 100%;
 }
+
+input#file {
+  display: none;
+}

@@ -7,6 +7,7 @@ import internService from "./intern.service"
 import loginService from "./login.service"
 import roleService from "./role.service"
 import universityService from "./university.service"
+import fileService from "./file.service"
 
 export {
   campaignService,
@@ -18,4 +19,5 @@ export {
   formCriteriaService,
   campaignEvaluationService,
   internEvaluationService,
+  fileService,
 }

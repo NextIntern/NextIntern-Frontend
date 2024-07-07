@@ -67,20 +67,21 @@ export type Intern = {
 }
 
 export type InternRequest = {
-  dob: string
-  id: string
   username: string
   password: string
+  confirmedPassword: string
   fullname: string
   email: string
   gender: string
   telephone: string
+  dob: string
   roleName: string
   address: string
+  id?: string
   menterUsername?: string
   campaignId?: string
   deletedDate?: Date
-  evaluationFormId: string
+  evaluationFormId?: string
 }
 export type EvaluationForm = {
   evaluationFormId: string

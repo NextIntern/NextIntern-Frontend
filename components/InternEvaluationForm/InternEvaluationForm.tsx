@@ -4,12 +4,13 @@ import "./styles.css"
 
 import { useQuery } from "@tanstack/react-query"
 import { Col, Form, Input, Row, Select } from "antd"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 import toast from "react-hot-toast"
 
 import { InternEvlFormType } from "./InternEvaluationForm.type"
 import config from "@/config"
+import { useParam } from "@/hooks"
 import { campaignEvaluationService, internEvaluationService, internService } from "@/services"
 import { CampaignEvaluation, Intern } from "@/types"
 
@@ -29,8 +30,7 @@ const InternEvaluationForm = () => {
   })
 
   // Get intern evaluation id from query params
-  const searchParams = useSearchParams()
-  const internEvlId = searchParams.get("internEvaluationId") ?? ""
+  const internEvlId = useParam("internEvaluationId")
 
   // Get intern evaluation by id
   const { data: internEvl } = useQuery({
