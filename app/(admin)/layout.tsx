@@ -2,9 +2,9 @@ import { Metadata } from "next"
 import Link from "next/link"
 
 import {
-  MdCampaign,
   MdChecklist,
   MdLogout,
+  MdOutlineCampaign,
   MdOutlineFactCheck,
   MdOutlineLibraryAddCheck,
   MdOutlinePeopleAlt,
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
 const NAV_LINKS = [
   { href: config.routes.dashboard, icon: MdOutlineSpaceDashboard, children: "Dashboard" },
-  { href: config.routes.campaignList, icon: MdCampaign, children: "Training Campaign" },
+  { href: config.routes.campaignList, icon: MdOutlineCampaign, children: "Training Campaign" },
   { href: config.routes.universityList, icon: MdOutlineSchool, children: "University Management" },
   { href: config.routes.evaluationFormList, icon: MdOutlineLibraryAddCheck, children: "Evaluation Form" },
   { href: config.routes.formCriteriaList, icon: MdChecklist, children: "Form Criteria" },

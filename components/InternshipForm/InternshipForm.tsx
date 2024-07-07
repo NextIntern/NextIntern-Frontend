@@ -136,7 +136,7 @@ const InternshipForm = () => {
 
   const handleDownload = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault()
-    await fileService.downloadTemplate()
+    fileService.downloadTemplate()
     toast.success("Download template successfully")
   }
 
@@ -147,7 +147,7 @@ const InternshipForm = () => {
     if (file) {
       formData.append("File", file)
     }
-    formData.append("CampaignId", "") // TODO: Add campaign id
+    formData.append("CampaignId", "2f1ec965-2c99-4697-bd6b-cd0725156805") // TODO: Add campaign id
     toast.success("Import successfully")
     router.push(config.routes.internshipList)
   }
@@ -166,17 +166,17 @@ const InternshipForm = () => {
       <div className="mt-8 flex justify-end">
         <button
           onClick={handleDownload}
-          className="mr-2 rounded-md border border-primary bg-gradient-to-r from-secondary to-primary bg-clip-text px-8 py-2.5 font-semibold leading-5 text-transparent transition-colors duration-300 focus:outline-none"
+          className="mr-2 cursor-pointer rounded-md border border-primary px-8 py-2.5 font-semibold leading-5 text-primary transition-colors duration-300 focus:outline-none"
         >
           Download Template
         </button>
-        <input
-          type="file"
-          onChange={handleImport}
-          className="mr-2 rounded-md border border-secondary bg-gradient-to-r from-secondary to-primary bg-clip-text px-8 py-2.5 font-semibold leading-5 text-transparent transition-colors duration-300 focus:outline-none"
+        <input type="file" id="file" onChange={handleImport} className="hidden" />
+        <label
+          htmlFor="file"
+          className="mr-2 cursor-pointer rounded-md border border-secondary px-8 py-2.5 font-semibold leading-5 text-secondary transition-colors duration-300 focus:outline-none"
         >
-          Import File
-        </input>
+          Import file
+        </label>
         <button className="rounded-md bg-gradient-to-r from-primary to-secondary px-8 py-2.5 font-semibold leading-5 text-white transition-colors duration-300 focus:outline-none">
           {internId ? "Update" : "Create"}
         </button>

@@ -102,7 +102,7 @@ const FormCriteriaForm = () => {
         <Select
           options={evaluationForms?.map((evlForm: EvaluationForm) => ({
             value: evlForm.evaluationFormId,
-            label: "", // TODO: evlForm.university.universityName,
+            label: evlForm.university.universityName,
           }))}
         />
       ),

@@ -4,6 +4,9 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { FC } from "react"
 
+// TODO: Split this function to utils
+const isSubPath = (pathname: string) => pathname.split("/").length > 2
+
 interface NavLinkProps {
   href: string
   children: React.ReactNode
@@ -13,7 +16,7 @@ interface NavLinkProps {
 const NavLink: FC<NavLinkProps> = ({ href, children, Icon }) => {
   // Check is active link
   const pathname = usePathname()
-  const isActive = pathname === href
+  const isActive = isSubPath(pathname) ? pathname.startsWith(href + "/") : pathname === href
 
   // Active classname
   const activeClassName = isActive
