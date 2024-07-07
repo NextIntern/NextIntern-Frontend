@@ -10,9 +10,9 @@ import toast from "react-hot-toast"
 
 import { InternEvlFormType } from "./InternEvaluationForm.type"
 import config from "@/config"
+import { useParam } from "@/hooks"
 import { campaignEvaluationService, internEvaluationService, internService } from "@/services"
 import { CampaignEvaluation, Intern } from "@/types"
-import { useParam } from "@/hooks"
 
 const InternEvaluationForm = () => {
   // Get intern evaluations

@@ -13,7 +13,7 @@ import config from "@/config"
 import { useParam } from "@/hooks"
 import { evaluationFormService } from "@/services"
 import formCriteriaService from "@/services/form-criteria.service"
-import { EvaluationForm, type ResponseObject } from "@/types"
+import { EvaluationForm } from "@/types"
 
 const FormCriteriaForm = () => {
   // Get all evaluation forms

@@ -1,15 +1,15 @@
 "use client"
 
-import { Col, Form, Input, Row } from "antd"
-import { useRouter } from "next/navigation"
-import toast from "react-hot-toast"
-import { useParam } from "@/hooks"
 import { useQuery } from "@tanstack/react-query"
-import { useEffect } from "react"
+import { Col, Form, Input, Row } from "antd"
 import dayjs from "dayjs"
+import { useRouter } from "next/navigation"
+import { useEffect } from "react"
+import toast from "react-hot-toast"
 
 import { UniversityFormType } from "./UniversityForm.type"
 import config from "@/config"
+import { useParam } from "@/hooks"
 import { universityService } from "@/services"
 import * as constants from "@/utils/constants"
 

@@ -19,5 +19,5 @@ export {
   formCriteriaService,
   campaignEvaluationService,
   internEvaluationService,
-  fileService
+  fileService,
 }

@@ -1,7 +1,17 @@
 import { Metadata } from "next"
 import Link from "next/link"
 
-import { MdOutlineSpaceDashboard, MdOutlineSchool, MdChecklist, MdOutlineLibraryAddCheck, MdOutlinePeopleAlt, MdCampaign, MdLogout, MdOutlineFactCheck, MdOutlinePlaylistAddCheck } from "react-icons/md";
+import {
+  MdCampaign,
+  MdChecklist,
+  MdLogout,
+  MdOutlineFactCheck,
+  MdOutlineLibraryAddCheck,
+  MdOutlinePeopleAlt,
+  MdOutlinePlaylistAddCheck,
+  MdOutlineSchool,
+  MdOutlineSpaceDashboard,
+} from "react-icons/md"
 
 import NavLink from "@/components/NavLink"
 import config from "@/config"

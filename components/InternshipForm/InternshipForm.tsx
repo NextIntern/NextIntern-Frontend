@@ -30,7 +30,7 @@ const InternshipForm = () => {
     queryKey: ["intern"],
     queryFn: () => internService.getInternById(internId),
     select: (data) => data.data.data,
-    enabled: !!internId
+    enabled: !!internId,
   })
 
   // Router instance
@@ -56,7 +56,7 @@ const InternshipForm = () => {
       ...values,
       dob: values.dob?.format(DATE_FORMAT),
       id: internId,
-      roleName: "User"
+      roleName: "User",
     }
 
     try {
@@ -136,16 +136,18 @@ const InternshipForm = () => {
 
   const handleDownload = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault()
-    await fileService.downloadTemplate();
+    await fileService.downloadTemplate()
     toast.success("Download template successfully")
   }
 
   const handleImport = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault()
-    // const file = event.target.files?.[0];
-    const formData = new FormData();
-    formData.append('File', ""); // "File", file
-    formData.append('CampaignId', "");
+    const formData = new FormData()
+    const file = event.target.files?.[0]
+    if (file) {
+      formData.append("File", file)
+    }
+    formData.append("CampaignId", "") // TODO: Add campaign id
     toast.success("Import successfully")
     router.push(config.routes.internshipList)
   }

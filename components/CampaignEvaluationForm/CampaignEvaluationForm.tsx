@@ -11,10 +11,10 @@ import toast from "react-hot-toast"
 
 import { CampaignEvlFormType } from "./CampaignEvaluationForm.type"
 import config from "@/config"
+import { useParam } from "@/hooks"
 import { campaignEvaluationService, campaignService } from "@/services"
 import { Campaign } from "@/types"
 import * as constants from "@/utils/constants"
-import { useParam } from "@/hooks"
 
 const CampaignForm = () => {
   // Get campaigns
