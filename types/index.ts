@@ -106,6 +106,7 @@ export type FormCriteria = {
   maxScore: number
   deletedDate?: Date
   evaluationFormId: string
+  universityName: string
 }
 
 export type FormCriteriaRequest = {
