@@ -2,7 +2,6 @@
 
 import { useQuery } from "@tanstack/react-query"
 import { Col, Form, Input, Row } from "antd"
-import dayjs from "dayjs"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 import toast from "react-hot-toast"
@@ -22,7 +21,7 @@ const UniversityForm = () => {
   // Get uni by id
   const { data: university } = useQuery({
     queryKey: ["university"],
-    queryFn: () => universityService.getUniversitiesById(universityId),
+    queryFn: () => universityService.getUniversityById(universityId),
     select: (data) => data.data.data,
     enabled: !!universityId,
   })
@@ -34,10 +33,7 @@ const UniversityForm = () => {
   useEffect(() => {
     if (!university || !universityId) return
 
-    form.setFieldsValue({
-      ...university,
-      createdDate: dayjs(university.createdDate ?? Date.now()),
-    })
+    form.setFieldsValue(university)
   }, [university, universityId, form])
 
   // Input class name
@@ -48,11 +44,12 @@ const UniversityForm = () => {
     const data = {
       ...values,
       createdDate: values.createdDate?.format(constants.DATE_FORMAT),
+      id: universityId,
     }
 
     try {
       if (universityId) {
-        await universityService.updateUniversities(data)
+        await universityService.updateUniversity(data)
         toast.success("University updated successfully")
       } else {
         await universityService.createUniversity(data)
@@ -60,7 +57,7 @@ const UniversityForm = () => {
       }
       router.push(config.routes.universityList)
     } catch (error) {
-      toast.error("Failed to create univeristy")
+      toast.error("An error occurred.")
     }
   }
   // Form elements

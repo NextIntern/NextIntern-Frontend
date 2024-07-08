@@ -10,7 +10,7 @@ import formCriteriaService from "@/services/form-criteria.service"
 import { FormCriteria } from "@/types"
 
 const headerName = ["ID", "Form Criteria Name", "Guide", "Min Score", "Max Score", "Evaluation Form ID"]
-const viewData: (keyof FormCriteria)[] = ["formCriteriaId", "name", "guide", "minScore", "maxScore", "evaluationFormId"]
+const viewData: (keyof FormCriteria)[] = ["formCriteriaId", "name", "guide", "minScore", "maxScore", "universityName"]
 
 export default function Page() {
   const { data: formCriterias, refetch } = useQuery({

@@ -11,14 +11,13 @@ import toast from "react-hot-toast"
 import { FormCriteriaType } from "./FormCriteria.type"
 import config from "@/config"
 import { useParam } from "@/hooks"
-import { evaluationFormService } from "@/services"
-import formCriteriaService from "@/services/form-criteria.service"
+import { evaluationFormService, formCriteriaService } from "@/services"
 import { EvaluationForm } from "@/types"
 
 const FormCriteriaForm = () => {
   // Get all evaluation forms
   const { data: evaluationForms } = useQuery({
-    queryKey: ["university"],
+    queryKey: ["evaluationForms"],
     queryFn: () => evaluationFormService.getEvaluationForms(),
     select: (data) => data.data.data,
   })
@@ -44,7 +43,10 @@ const FormCriteriaForm = () => {
   useEffect(() => {
     if (!formCriteria || !formCriteriaId) return
 
-    form.setFieldsValue(formCriteria)
+    form.setFieldsValue({
+      ...formCriteria,
+      evaluationFormId: formCriteria.universityName,
+    })
   }, [form, formCriteria, formCriteriaId])
 
   // Input class name
@@ -102,7 +104,7 @@ const FormCriteriaForm = () => {
         <Select
           options={evaluationForms?.map((evlForm: EvaluationForm) => ({
             value: evlForm.evaluationFormId,
-            label: evlForm.university.universityName,
+            label: evlForm.university?.universityName,
           }))}
         />
       ),

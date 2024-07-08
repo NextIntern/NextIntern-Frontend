@@ -27,7 +27,7 @@ export default function Page() {
 
   const handleDelete = async (universityId: string) => {
     try {
-      await universityService.deleteUniversities(universityId)
+      await universityService.deleteUniversity(universityId)
       toast.success("University deleted successfully.")
       refetch()
     } catch (error) {

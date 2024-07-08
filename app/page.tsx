@@ -106,7 +106,7 @@ export default function Web() {
               <span className="block h-3 w-3 cursor-pointer rounded-full bg-yellow-500" />
               <span className="block h-3 w-3 cursor-pointer rounded-full bg-green-500" />
             </div>
-            <div className="rounded-md bg-white px-20 py-1">
+            <div className="rounded-md bg-white px-4 py-1 md:px-12 lg:px-20">
               <div className="flex items-center gap-2">
                 <IoLockClosedSharp size="14" />
                 <span>NextIntern</span>
