@@ -1,16 +1,14 @@
 "use client"
 
 import { useQuery } from "@tanstack/react-query"
+import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
 import toast from "react-hot-toast"
 
+import { MdCake, MdMail, MdOutlineTransgender, MdPhone } from "react-icons/md"
 import config from "@/config"
 import { internService } from "@/services"
-import { Intern } from "@/types"
-
-const headerName = ["Full Name", "Gender", "Date of Birth", "Email", "Telephone", "Email"]
-const viewData: (keyof Intern)[] = ["fullname", "gender", "dob", "email", "telephone", "email"]
 
 export default function Page() {
   const { data: interns, refetch } = useQuery({
@@ -65,58 +63,54 @@ export default function Page() {
         </Link>
       </div>
 
-      <div className="mt-8 flex flex-col">
-        <div
-          className="overflow-x-auto border border-gray-200 dark:border-gray-700 md:rounded-lg"
-          style={{ maxHeight: "500px" }}
-        >
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-              <thead className="bg-gray-50 dark:bg-gray-800">
-                <tr>
-                  {headerName.map((name) => (
-                    <th
-                      key={name}
-                      className="px-4 py-3.5 text-left text-sm font-semibold text-gray-500 rtl:text-right dark:text-gray-400"
-                    >
-                      {name}
-                    </th>
-                  ))}
-                  <th className="relative px-4 py-3.5">
-                    <span className="sr-only">Edit</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-900">
-                {filteredInternship.map((intern) => (
-                  <tr key={intern.userId}>
-                    {viewData.map((data) => (
-                      <td key={data} className="whitespace-nowrap p-4 text-sm">
-                        <div>
-                          <h4 className="text-gray-700 dark:text-gray-200">{String(intern[data])}</h4>
-                        </div>
-                      </td>
-                    ))}
-
-                    <td className="whitespace-nowrap p-4 text-sm">
-                      <Link href={`${config.routes.internshipEdit}?internId=${intern.userId}`} className="text-primary">
-                        Edit
-                      </Link>
-                      <span className="mx-2">|</span>
-                      <span className="cursor-pointer text-primary" onClick={() => handleDelete(intern.userId)}>
-                        Delete
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+      <div className="mt-8 grid grid-cols-4 gap-6">
+        {filteredInternship.map((intern) => (
+          <div
+            key={intern.userId}
+            className="w-full max-w-sm rounded-lg border border-gray-200 bg-white shadow dark:border-gray-700 dark:bg-gray-800"
+          >
+            <div className="flex flex-col items-center py-6">
+              <Image
+                className="mb-3 h-24 w-24 rounded-full p-4 shadow-lg"
+                src="/logo.png"
+                alt={intern.fullname}
+                width={96}
+                height={96}
+              />
+              <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">{intern.fullname}</h5>
+              <span className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
+                <MdMail /> {intern.email}
+              </span>
+              <span className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
+                <MdOutlineTransgender /> {intern.gender}
+              </span>
+              <span className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
+                <MdCake /> {intern.dob}
+              </span>
+              <span className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
+                <MdPhone /> {intern.telephone}
+              </span>
+              <div className="mt-4 flex md:mt-6">
+                <Link
+                  href={`${config.routes.internshipEdit}?internId=${intern.userId}`}
+                  className="inline-flex items-center rounded-lg bg-green-500 px-4 py-2 text-center text-sm font-medium text-white hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                >
+                  Edit
+                </Link>
+                <div
+                  onClick={() => handleDelete(intern.userId)}
+                  className="ms-2 cursor-pointer rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-red-500 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100"
+                >
+                  Delete
+                </div>
+              </div>
+            </div>
           </div>
-          {filteredInternship.length === 0 && (
-            <div className="px-4 py-3 text-center text-gray-500 dark:text-gray-200">No internships found.</div>
-          )}
-        </div>
+        ))}
       </div>
+      {filteredInternship.length === 0 && (
+        <div className="px-4 py-3 text-center text-gray-500 dark:text-gray-200">No internships found.</div>
+      )}
       <div className="mt-6 flex items-center justify-between">
         <button className="rounded-md border bg-white px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
           Previous
