@@ -21,7 +21,7 @@ const DoughnutChart = () => {
         borderWidth: 3,
       },
     },
-    cutout: 150,
+    cutout: 75,
   }
   return <Doughnut data={data} width={50} height={50} options={options} />
 }

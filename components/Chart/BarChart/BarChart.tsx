@@ -31,14 +31,6 @@ const BarChart = () => {
           usePointStyle: true,
           pointStyle: "circle",
         },
-        title: {
-          text: "Sales Report",
-          display: true,
-          color: "#000",
-          font: {
-            size: 18,
-          },
-        },
       },
     },
     scales: {
@@ -57,7 +49,7 @@ const BarChart = () => {
     },
   }
 
-  return <Bar data={data} height={300} options={options} />
+  return <Bar data={data} options={options} />
 }
 
 export default BarChart
