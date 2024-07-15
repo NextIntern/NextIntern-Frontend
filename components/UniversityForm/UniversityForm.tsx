@@ -1,34 +1,65 @@
 "use client"
 
+import { useQuery } from "@tanstack/react-query"
 import { Col, Form, Input, Row } from "antd"
 import { useRouter } from "next/navigation"
+import { useEffect } from "react"
 import toast from "react-hot-toast"
 
 import { UniversityFormType } from "./UniversityForm.type"
 import config from "@/config"
+import { useParam } from "@/hooks"
 import { universityService } from "@/services"
+import * as constants from "@/utils/constants"
 
 const UniversityForm = () => {
   // Router instance
   const router = useRouter()
 
+  // Get uni id from query params
+  const universityId = useParam("universityId")
+  // Get uni by id
+  const { data: university } = useQuery({
+    queryKey: ["university"],
+    queryFn: () => universityService.getUniversityById(universityId),
+    select: (data) => data.data.data,
+    enabled: !!universityId,
+  })
+
   // Form instance
   const [form] = Form.useForm()
+
+  // Populate form with campaign data
+  useEffect(() => {
+    if (!university || !universityId) return
+
+    form.setFieldsValue(university)
+  }, [university, universityId, form])
 
   // Input class name
   const className =
     "bg-red border-red-500 focus:ring-opacity-40/40 mt-2 block w-full cursor-pointer rounded-md border bg-white px-4 py-2 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:focus:border-blue-300"
 
   const onFinish = async (values: UniversityFormType) => {
+    const data = {
+      ...values,
+      createdDate: values.createdDate?.format(constants.DATE_FORMAT),
+      id: universityId,
+    }
+
     try {
-      await universityService.createUniversity(values)
-      toast.success("University created successfully")
+      if (universityId) {
+        await universityService.updateUniversity(data)
+        toast.success("University updated successfully")
+      } else {
+        await universityService.createUniversity(data)
+        toast.success("University created successfully")
+      }
       router.push(config.routes.universityList)
     } catch (error) {
-      toast.error("Failed to create university")
+      toast.error("An error occurred.")
     }
   }
-
   // Form elements
   const FORM_ELEMENTS = [
     {
@@ -61,7 +92,7 @@ const UniversityForm = () => {
       </Row>
       <div className="mt-8 flex justify-end">
         <button className="rounded-md bg-gradient-to-r from-primary to-secondary px-8 py-2.5 font-semibold leading-5 text-white transition-colors duration-300 focus:outline-none">
-          Create
+          {universityId ? "Update" : "Create"}
         </button>
       </div>
     </Form>

@@ -3,6 +3,7 @@ import { Dayjs } from "dayjs"
 export type InternshipFormType = {
   username: string
   password: string
+  confirmedPassword: string
   fullname: string
   email: string
   gender: string

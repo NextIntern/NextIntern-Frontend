@@ -1,15 +1,17 @@
 import { Metadata } from "next"
 import Link from "next/link"
+
 import {
-  CiBadgeDollar,
-  CiCalendar,
-  CiEdit,
-  CiHome,
-  CiLogout,
-  CiSettings,
-  CiStickyNote,
-  CiViewList,
-} from "react-icons/ci"
+  MdChecklist,
+  MdLogout,
+  MdOutlineCampaign,
+  MdOutlineFactCheck,
+  MdOutlineLibraryAddCheck,
+  MdOutlinePeopleAlt,
+  MdOutlinePlaylistAddCheck,
+  MdOutlineSchool,
+  MdOutlineSpaceDashboard,
+} from "react-icons/md"
 
 import NavLink from "@/components/NavLink"
 import config from "@/config"
@@ -19,14 +21,14 @@ export const metadata: Metadata = {
 }
 
 const NAV_LINKS = [
-  { href: config.routes.dashboard, icon: CiHome, children: "Dashboard" },
-  { href: config.routes.campaignList, icon: CiEdit, children: "Training Campaign" },
-  { href: config.routes.universityList, icon: CiViewList, children: "University Management" },
-  { href: config.routes.evaluationFormList, icon: CiCalendar, children: "Evaluation Form" },
-  { href: config.routes.formCriteriaList, icon: CiBadgeDollar, children: "Form Criteria" },
-  { href: config.routes.internshipList, icon: CiSettings, children: "Internships" },
-  { href: config.routes.campaignEvlList, icon: CiStickyNote, children: "Campaign Evaluation" },
-  { href: config.routes.internEvlList, icon: CiStickyNote, children: "Intern Evaluation" },
+  { href: config.routes.dashboard, icon: MdOutlineSpaceDashboard, children: "Dashboard" },
+  { href: config.routes.campaignList, icon: MdOutlineCampaign, children: "Training Campaign" },
+  { href: config.routes.universityList, icon: MdOutlineSchool, children: "University Management" },
+  { href: config.routes.evaluationFormList, icon: MdOutlineLibraryAddCheck, children: "Evaluation Form" },
+  { href: config.routes.formCriteriaList, icon: MdChecklist, children: "Form Criteria" },
+  { href: config.routes.internshipList, icon: MdOutlinePeopleAlt, children: "Internships" },
+  { href: config.routes.campaignEvlList, icon: MdOutlineFactCheck, children: "Campaign Evaluation" },
+  { href: config.routes.internEvlList, icon: MdOutlinePlaylistAddCheck, children: "Intern Evaluation" },
 ]
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -57,7 +59,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             href="/"
             className="mx-4 my-2 flex w-fit cursor-pointer items-center gap-2 rounded-xl bg-white p-4 font-medium transition-colors duration-300 hover:bg-gray-100 md:w-auto md:flex-none md:justify-start"
           >
-            <CiLogout className="text-xl" />
+            <MdLogout className="text-xl" />
             <span className="hidden md:block">Sign Out</span>
           </Link>
         </div>

@@ -1,7 +1,7 @@
 import { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
-import { FaAngleRight } from "react-icons/fa"
+import { IoChevronForward, IoLockClosedSharp } from "react-icons/io5"
 import config from "@/config"
 
 export const metadata: Metadata = {
@@ -95,10 +95,27 @@ export default function Web() {
             className="group relative flex items-center rounded-md bg-gradient-to-r from-primary to-secondary px-6 py-3 pr-10 font-semibold leading-5 text-white transition-colors duration-300 focus:outline-none"
           >
             Discover Now
-            <FaAngleRight className="absolute right-5 ml-2 transition-all duration-300 ease-in-out group-hover:right-4" />
+            <IoChevronForward className="absolute right-5 ml-2 transition-all duration-300 ease-in-out group-hover:right-4" />
           </Link>
         </div>
-        <Image src="/preview.png" alt="Preview" width="960" height="520" className="rounded-lg shadow-preview" />
+
+        <div className="mb-12 rounded-xl shadow-preview">
+          <div className="flex h-12 items-center justify-between rounded-t-xl bg-gray-100 px-6">
+            <div className="flex gap-2">
+              <span className="block h-3 w-3 cursor-pointer rounded-full bg-red-500" />
+              <span className="block h-3 w-3 cursor-pointer rounded-full bg-yellow-500" />
+              <span className="block h-3 w-3 cursor-pointer rounded-full bg-green-500" />
+            </div>
+            <div className="rounded-md bg-white px-4 py-1 md:px-12 lg:px-20">
+              <div className="flex items-center gap-2">
+                <IoLockClosedSharp size="14" />
+                <span>NextIntern</span>
+              </div>
+            </div>
+            <div className="w-14" />
+          </div>
+          <Image src="/preview.png" alt="Preview" width="960" height="520" className="rounded-b-xl" />
+        </div>
       </main>
     </>
   )

@@ -5,12 +5,13 @@ import "./styles.css"
 import { useQuery } from "@tanstack/react-query"
 import { Col, DatePicker, Form, Row, Select } from "antd"
 import dayjs from "dayjs"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 import toast from "react-hot-toast"
 
 import { CampaignEvlFormType } from "./CampaignEvaluationForm.type"
 import config from "@/config"
+import { useParam } from "@/hooks"
 import { campaignEvaluationService, campaignService } from "@/services"
 import { Campaign } from "@/types"
 import * as constants from "@/utils/constants"
@@ -24,8 +25,7 @@ const CampaignForm = () => {
   })
 
   // Get campaign evaluation id from query params
-  const searchParams = useSearchParams()
-  const campaignEvlId = searchParams.get("campaignEvaluationId") ?? ""
+  const campaignEvlId = useParam("campaignEvaluationId")
 
   // Get campaign evaluation by id
   const { data: campaignEvl } = useQuery({
@@ -48,7 +48,7 @@ const CampaignForm = () => {
     form.setFieldsValue({
       startDate: dayjs(campaignEvl.startDate ?? Date.now()),
       endDate: dayjs(campaignEvl.endDate ?? Date.now()),
-      universityId: campaignEvl.campaignEvaluationId,
+      campaignId: campaignEvl.campaignName,
     })
   }, [campaignEvl, campaignEvlId, form])
 
