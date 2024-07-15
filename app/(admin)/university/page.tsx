@@ -1,16 +1,14 @@
 "use client"
 
 import { useQuery } from "@tanstack/react-query"
+import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
 import toast from "react-hot-toast"
 
+import { MdLocationOn, MdPhone } from "react-icons/md"
 import config from "@/config"
 import universityService from "@/services/university.service"
-import { University } from "@/types"
-
-const headerName = ["University ID", "University Name", "Address", "Phone", "Create Date"]
-const viewData: (keyof University)[] = ["universityId", "universityName", "address", "phone", "createDate"]
 
 export default function Page() {
   const { data: university, refetch } = useQuery({
@@ -66,64 +64,46 @@ export default function Page() {
         </Link>
       </div>
 
-      <div className="mt-8 flex flex-col">
-        <div
-          className="overflow-x-auto border border-gray-200 dark:border-gray-700 md:rounded-lg"
-          style={{ maxHeight: "500px" }}
-        >
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-              <thead className="bg-gray-50 dark:bg-gray-800">
-                <tr>
-                  {headerName.map((name) => (
-                    <th
-                      key={name}
-                      className="px-4 py-3.5 text-left text-sm font-semibold text-gray-500 rtl:text-right dark:text-gray-400"
-                    >
-                      {name}
-                    </th>
-                  ))}
-                  <th className="relative px-4 py-3.5">
-                    <span className="sr-only">Edit</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-900">
-                {filteredUniversity.map((university) => (
-                  <tr key={university.universityId}>
-                    {viewData.map((data) => (
-                      <td key={data} className="whitespace-nowrap p-4 text-sm">
-                        <div>
-                          <h4 className="text-gray-700 dark:text-gray-200">{String(university[data])}</h4>
-                        </div>
-                      </td>
-                    ))}
-
-                    <td className="whitespace-nowrap p-4 text-sm">
-                      <Link
-                        href={`${config.routes.universityEdit}?universityId=${university.universityId}`}
-                        className="text-primary"
-                      >
-                        Edit
-                      </Link>
-                      <span className="mx-2">|</span>
-                      <span
-                        className="cursor-pointer text-primary"
-                        onClick={() => handleDelete(university.universityId)}
-                      >
-                        Delete
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+      <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+        {filteredUniversity.map((uni) => (
+          <div
+            key={uni.universityId}
+            className="max-w-sm rounded-lg border border-gray-200 bg-white shadow dark:border-gray-700 dark:bg-gray-800"
+          >
+            <Image width={120} height={120} className="mx-auto rounded-t-lg" src="/logo.png" alt={uni.universityName} />
+            <div className="p-5">
+              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                {uni.universityName}
+              </h5>
+              <p className="mb-3 flex items-center gap-1 font-normal text-gray-700 dark:text-gray-400">
+                <MdLocationOn />
+                {uni.address}
+              </p>
+              <p className="mb-3 flex items-center gap-1 font-normal text-gray-700 dark:text-gray-400">
+                <MdPhone />
+                {uni.phone}
+              </p>
+              <div className="mt-4 flex md:mt-6">
+                <Link
+                  href={`${config.routes.universityEdit}?universityId=${uni.universityId}`}
+                  className="inline-flex items-center rounded-lg bg-green-500 px-4 py-2 text-center text-sm font-medium text-white hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                >
+                  Edit
+                </Link>
+                <div
+                  onClick={() => handleDelete(uni.universityId)}
+                  className="ms-2 cursor-pointer rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-red-500 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100"
+                >
+                  Delete
+                </div>
+              </div>
+            </div>
           </div>
-          {filteredUniversity.length === 0 && (
-            <div className="px-4 py-3 text-center text-gray-500 dark:text-gray-200">No universities found.</div>
-          )}
-        </div>
+        ))}
       </div>
+      {filteredUniversity.length === 0 && (
+        <div className="px-4 py-3 text-center text-gray-500 dark:text-gray-200">No universities found.</div>
+      )}
       <div className="mt-6 flex items-center justify-between">
         <button className="rounded-md border bg-white px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
           Previous
