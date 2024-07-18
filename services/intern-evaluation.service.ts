@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios"
-import { InternEvaluation, InternEvlRequest, ResponseObject } from "@/types"
+import { InternEvaluation, InternEvlRequest, Pagination, ResponseObject } from "@/types"
 import { get, post, put, remove } from "@/utils/axios"
 
 export const END_POINT = {
@@ -10,8 +10,8 @@ export const END_POINT = {
 }
 
 class InternEvaluationService {
-  getInternEvls(): Promise<AxiosResponse<ResponseObject<InternEvaluation[]>>> {
-    return get(END_POINT.GET_ALL_INTERN_EVALUATION)
+  getInternEvls(): Promise<AxiosResponse<ResponseObject<Pagination<InternEvaluation>>>> {
+    return get(END_POINT.GET_ALL_INTERN_EVALUATION, { pageNo: 1, pageSize: 999999 })
   }
 
   getInternEvlById(id: string): Promise<AxiosResponse<ResponseObject<InternEvaluation>>> {

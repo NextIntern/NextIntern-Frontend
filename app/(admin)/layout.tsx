@@ -10,6 +10,7 @@ import {
   MdOutlinePeopleAlt,
   MdOutlinePlaylistAddCheck,
   MdOutlineSchool,
+  MdOutlineScoreboard,
   MdOutlineSpaceDashboard,
 } from "react-icons/md"
 
@@ -29,6 +30,7 @@ const NAV_LINKS = [
   { href: config.routes.internshipList, icon: MdOutlinePeopleAlt, children: "Internships" },
   { href: config.routes.campaignEvlList, icon: MdOutlineFactCheck, children: "Campaign Evaluation" },
   { href: config.routes.internEvlList, icon: MdOutlinePlaylistAddCheck, children: "Intern Evaluation" },
+  { href: config.routes.internEvlCriteriaList, icon: MdOutlineScoreboard, children: "Evaluate Internship" },
 ]
 
 export default function Layout({ children }: { children: React.ReactNode }) {

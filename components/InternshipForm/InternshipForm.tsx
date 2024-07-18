@@ -3,9 +3,9 @@
 import "./styles.css"
 
 import { useQuery } from "@tanstack/react-query"
-import { Col, DatePicker, Form, Input, Row, Select } from "antd"
+import { Col, DatePicker, Form, Image, Input, Row, Select } from "antd"
 import { useRouter } from "next/navigation"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
 
 import { InternshipFormType } from "./InternshipForm.type"
@@ -15,11 +15,13 @@ import { evaluationFormService, fileService, internService } from "@/services"
 import { DATE_FORMAT, GENDERS } from "@/utils/constants"
 
 const InternshipForm = () => {
+  const [imgUrl, setImgUrl] = useState("")
+
   // Get all role
   const { data: evaluationForms } = useQuery({
     queryKey: ["evlForm"],
     queryFn: () => evaluationFormService.getEvaluationForms(),
-    select: (data) => data.data.data,
+    select: (data) => data.data.data.items,
   })
 
   // Get intern id from query params
@@ -57,6 +59,9 @@ const InternshipForm = () => {
       dob: values.dob?.format(DATE_FORMAT),
       id: internId,
       roleName: "User",
+      imgUrl,
+      campaignId: "33a1a8b8-dafa-4f46-bbba-a9628f36bd97", // TODO: Add campaign id
+      menterUsername: "mentor", // TODO: Add mentor username
     }
 
     try {
@@ -71,6 +76,18 @@ const InternshipForm = () => {
     } catch (error) {
       toast.error("An error occurred")
     }
+  }
+
+  const handleUploadFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || !e.target.files[0]) return
+
+    fileService.uploadFile(e.target.files?.[0], "interns", (imageUrl: string) => {
+      if (!imageUrl) {
+        toast.error("Error in upload image")
+        return
+      }
+      setImgUrl(imageUrl)
+    })
   }
 
   // Form elements
@@ -132,6 +149,11 @@ const InternshipForm = () => {
       name: "address",
       Input: <Input type="text" className={className} />,
     },
+    {
+      label: "Avatar",
+      name: "imgUrl",
+      Input: <Input type="file" onChange={handleUploadFile} />,
+    },
   ]
 
   const handleDownload = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -163,6 +185,10 @@ const InternshipForm = () => {
           </Col>
         ))}
       </Row>
+      {(imgUrl || intern?.imgUrl) && (
+        <Image src={imgUrl || intern?.imgUrl || "/logo.png"} alt="Internship Image" width={200} height={200} />
+      )}
+
       <div className="mt-8 flex justify-end">
         <button
           onClick={handleDownload}

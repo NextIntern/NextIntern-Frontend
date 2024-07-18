@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios"
-import { EvaluationForm, EvaluationFormRequest, ResponseObject } from "@/types"
+import { EvaluationForm, EvaluationFormRequest, Pagination, ResponseObject } from "@/types"
 import { get, post, put, remove } from "@/utils/axios"
 
 export const END_POINT = {
@@ -10,8 +10,8 @@ export const END_POINT = {
 }
 
 class EvaluationFormService {
-  getEvaluationForms(): Promise<AxiosResponse<ResponseObject<EvaluationForm[]>>> {
-    return get(END_POINT.GET_ALL_EVALUATION_FORM)
+  getEvaluationForms(): Promise<AxiosResponse<ResponseObject<Pagination<EvaluationForm>>>> {
+    return get(END_POINT.GET_ALL_EVALUATION_FORM, { pageNo: 1, pageSize: 999999 })
   }
 
   getEvaluationFormById(id: string): Promise<AxiosResponse<ResponseObject<EvaluationForm>>> {

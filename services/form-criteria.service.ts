@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios"
-import { FormCriteria, FormCriteriaRequest, ResponseObject } from "@/types"
+import { FormCriteria, FormCriteriaRequest, Pagination, ResponseObject } from "@/types"
 import { get, post, put, remove } from "@/utils/axios"
 
 export const END_POINT = {
@@ -10,8 +10,8 @@ export const END_POINT = {
 }
 
 class FormCriteriaService {
-  getFormCriterias(): Promise<AxiosResponse<ResponseObject<FormCriteria[]>>> {
-    return get(END_POINT.GET_ALL_FORM_CRITERIA)
+  getFormCriterias(): Promise<AxiosResponse<ResponseObject<Pagination<FormCriteria>>>> {
+    return get(END_POINT.GET_ALL_FORM_CRITERIA, { pageNo: 1, pageSize: 999999 })
   }
 
   getFormCriteriaById(id: string): Promise<AxiosResponse<ResponseObject<FormCriteria>>> {

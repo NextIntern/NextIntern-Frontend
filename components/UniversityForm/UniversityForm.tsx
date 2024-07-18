@@ -1,18 +1,20 @@
 "use client"
 
 import { useQuery } from "@tanstack/react-query"
-import { Col, Form, Input, Row } from "antd"
+import { Col, Form, Image, Input, Row } from "antd"
 import { useRouter } from "next/navigation"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
 
 import { UniversityFormType } from "./UniversityForm.type"
 import config from "@/config"
 import { useParam } from "@/hooks"
-import { universityService } from "@/services"
+import { fileService, universityService } from "@/services"
 import * as constants from "@/utils/constants"
 
 const UniversityForm = () => {
+  const [imgUrl, setImgUrl] = useState("")
+
   // Router instance
   const router = useRouter()
 
@@ -25,6 +27,8 @@ const UniversityForm = () => {
     select: (data) => data.data.data,
     enabled: !!universityId,
   })
+
+  console.log(university)
 
   // Form instance
   const [form] = Form.useForm()
@@ -45,6 +49,7 @@ const UniversityForm = () => {
       ...values,
       createdDate: values.createdDate?.format(constants.DATE_FORMAT),
       id: universityId,
+      imgUrl,
     }
 
     try {
@@ -60,6 +65,19 @@ const UniversityForm = () => {
       toast.error("An error occurred.")
     }
   }
+
+  const handleUploadFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || !e.target.files[0]) return
+
+    fileService.uploadFile(e.target.files?.[0], "universities", (imageUrl: string) => {
+      if (!imageUrl) {
+        toast.error("Error in upload image")
+        return
+      }
+      setImgUrl(imageUrl)
+    })
+  }
+
   // Form elements
   const FORM_ELEMENTS = [
     {
@@ -77,6 +95,11 @@ const UniversityForm = () => {
       name: "phone",
       Input: <Input type="text" className={className} />,
     },
+    {
+      label: "Image",
+      name: "imgUrl",
+      Input: <Input type="file" onChange={handleUploadFile} />,
+    },
   ]
 
   return (
@@ -90,6 +113,10 @@ const UniversityForm = () => {
           </Col>
         ))}
       </Row>
+      {(imgUrl || university?.imgUrl) && (
+        <Image src={imgUrl || university?.imgUrl || "/logo.png"} alt="Internship Image" width={200} height={200} />
+      )}
+
       <div className="mt-8 flex justify-end">
         <button className="rounded-md bg-gradient-to-r from-primary to-secondary px-8 py-2.5 font-semibold leading-5 text-white transition-colors duration-300 focus:outline-none">
           {universityId ? "Update" : "Create"}

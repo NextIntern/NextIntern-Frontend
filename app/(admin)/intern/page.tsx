@@ -14,7 +14,7 @@ export default function Page() {
   const { data: interns, refetch } = useQuery({
     queryKey: ["interns"],
     queryFn: () => internService.getInterns(),
-    select: (data) => data.data.data,
+    select: (data) => data.data.data.items,
   })
 
   const [searchTerm, setSearchTerm] = useState<string>("")
@@ -72,7 +72,7 @@ export default function Page() {
             <div className="flex flex-col items-center py-6">
               <Image
                 className="mb-3 h-24 w-24 rounded-full p-4 shadow-lg"
-                src="/logo.png"
+                src={intern.imgUrl || "/logo.png"}
                 alt={intern.fullname}
                 width={96}
                 height={96}

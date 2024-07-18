@@ -14,7 +14,7 @@ export default function Page() {
   const { data: university, refetch } = useQuery({
     queryKey: ["university"],
     queryFn: () => universityService.getUniversities(),
-    select: (data) => data.data.data,
+    select: (data) => data.data.data.items,
   })
 
   const [searchTerm, setSearchTerm] = useState<string>("")
@@ -70,7 +70,13 @@ export default function Page() {
             key={uni.universityId}
             className="max-w-sm rounded-lg border border-gray-200 bg-white shadow dark:border-gray-700 dark:bg-gray-800"
           >
-            <Image width={120} height={120} className="mx-auto rounded-t-lg" src="/logo.png" alt={uni.universityName} />
+            <Image
+              width={120}
+              height={120}
+              className="mx-auto rounded-t-lg"
+              src={uni.imgUrl || "/logo.png"}
+              alt={uni.universityName}
+            />
             <div className="p-5">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                 {uni.universityName}

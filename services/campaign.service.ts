@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios"
-import { Campaign, CampaignRequest, ResponseObject } from "@/types"
+import { Campaign, CampaignRequest, Pagination, ResponseObject } from "@/types"
 import { get, post, put, remove } from "@/utils/axios"
 
 export const END_POINT = {
@@ -10,8 +10,8 @@ export const END_POINT = {
 }
 
 class CampaignService {
-  getCampaigns(): Promise<AxiosResponse<ResponseObject<Campaign[]>>> {
-    return get(END_POINT.GET_ALL_CAMPAIGN)
+  getCampaigns(): Promise<AxiosResponse<ResponseObject<Pagination<Campaign>>>> {
+    return get(END_POINT.GET_ALL_CAMPAIGN, { pageNo: 1, pageSize: 999999 })
   }
 
   getCampaignById(id: string): Promise<AxiosResponse<ResponseObject<Campaign>>> {

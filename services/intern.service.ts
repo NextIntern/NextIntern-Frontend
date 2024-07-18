@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios"
-import { Intern, InternRequest, ResponseObject } from "@/types"
+import { Intern, InternRequest, Pagination, ResponseObject } from "@/types"
 import { get, post, put, remove } from "@/utils/axios"
 
 export const END_POINT = {
@@ -10,8 +10,8 @@ export const END_POINT = {
 }
 
 class InternService {
-  getInterns(): Promise<AxiosResponse<ResponseObject<Intern[]>>> {
-    return get(END_POINT.GET_ALL_INTERN)
+  getInterns(): Promise<AxiosResponse<ResponseObject<Pagination<Intern>>>> {
+    return get(END_POINT.GET_ALL_INTERN, { pageNo: 1, pageSize: 999999 })
   }
 
   getInternById(id: string): Promise<AxiosResponse<ResponseObject<Intern>>> {

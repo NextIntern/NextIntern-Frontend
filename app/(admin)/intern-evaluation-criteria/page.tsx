@@ -7,15 +7,17 @@ import { useState } from "react"
 import toast from "react-hot-toast"
 
 import config from "@/config"
-import { internEvaluationService } from "@/services"
-import { InternEvaluation } from "@/types"
+import { evaluateInternService } from "@/services"
+import { FormCriteria, InternEvaluation, InternEvaluationCriteria } from "@/types"
 
 export default function Page() {
-  const { data: internEvls, refetch } = useQuery({
-    queryKey: ["internEvls"],
-    queryFn: () => internEvaluationService.getInternEvls(),
+  const { data: internScores, refetch } = useQuery({
+    queryKey: ["intern-scores"],
+    queryFn: () => evaluateInternService.getAll(),
     select: (data) => data.data.data.items,
   })
+
+  console.log(internScores)
 
   const [searchTerm, setSearchTerm] = useState<string>("")
 
@@ -25,52 +27,61 @@ export default function Page() {
 
   const handleDelete = async (internEvlId: string) => {
     try {
-      await internEvaluationService.deleteInternEvl(internEvlId)
-      toast.success("Intern evaluation deleted successfully.")
+      await evaluateInternService.delete(internEvlId)
+      toast.success("Deleted this evaluation successfully.")
       refetch()
     } catch (error) {
-      toast.error("Failed to delete intern evaluation.")
+      toast.error("Failed to delete this evaluation.")
     }
   }
 
-  const filteredInternEvls = Array.isArray(internEvls)
-    ? internEvls.filter((internEvl) => internEvl.internName.toLowerCase().includes(searchTerm.toLowerCase()))
+  const filteredInternScores = Array.isArray(internScores)
+    ? internScores.filter((internScore) => JSON.stringify(internScore.score).includes(searchTerm))
     : []
 
   const columns = [
     {
-      title: "Intern Evaluation ID",
-      dataIndex: "internEvaluationId",
-      key: "internEvaluationId",
+      title: "No",
+      dataIndex: "no",
+      key: "no",
+      render: (_: string, __: InternEvaluationCriteria, index: number) => index + 1,
     },
     {
-      title: "Intern Full Name",
-      dataIndex: "internName",
-      key: "internName",
+      title: "Intern ID",
+      dataIndex: "internEvaluation",
+      key: "internId",
+      render: (internEvaluation: InternEvaluation) => internEvaluation.internId,
     },
-    // {
-    //   title: "Campaign Evaluation ID",
-    //   dataIndex: "campaignEvaluationId",
-    //   key: "campaignEvaluationId",
-    // },
+    {
+      title: "Form Criteria",
+      dataIndex: "formCriteria",
+      key: "formCriteriaName",
+      render: (formCriteria: FormCriteria) => formCriteria.name,
+    },
     {
       title: "Feedback",
-      dataIndex: "feedback",
+      dataIndex: "internEvaluation",
       key: "feedback",
+      render: (internEvaluation: InternEvaluation) => internEvaluation.feedback,
+    },
+    {
+      title: "Score",
+      dataIndex: "score",
+      key: "score",
     },
     {
       title: "Action",
       dataIndex: "action",
       key: "action",
-      render: (_: string, record: InternEvaluation) => (
+      render: (_: string, record: InternEvaluationCriteria) => (
         <div className="flex items-center gap-2">
           <Link
-            href={`${config.routes.internEvlEdit}?internEvaluationId=${record.internEvaluationId}`}
+            href={`${config.routes.internEvlCriteriaEdit}?internEvlCriteriaId=${record.internEvaluationCriteriaId}`}
             className="text-primary"
           >
             Edit
           </Link>
-          <span className="text-primary" onClick={() => handleDelete(record.internEvaluationId)}>
+          <span className="text-primary" onClick={() => handleDelete(record.internEvaluationCriteriaId)}>
             Delete
           </span>
         </div>
@@ -83,12 +94,12 @@ export default function Page() {
       <div className="sm:flex sm:items-center sm:justify-between">
         <div>
           <div className="flex items-center gap-x-3">
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Intern Evaluation</h2>
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Evaluate Intern</h2>
             <span className="rounded-full bg-blue-100 px-3 py-1 text-xs text-secondary dark:bg-gray-800 dark:text-blue-400">
-              {internEvls?.length ?? 0} intern evaluations
+              {internScores?.length ?? 0} intern scores
             </span>
           </div>
-          <p className="mt-1 text-sm text-gray-500 dark:text-gray-300">These intern evaluations has been created.</p>
+          <p className="mt-1 text-sm text-gray-500 dark:text-gray-300">These intern scores has been created.</p>
         </div>
         <input
           className="my-2 mb-0 h-10 items-center rounded-lg bg-white pl-4 pr-9 outline-none drop-shadow dark:bg-gray-800"
@@ -97,7 +108,7 @@ export default function Page() {
           onChange={handleSearch}
         />
         <Link
-          href={config.routes.internEvlCreate}
+          href={config.routes.internEvlCriteriaCreate}
           className="rounded-md bg-gradient-to-r from-primary to-secondary px-6 py-2.5 font-semibold leading-5 text-white transition-colors duration-300 focus:outline-none"
         >
           Add Intern Evaluation
@@ -105,7 +116,7 @@ export default function Page() {
       </div>
 
       <div className="mt-8 flex flex-col overflow-x-auto">
-        <Table dataSource={filteredInternEvls} columns={columns} />
+        <Table dataSource={filteredInternScores} columns={columns} />
       </div>
     </section>
   )
