@@ -45,7 +45,7 @@ const FormCriteriaForm = () => {
 
     form.setFieldsValue({
       ...formCriteria,
-      evaluationFormId: formCriteria.universityName,
+      evaluationFormId: formCriteria.evaluationForm.evaluationFormId,
     })
   }, [form, formCriteria, formCriteriaId])
 

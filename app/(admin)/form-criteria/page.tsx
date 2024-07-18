@@ -39,9 +39,10 @@ export default function Page() {
 
   const columns = [
     {
-      title: "Form Criteria ID",
-      dataIndex: "formCriteriaId",
-      key: "formCriteriaId",
+      title: "No",
+      dataIndex: "no",
+      key: "no",
+      render: (_: string, __: FormCriteria, index: number) => index + 1,
     },
     {
       title: "Name",

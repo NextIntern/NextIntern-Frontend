@@ -119,6 +119,7 @@ export type FormCriteria = {
   deletedDate?: Date
   evaluationFormId: string
   universityName: string
+  evaluationForm: EvaluationForm
 }
 
 export type FormCriteriaRequest = {
@@ -186,8 +187,8 @@ export type DashboardTop5Intern = {
 export type InternEvaluationCriteria = {
   internEvaluationCriteriaId: string
   id: string
-  internEvaluation: InternEvaluation
-  formCriteria: FormCriteria
+  internEvaluationDto: InternEvaluation
+  formCriteriaDto: FormCriteria
   score: number
 }
 

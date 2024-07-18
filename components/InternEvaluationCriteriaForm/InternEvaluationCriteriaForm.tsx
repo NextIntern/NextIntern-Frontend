@@ -50,7 +50,11 @@ const InternEvaluationCriteriaForm = () => {
   useEffect(() => {
     if (!internScore || !internEvlCriteriaId) return
 
-    form.setFieldsValue(internScore)
+    form.setFieldsValue({
+      ...internScore,
+      fromCriteriaId: internScore.formCriteriaDto.formCriteriaId,
+      internEvaluationId: internScore.internEvaluationDto.internEvaluationId,
+    })
   }, [form, internEvlCriteriaId, internScore])
 
   // Input class name
@@ -74,7 +78,7 @@ const InternEvaluationCriteriaForm = () => {
       }
       router.push(config.routes.internEvlCriteriaList)
     } catch (error) {
-      toast.error("Failed to create intern evaluation")
+      toast.error("An error occured")
     }
   }
 
@@ -99,7 +103,7 @@ const InternEvaluationCriteriaForm = () => {
         <Select
           options={formCriterias?.map((formCriteria: FormCriteria) => ({
             value: formCriteria.formCriteriaId,
-            label: formCriteria.universityName,
+            label: formCriteria.name,
           }))}
         />
       ),

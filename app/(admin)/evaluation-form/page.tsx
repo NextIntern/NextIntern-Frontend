@@ -41,9 +41,10 @@ export default function Page() {
 
   const columns = [
     {
-      title: "Evaluation Form ID",
-      dataIndex: "evaluationFormId",
-      key: "evaluationFormId",
+      title: "No",
+      dataIndex: "no",
+      key: "no",
+      render: (_: string, __: EvaluationForm, index: number) => index + 1,
     },
     {
       title: "University",
@@ -100,12 +101,12 @@ export default function Page() {
           value={searchTerm}
           onChange={handleSearch}
         />
-        <Link
+        {/* <Link
           href={config.routes.evaluationFormCreate}
           className="rounded-md bg-gradient-to-r from-primary to-secondary px-6 py-2.5 font-semibold leading-5 text-white transition-colors duration-300 focus:outline-none"
         >
           Add Evaluation Form
-        </Link>
+        </Link> */}
       </div>
 
       <div className="mt-8 flex flex-col overflow-x-auto">

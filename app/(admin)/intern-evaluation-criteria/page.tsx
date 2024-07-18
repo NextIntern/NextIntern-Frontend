@@ -36,7 +36,7 @@ export default function Page() {
   }
 
   const filteredInternScores = Array.isArray(internScores)
-    ? internScores.filter((internScore) => JSON.stringify(internScore.score).includes(searchTerm))
+    ? internScores.filter((internScore) => internScore.internEvaluationDto.internName.includes(searchTerm))
     : []
 
   const columns = [
@@ -47,20 +47,20 @@ export default function Page() {
       render: (_: string, __: InternEvaluationCriteria, index: number) => index + 1,
     },
     {
-      title: "Intern ID",
-      dataIndex: "internEvaluation",
+      title: "Intern Name",
+      dataIndex: "internEvaluationDto",
       key: "internId",
-      render: (internEvaluation: InternEvaluation) => internEvaluation.internId,
+      render: (internEvaluation: InternEvaluation) => internEvaluation.internName,
     },
     {
       title: "Form Criteria",
-      dataIndex: "formCriteria",
+      dataIndex: "formCriteriaDto",
       key: "formCriteriaName",
       render: (formCriteria: FormCriteria) => formCriteria.name,
     },
     {
       title: "Feedback",
-      dataIndex: "internEvaluation",
+      dataIndex: "internEvaluationDto",
       key: "feedback",
       render: (internEvaluation: InternEvaluation) => internEvaluation.feedback,
     },
@@ -68,6 +68,7 @@ export default function Page() {
       title: "Score",
       dataIndex: "score",
       key: "score",
+      sorter: (a: InternEvaluationCriteria, b: InternEvaluationCriteria) => a.score - b.score,
     },
     {
       title: "Action",
@@ -81,7 +82,7 @@ export default function Page() {
           >
             Edit
           </Link>
-          <span className="text-primary" onClick={() => handleDelete(record.internEvaluationCriteriaId)}>
+          <span className="cursor-pointer text-primary" onClick={() => handleDelete(record.internEvaluationCriteriaId)}>
             Delete
           </span>
         </div>
@@ -94,7 +95,7 @@ export default function Page() {
       <div className="sm:flex sm:items-center sm:justify-between">
         <div>
           <div className="flex items-center gap-x-3">
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Evaluate Intern</h2>
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Evaluate Internship</h2>
             <span className="rounded-full bg-blue-100 px-3 py-1 text-xs text-secondary dark:bg-gray-800 dark:text-blue-400">
               {internScores?.length ?? 0} intern scores
             </span>

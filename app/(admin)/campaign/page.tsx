@@ -39,9 +39,10 @@ export default function Page() {
 
   const columns = [
     {
-      title: "Campaign ID",
-      dataIndex: "campaignId",
-      key: "campaignId",
+      title: "No",
+      dataIndex: "no",
+      key: "no",
+      render: (_: string, __: Campaign, index: number) => index + 1,
     },
     {
       title: "Campaign Name",

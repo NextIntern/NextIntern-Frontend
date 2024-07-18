@@ -41,9 +41,10 @@ export default function Page() {
 
   const columns = [
     {
-      title: "Campaign Evaluation ID",
-      dataIndex: "campaignEvaluationId",
-      key: "campaignEvaluationId",
+      title: "No",
+      dataIndex: "no",
+      key: "no",
+      render: (_: string, __: CampaignEvaluation, index: number) => index + 1,
     },
     {
       title: "Campaign Name",
@@ -99,12 +100,12 @@ export default function Page() {
           value={searchTerm}
           onChange={handleSearch}
         />
-        {/* <Link
+        <Link
           href={config.routes.campaignEvlCreate}
           className="rounded-md bg-gradient-to-r from-primary to-secondary px-6 py-2.5 font-semibold leading-5 text-white transition-colors duration-300 focus:outline-none"
         >
           Add Campaign Evaluation
-        </Link> */}
+        </Link>
       </div>
 
       <div className="mt-8 flex flex-col overflow-x-auto">

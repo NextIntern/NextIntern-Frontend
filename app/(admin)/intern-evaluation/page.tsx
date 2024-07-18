@@ -39,9 +39,10 @@ export default function Page() {
 
   const columns = [
     {
-      title: "Intern Evaluation ID",
-      dataIndex: "internEvaluationId",
-      key: "internEvaluationId",
+      title: "No",
+      dataIndex: "no",
+      key: "no",
+      render: (_: string, __: InternEvaluation, index: number) => index + 1,
     },
     {
       title: "Intern Full Name",
@@ -70,7 +71,7 @@ export default function Page() {
           >
             Edit
           </Link>
-          <span className="text-primary" onClick={() => handleDelete(record.internEvaluationId)}>
+          <span className="cursor-pointer text-primary" onClick={() => handleDelete(record.internEvaluationId)}>
             Delete
           </span>
         </div>

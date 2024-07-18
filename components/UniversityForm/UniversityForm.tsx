@@ -28,8 +28,6 @@ const UniversityForm = () => {
     enabled: !!universityId,
   })
 
-  console.log(university)
-
   // Form instance
   const [form] = Form.useForm()
 
@@ -97,7 +95,6 @@ const UniversityForm = () => {
     },
     {
       label: "Image",
-      name: "imgUrl",
       Input: <Input type="file" onChange={handleUploadFile} />,
     },
   ]
