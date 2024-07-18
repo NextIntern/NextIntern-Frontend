@@ -22,10 +22,9 @@ class FileService {
   uploadFile(image: File, folderName: string, callback: any) {
     const imgRef = ref(imageDb, `${folderName}/${v4()}`)
     uploadBytes(imgRef, image).then(() => {
-      getDownloadURL(imgRef)
-        .then((url: string) => {
-          callback(url)
-        })
+      getDownloadURL(imgRef).then((url: string) => {
+        callback(url)
+      })
     })
   }
 }

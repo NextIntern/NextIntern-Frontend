@@ -23,5 +23,5 @@ export {
   internEvaluationService,
   fileService,
   dashboardService,
-  evaluateInternService
+  evaluateInternService,
 }

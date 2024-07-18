@@ -1,1 +1,1 @@
-export { default } from './InternEvaluationCriteriaForm'
+export { default } from "./InternEvaluationCriteriaForm"

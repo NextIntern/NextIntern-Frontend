@@ -7,7 +7,7 @@ const config = {
   localStorage,
   cookies,
   routes,
-  firebase
+  firebase,
 }
 
 export default config
