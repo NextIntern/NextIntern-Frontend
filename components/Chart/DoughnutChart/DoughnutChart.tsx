@@ -28,11 +28,17 @@ const DoughnutChart = () => {
 
   const data = {
     backgroundColor: colors,
-    labels: interns?.map((intern) => intern.university).slice(START_INDEX, MAX_NUMBER),
+    labels: interns
+      ?.sort((a, b) => b.count - a.count)
+      ?.map((intern) => intern.university)
+      .slice(START_INDEX, MAX_NUMBER),
     datasets: [
       {
         label: "My First Dataset",
-        data: interns?.map((intern) => intern.count).slice(START_INDEX, MAX_NUMBER),
+        data: interns
+          ?.sort((a, b) => b.count - a.count)
+          ?.map((intern) => intern.count)
+          .slice(START_INDEX, MAX_NUMBER),
         backgroundColor: colors,
         hoverOffset: 4,
       },

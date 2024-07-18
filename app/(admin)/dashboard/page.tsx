@@ -69,12 +69,12 @@ export default function Page() {
       title: "No",
       dataIndex: "no",
       key: "no",
-      render: (text: string, record: any, index: number) => index + 1,
+      render: (_: string, __: any, index: number) => index + 1,
     },
     {
-      title: "ID",
-      dataIndex: "internId",
-      key: "internId",
+      title: "Intern Mail",
+      dataIndex: "internMail",
+      key: "internMail",
     },
     {
       title: "Full name",

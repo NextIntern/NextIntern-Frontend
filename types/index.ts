@@ -182,6 +182,7 @@ export type DashboardTop5Intern = {
   internId: string
   name: string
   score: number
+  internMail: string
 }
 
 export type InternEvaluationCriteria = {
