@@ -1,6 +1,7 @@
 "use client"
 
 import { useQuery } from "@tanstack/react-query"
+import { Table } from "antd"
 import Link from "next/link"
 import { useState } from "react"
 import toast from "react-hot-toast"
@@ -9,14 +10,11 @@ import config from "@/config"
 import { campaignEvaluationService } from "@/services"
 import { CampaignEvaluation } from "@/types"
 
-const headerName = ["Campaign Evaluation ID", "Campaign Name", "Start Date", "End Date"]
-const viewData: (keyof CampaignEvaluation)[] = ["campaignEvaluationId", "campaignName", "startDate", "endDate"]
-
 export default function Page() {
   const { data: campaignEvaluations, refetch } = useQuery({
     queryKey: ["campaignEvaluations"],
     queryFn: () => campaignEvaluationService.getCampaignEvaluations(),
-    select: (data) => data.data.data,
+    select: (data) => data.data.data.items,
   })
 
   const [searchTerm, setSearchTerm] = useState<string>("")
@@ -40,6 +38,48 @@ export default function Page() {
         campaignEvaluation.campaignName.toLowerCase().includes(searchTerm.toLowerCase())
       )
     : []
+
+  const columns = [
+    {
+      title: "No",
+      dataIndex: "no",
+      key: "no",
+      render: (_: string, __: CampaignEvaluation, index: number) => index + 1,
+    },
+    {
+      title: "Campaign Name",
+      dataIndex: "campaignName",
+      key: "campaignName",
+    },
+    {
+      title: "Start Date",
+      dataIndex: "startDate",
+      key: "startDate",
+    },
+    {
+      title: "End Date",
+      dataIndex: "endDate",
+      key: "endDate",
+    },
+    {
+      title: "Action",
+      dataIndex: "action",
+      key: "action",
+      render: (_: string, record: CampaignEvaluation) => (
+        <div className="flex gap-2">
+          <Link
+            href={`${config.routes.campaignEvlEdit}?campaignEvaluationId=${record.campaignEvaluationId}`}
+            className="text-primary"
+          >
+            Edit
+          </Link>
+          <span className="cursor-pointer text-primary" onClick={() => handleDelete(record.campaignEvaluationId)}>
+            Delete
+          </span>
+        </div>
+      ),
+    },
+  ]
 
   return (
     <section className="container mx-auto px-4">
@@ -68,74 +108,8 @@ export default function Page() {
         </Link>
       </div>
 
-      <div className="mt-8 flex flex-col">
-        <div
-          className="overflow-x-auto border border-gray-200 dark:border-gray-700 md:rounded-lg"
-          style={{ maxHeight: "500px" }}
-        >
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-              <thead className="bg-gray-50 dark:bg-gray-800">
-                <tr>
-                  {headerName.map((name) => (
-                    <th
-                      key={name}
-                      className="px-4 py-3.5 text-left text-sm font-semibold text-gray-500 rtl:text-right dark:text-gray-400"
-                    >
-                      {name}
-                    </th>
-                  ))}
-                  <th className="relative px-4 py-3.5">
-                    <span className="sr-only">Edit</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-900">
-                {filteredCampaigns.map((campaign) => (
-                  <tr key={campaign.campaignId}>
-                    {viewData.map((data) => (
-                      <td key={data} className="whitespace-nowrap p-4 text-sm">
-                        <div>
-                          <h4 className="text-gray-700 dark:text-gray-200">{String(campaign[data])}</h4>
-                        </div>
-                      </td>
-                    ))}
-
-                    <td className="whitespace-nowrap p-4 text-sm">
-                      <Link
-                        href={`${config.routes.campaignEvlEdit}?campaignEvaluationId=${campaign.campaignEvaluationId}`}
-                        className="text-primary"
-                      >
-                        Edit
-                      </Link>
-                      <span className="mx-2">|</span>
-                      <span
-                        className="cursor-pointer text-primary"
-                        onClick={() => handleDelete(campaign.campaignEvaluationId)}
-                      >
-                        Delete
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          {filteredCampaigns.length === 0 && (
-            <div className="px-4 py-3 text-center text-gray-500 dark:text-gray-200">No campaign evaluations found.</div>
-          )}
-        </div>
-      </div>
-      <div className="mt-6 flex items-center justify-between">
-        <button className="rounded-md border bg-white px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-          Previous
-        </button>
-        <div className="flex items-center space-x-2">
-          <button className="rounded-md border bg-white px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">1</button>
-          <button className="rounded-md border bg-white px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">2</button>
-          <button className="rounded-md border bg-white px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">3</button>
-        </div>
-        <button className="rounded-md border bg-white px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Next</button>
+      <div className="mt-8 flex flex-col overflow-x-auto">
+        <Table dataSource={filteredCampaigns} columns={columns} />
       </div>
     </section>
   )

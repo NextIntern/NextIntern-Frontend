@@ -27,6 +27,14 @@ export type Campaign = {
   status: string
 }
 
+export type Pagination<T> = {
+  items: T[]
+  pageCount: number
+  pageNo: number
+  pageSize: number
+  totalCount: number
+}
+
 export type ResponseObject<T> = {
   data: T
   message: string
@@ -37,6 +45,7 @@ export type UniversityRequest = {
   universityName: string
   address: string
   phone: number
+  imgUrl: string
 }
 
 export type University = {
@@ -47,6 +56,7 @@ export type University = {
   createDate: Date
   modifyDate: Date
   deletedDate?: Date
+  imgUrl: string
 }
 
 export type Intern = {
@@ -64,6 +74,7 @@ export type Intern = {
   createDate: Date
   modifyDate: Date
   deletedDate?: Date
+  imgUrl: string
 }
 
 export type InternRequest = {
@@ -82,6 +93,7 @@ export type InternRequest = {
   campaignId?: string
   deletedDate?: Date
   evaluationFormId?: string
+  imgUrl: string
 }
 export type EvaluationForm = {
   evaluationFormId: string
@@ -107,6 +119,7 @@ export type FormCriteria = {
   deletedDate?: Date
   evaluationFormId: string
   universityName: string
+  evaluationForm: EvaluationForm
 }
 
 export type FormCriteriaRequest = {
@@ -151,4 +164,38 @@ export type InternEvlRequest = {
   internId: string
   campaignEvaluationId: string
   feedback: string
+}
+
+export type DashboardReport = {
+  title: string
+  total: number
+  percentage: number
+  isIncrease: boolean
+}
+
+export type DashboardCountIntern = {
+  university: string
+  count: number
+}
+
+export type DashboardTop5Intern = {
+  internId: string
+  name: string
+  score: number
+  internMail: string
+}
+
+export type InternEvaluationCriteria = {
+  internEvaluationCriteriaId: string
+  id: string
+  internEvaluationDto: InternEvaluation
+  formCriteriaDto: FormCriteria
+  score: number
+}
+
+export type InternEvlCriteriaRequest = {
+  internEvaluationCriteriaId: string
+  internEvaluationId: string
+  formCriteriaId: string
+  score: number
 }

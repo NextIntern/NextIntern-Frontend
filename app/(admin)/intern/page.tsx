@@ -14,7 +14,7 @@ export default function Page() {
   const { data: interns, refetch } = useQuery({
     queryKey: ["interns"],
     queryFn: () => internService.getInterns(),
-    select: (data) => data.data.data,
+    select: (data) => data.data.data.items,
   })
 
   const [searchTerm, setSearchTerm] = useState<string>("")
@@ -31,6 +31,11 @@ export default function Page() {
     } catch (error) {
       toast.error("Failed to delete this internship.")
     }
+  }
+
+  const capitalizeFirstLetter = (text: string): string => {
+    if (!text) return text
+    return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase()
   }
 
   const filteredInternship = Array.isArray(interns)
@@ -72,7 +77,7 @@ export default function Page() {
             <div className="flex flex-col items-center py-6">
               <Image
                 className="mb-3 h-24 w-24 rounded-full p-4 shadow-lg"
-                src="/logo.png"
+                src={intern.imgUrl || "/logo.png"}
                 alt={intern.fullname}
                 width={96}
                 height={96}
@@ -82,7 +87,7 @@ export default function Page() {
                 <MdMail /> {intern.email}
               </span>
               <span className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
-                <MdOutlineTransgender /> {intern.gender}
+                <MdOutlineTransgender /> {capitalizeFirstLetter(intern.gender)}
               </span>
               <span className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
                 <MdCake /> {intern.dob}

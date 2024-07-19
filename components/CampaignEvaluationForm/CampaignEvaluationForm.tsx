@@ -21,7 +21,7 @@ const CampaignForm = () => {
   const { data: campaigns } = useQuery({
     queryKey: ["campaigns"],
     queryFn: () => campaignService.getCampaigns(),
-    select: (data) => data.data.data,
+    select: (data) => data.data.data.items,
   })
 
   // Get campaign evaluation id from query params

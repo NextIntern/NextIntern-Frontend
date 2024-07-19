@@ -34,6 +34,15 @@ const routes = {
   internEvlList: "/intern-evaluation",
   internEvlCreate: "/intern-evaluation/create",
   internEvlEdit: "/intern-evaluation/edit",
+  // Internship evaluation criteria routes
+  internEvlCriteriaList: "/intern-evaluation-criteria",
+  internEvlCriteriaCreate: "/intern-evaluation-criteria/create",
+  internEvlCriteriaEdit: "/intern-evaluation-criteria/edit",
+  // Campaign question
+  campaignQuestionList: "/hr/campaign-question",
+  campaignQuestionCreate: "/hr/campaign-question/create",
+  campaignQuestionEdit: "/hr/campaign-question/edit",
+
 }
 
 export default routes

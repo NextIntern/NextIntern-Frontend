@@ -19,14 +19,14 @@ const InternEvaluationForm = () => {
   const { data: campaignEvls } = useQuery({
     queryKey: ["campaignEvls"],
     queryFn: () => campaignEvaluationService.getCampaignEvaluations(),
-    select: (data) => data.data.data,
+    select: (data) => data.data.data.items,
   })
 
   // Get all internships
   const { data: interns } = useQuery({
     queryKey: ["interns"],
     queryFn: () => internService.getInterns(),
-    select: (data) => data.data.data,
+    select: (data) => data.data.data.items,
   })
 
   // Get intern evaluation id from query params

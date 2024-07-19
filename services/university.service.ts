@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios"
-import { ResponseObject, University, UniversityRequest } from "@/types"
+import { Pagination, ResponseObject, University, UniversityRequest } from "@/types"
 import { get, post, put, remove } from "@/utils/axios"
 
 export const END_POINT = {
@@ -10,8 +10,8 @@ export const END_POINT = {
 }
 
 class UniversityService {
-  getUniversities(): Promise<AxiosResponse<ResponseObject<University[]>>> {
-    return get(END_POINT.GET_ALL_UNIVERSITY)
+  getUniversities(): Promise<AxiosResponse<ResponseObject<Pagination<University>>>> {
+    return get(END_POINT.GET_ALL_UNIVERSITY, { pageNo: 1, pageSize: 999999 })
   }
 
   getUniversityById(universityId: string) {

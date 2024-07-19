@@ -1,6 +1,7 @@
 "use client"
 
 import { useQuery } from "@tanstack/react-query"
+import { Table } from "antd"
 import Link from "next/link"
 import { useState } from "react"
 import toast from "react-hot-toast"
@@ -9,14 +10,11 @@ import config from "@/config"
 import { internEvaluationService } from "@/services"
 import { InternEvaluation } from "@/types"
 
-const headerName = ["Intern Evaluation ID", "Intern Full Name", "Campaign Evaluation ID", "Feedback"]
-const viewData: (keyof InternEvaluation)[] = ["internEvaluationId", "internName", "campaignEvaluationId", "feedback"]
-
 export default function Page() {
   const { data: internEvls, refetch } = useQuery({
     queryKey: ["internEvls"],
     queryFn: () => internEvaluationService.getInternEvls(),
-    select: (data) => data.data.data,
+    select: (data) => data.data.data.items,
   })
 
   const [searchTerm, setSearchTerm] = useState<string>("")
@@ -38,6 +36,48 @@ export default function Page() {
   const filteredInternEvls = Array.isArray(internEvls)
     ? internEvls.filter((internEvl) => internEvl.internName.toLowerCase().includes(searchTerm.toLowerCase()))
     : []
+
+  const columns = [
+    {
+      title: "No",
+      dataIndex: "no",
+      key: "no",
+      render: (_: string, __: InternEvaluation, index: number) => index + 1,
+    },
+    {
+      title: "Intern Full Name",
+      dataIndex: "internName",
+      key: "internName",
+    },
+    // {
+    //   title: "Campaign Evaluation ID",
+    //   dataIndex: "campaignEvaluationId",
+    //   key: "campaignEvaluationId",
+    // },
+    {
+      title: "Feedback",
+      dataIndex: "feedback",
+      key: "feedback",
+    },
+    {
+      title: "Action",
+      dataIndex: "action",
+      key: "action",
+      render: (_: string, record: InternEvaluation) => (
+        <div className="flex items-center gap-2">
+          <Link
+            href={`${config.routes.internEvlEdit}?internEvaluationId=${record.internEvaluationId}`}
+            className="text-primary"
+          >
+            Edit
+          </Link>
+          <span className="cursor-pointer text-primary" onClick={() => handleDelete(record.internEvaluationId)}>
+            Delete
+          </span>
+        </div>
+      ),
+    },
+  ]
 
   return (
     <section className="container mx-auto px-4">
@@ -65,74 +105,8 @@ export default function Page() {
         </Link>
       </div>
 
-      <div className="mt-8 flex flex-col">
-        <div
-          className="overflow-x-auto border border-gray-200 dark:border-gray-700 md:rounded-lg"
-          style={{ maxHeight: "500px" }}
-        >
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-              <thead className="bg-gray-50 dark:bg-gray-800">
-                <tr>
-                  {headerName.map((name) => (
-                    <th
-                      key={name}
-                      className="px-4 py-3.5 text-left text-sm font-semibold text-gray-500 rtl:text-right dark:text-gray-400"
-                    >
-                      {name}
-                    </th>
-                  ))}
-                  <th className="relative px-4 py-3.5">
-                    <span className="sr-only">Edit</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-900">
-                {filteredInternEvls.map((internEvl) => (
-                  <tr key={internEvl.internEvaluationId}>
-                    {viewData.map((data) => (
-                      <td key={data} className="whitespace-nowrap p-4 text-sm">
-                        <div>
-                          <h4 className="text-gray-700 dark:text-gray-200">{String(internEvl[data])}</h4>
-                        </div>
-                      </td>
-                    ))}
-
-                    <td className="whitespace-nowrap p-4 text-sm">
-                      <Link
-                        href={`${config.routes.internEvlEdit}?internEvaluationId=${internEvl.internEvaluationId}`}
-                        className="text-primary"
-                      >
-                        Edit
-                      </Link>
-                      <span className="mx-2">|</span>
-                      <span
-                        className="cursor-pointer text-primary"
-                        onClick={() => handleDelete(internEvl.internEvaluationId)}
-                      >
-                        Delete
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          {filteredInternEvls.length === 0 && (
-            <div className="px-4 py-3 text-center text-gray-500 dark:text-gray-200">No intern evaluations found.</div>
-          )}
-        </div>
-      </div>
-      <div className="mt-6 flex items-center justify-between">
-        <button className="rounded-md border bg-white px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-          Previous
-        </button>
-        <div className="flex items-center space-x-2">
-          <button className="rounded-md border bg-white px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">1</button>
-          <button className="rounded-md border bg-white px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">2</button>
-          <button className="rounded-md border bg-white px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">3</button>
-        </div>
-        <button className="rounded-md border bg-white px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Next</button>
+      <div className="mt-8 flex flex-col overflow-x-auto">
+        <Table dataSource={filteredInternEvls} columns={columns} />
       </div>
     </section>
   )

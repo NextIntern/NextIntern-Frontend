@@ -1,4 +1,7 @@
 import { AxiosResponse } from "axios"
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
+import { v4 } from "uuid"
+import { imageDb } from "@/config/firebase"
 import { FormCriteria, ResponseObject } from "@/types"
 import { get, post } from "@/utils/axios"
 
@@ -14,6 +17,15 @@ class FileService {
 
   importIntern(formData: FormData): Promise<AxiosResponse<ResponseObject<FormCriteria>>> {
     return post(END_POINT.IMPORT_INTERN, formData)
+  }
+
+  uploadFile(image: File, folderName: string, callback: any) {
+    const imgRef = ref(imageDb, `${folderName}/${v4()}`)
+    uploadBytes(imgRef, image).then(() => {
+      getDownloadURL(imgRef).then((url: string) => {
+        callback(url)
+      })
+    })
   }
 }
 

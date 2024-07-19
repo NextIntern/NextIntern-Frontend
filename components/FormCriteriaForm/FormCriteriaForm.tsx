@@ -19,7 +19,7 @@ const FormCriteriaForm = () => {
   const { data: evaluationForms } = useQuery({
     queryKey: ["evaluationForms"],
     queryFn: () => evaluationFormService.getEvaluationForms(),
-    select: (data) => data.data.data,
+    select: (data) => data.data.data.items,
   })
 
   // Get campaign id from query params
@@ -45,7 +45,7 @@ const FormCriteriaForm = () => {
 
     form.setFieldsValue({
       ...formCriteria,
-      evaluationFormId: formCriteria.universityName,
+      evaluationFormId: formCriteria.evaluationForm.evaluationFormId,
     })
   }, [form, formCriteria, formCriteriaId])
 

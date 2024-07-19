@@ -1,7 +1,6 @@
 "use client"
 
 import "styles/tailwind.css"
-import { GithubOutlined, GoogleOutlined, TwitterOutlined } from "@ant-design/icons"
 import { Button, ConfigProvider, Divider, Form, Input } from "antd"
 import { setCookie } from "cookies-next"
 import Image from "next/image"
@@ -10,24 +9,13 @@ import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
 
 import config from "@/config"
+import { env } from "@/env.mjs"
 import { loginService } from "@/services"
 
 type LoginFormType = {
   username: string
   password: string
 }
-
-const BUTTON_GROUP = [
-  {
-    icon: <GoogleOutlined />,
-  },
-  {
-    icon: <GithubOutlined />,
-  },
-  {
-    icon: <TwitterOutlined />,
-  },
-]
 
 export default function RootLayout() {
   const router = useRouter()
@@ -49,6 +37,10 @@ export default function RootLayout() {
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo)
+  }
+
+  const loginGoogle = () => {
+    window.location.href = `${env.NEXT_PUBLIC_API_URL}/api/v1/auth/signin-google`
   }
 
   return (
@@ -111,9 +103,9 @@ export default function RootLayout() {
               </ConfigProvider>
             </div>
             <div className="flex justify-center space-x-4 pt-4">
-              {BUTTON_GROUP.map((item, index) => (
-                <Button key={index} icon={item.icon} shape="circle" />
-              ))}
+              <Button className="text-bold w-full text-primary shadow-lg" onClick={loginGoogle}>
+                Login with Google
+              </Button>
             </div>
           </Form>
         </div>

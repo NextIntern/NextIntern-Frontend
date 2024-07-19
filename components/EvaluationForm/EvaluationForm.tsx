@@ -17,9 +17,9 @@ import { University } from "@/types"
 const EvaluationFormComponent = () => {
   // Get all universities
   const { data: universities } = useQuery({
-    queryKey: ["university"],
+    queryKey: ["universities"],
     queryFn: () => universityService.getUniversities(),
-    select: (data) => data.data.data,
+    select: (data) => data.data.data.items,
   })
 
   // Get campaign id from query params
