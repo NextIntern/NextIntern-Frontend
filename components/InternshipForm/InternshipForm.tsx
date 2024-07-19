@@ -170,6 +170,10 @@ const InternshipForm = () => {
       formData.append("File", file)
     }
     formData.append("CampaignId", "2f1ec965-2c99-4697-bd6b-cd0725156805") // TODO: Add campaign id
+
+    // TODO: Cannot import from excel
+    // fileService.importIntern(formData)
+
     toast.success("Import successfully")
     router.push(config.routes.internshipList)
   }
