@@ -42,7 +42,6 @@ const routes = {
   campaignQuestionList: "/hr/campaign-question",
   campaignQuestionCreate: "/hr/campaign-question/create",
   campaignQuestionEdit: "/hr/campaign-question/edit",
-
 }
 
 export default routes

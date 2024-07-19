@@ -44,7 +44,9 @@ export default function Page() {
       title: "No",
       dataIndex: "no",
       key: "no",
-      render: (_: string, __: InternEvaluationCriteria, index: number) => <text className="font-bold">{index + 1}</text>,
+      render: (_: string, __: InternEvaluationCriteria, index: number) => (
+        <text className="font-bold">{index + 1}</text>
+      ),
     },
     {
       title: "Intern Name",
