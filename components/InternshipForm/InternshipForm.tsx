@@ -1,18 +1,18 @@
 "use client"
 
 import "./styles.css"
-
 import { useQuery } from "@tanstack/react-query"
 import { Col, DatePicker, Form, Image, Input, Row, Select } from "antd"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
+import * as XLSX from "xlsx"
 
-import { InternshipFormType } from "./InternshipForm.type"
 import config from "@/config"
 import { useParam } from "@/hooks"
 import { evaluationFormService, fileService, internService } from "@/services"
 import { DATE_FORMAT, GENDERS } from "@/utils/constants"
+import { InternshipFormType } from "./InternshipForm.type"
 
 const InternshipForm = () => {
   const [imgUrl, setImgUrl] = useState("")
@@ -166,6 +166,13 @@ const InternshipForm = () => {
     event.preventDefault()
     const formData = new FormData()
     const file = event.target.files?.[0]
+
+    const validTypes = ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.ms-excel"]
+    if (!validTypes.includes(file.type)) {
+      toast.error("Please upload a valid Excel file")
+      return
+    }
+
     if (file) {
       formData.append("File", file)
     }

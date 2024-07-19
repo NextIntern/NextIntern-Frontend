@@ -33,6 +33,11 @@ export default function Page() {
     }
   }
 
+  const capitalizeFirstLetter = (text: string): string => {
+    if (!text) return text
+    return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase()
+  }
+
   const filteredInternship = Array.isArray(interns)
     ? interns.filter((intern) => intern.fullname.toLowerCase().includes(searchTerm.toLowerCase()))
     : []
@@ -82,7 +87,7 @@ export default function Page() {
                 <MdMail /> {intern.email}
               </span>
               <span className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
-                <MdOutlineTransgender /> {intern.gender}
+                <MdOutlineTransgender /> {capitalizeFirstLetter(intern.gender)}
               </span>
               <span className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
                 <MdCake /> {intern.dob}
