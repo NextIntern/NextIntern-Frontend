@@ -1,4 +1,4 @@
-import  campaignQuestionService  from "./campaign-question.service";
+import campaignQuestionService from "./campaign-question.service"
 import campaignEvaluationService from "./campaign-evaluation.service"
 import campaignService from "./campaign.service"
 import dashboardService from "./dashboard.service"
@@ -25,5 +25,5 @@ export {
   fileService,
   dashboardService,
   evaluateInternService,
-  campaignQuestionService
+  campaignQuestionService,
 }

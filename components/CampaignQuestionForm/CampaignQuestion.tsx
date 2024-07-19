@@ -22,13 +22,13 @@ const CampaignQuestionForm = () => {
     select: (data) => data.data.data.items,
   })
   //Get interns
-  const {data: interns} = useQuery({
+  const { data: interns } = useQuery({
     queryKey: ["interns"],
     queryFn: () => internService.getInterns(),
     select: (data) => data.data.data.items,
   })
   // Get campaign evaluation id from query params
-  const campaignQuestionId = useParam("campaignQuestionId",)
+  const campaignQuestionId = useParam("campaignQuestionId")
 
   // Get campaign evaluation by id
   const { data: campaignQuestion } = useQuery({
@@ -49,7 +49,6 @@ const CampaignQuestionForm = () => {
     if (!campaignQuestion || !campaignQuestionId) return
 
     form.setFieldsValue({
-      
       campaignId: campaignQuestion.campaignQuestionId,
     })
   }, [campaignQuestion, campaignQuestionId, form])
@@ -63,7 +62,7 @@ const CampaignQuestionForm = () => {
     const data = {
       ...values,
       id: campaignQuestionId,
-      campaignId:values.campaign
+      campaignId: values.campaign,
     }
 
     try {
@@ -99,7 +98,7 @@ const CampaignQuestionForm = () => {
       name: "question",
       Input: <Input type="text" className={className} />,
     },
-  
+
     {
       label: "Campaign",
       name: "campaignId",

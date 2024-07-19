@@ -35,7 +35,7 @@ export default function Page() {
 
   const filteredCampaignQuestion = Array.isArray(campaignQuestion)
     ? campaignQuestion.filter((campaignQuestion) =>
-      campaignQuestion.campaignQuestionId.toLowerCase().includes(searchTerm.toLowerCase())
+        campaignQuestion.campaignQuestionId.toLowerCase().includes(searchTerm.toLowerCase())
       )
     : []
 
