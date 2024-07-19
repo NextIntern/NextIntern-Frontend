@@ -56,13 +56,11 @@ export default function Page() {
   })
 
   // Get top 5 interns
-  const { data: interns } = useQuery({
+  const { data: topInterns } = useQuery({
     queryKey: ["top-intern"],
     queryFn: () => dashboardService.getFiveMostIntern(),
     select: (data) => data.data.data,
   })
-
-  console.log(interns)
 
   const columns = [
     {
@@ -114,7 +112,7 @@ export default function Page() {
         <div className="grid grid-cols-3 gap-6">
           <div className="col-span-2 rounded-lg bg-white p-6 shadow-md">
             <h2 className="mb-4 text-2xl font-semibold">Top 5 internships</h2>
-            <Table dataSource={interns} columns={columns} />
+            <Table dataSource={topInterns} columns={columns} />
             {/* <BarChart /> */}
           </div>
           <div className="rounded-lg bg-white p-6 shadow-md">

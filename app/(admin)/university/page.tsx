@@ -1,7 +1,7 @@
 "use client"
 
 import { useQuery } from "@tanstack/react-query"
-import Image from "next/image"
+import { Image } from "antd"
 import Link from "next/link"
 import { useState } from "react"
 import toast from "react-hot-toast"
@@ -71,9 +71,7 @@ export default function Page() {
             className="max-w-sm rounded-lg border border-gray-200 bg-white shadow dark:border-gray-700 dark:bg-gray-800"
           >
             <Image
-              width={120}
-              height={120}
-              className="mx-auto rounded-t-lg"
+              className="mx-auto h-24 w-24 rounded-t-lg"
               src={uni.imgUrl || "/logo.png"}
               alt={uni.universityName}
             />
