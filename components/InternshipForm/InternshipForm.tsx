@@ -166,19 +166,19 @@ const InternshipForm = () => {
     event.preventDefault()
     const formData = new FormData()
     const file = event.target.files?.[0]
-
-    const validTypes = ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/vnd.ms-excel"]
-    if (!validTypes.includes(file.type)) {
-      toast.error("Please upload a valid Excel file")
-      return
-    }
-
     if (file) {
       formData.append("File", file)
-    }
-    formData.append("CampaignId", "2f1ec965-2c99-4697-bd6b-cd0725156805") // TODO: Add campaign id
 
-    // TODO: Cannot import from excel
+      const validTypes = [
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "application/vnd.ms-excel",
+      ]
+      if (!validTypes.includes(file.type)) {
+        toast.error("Please upload a valid Excel file")
+        return
+      }
+    }
+    // formData.append("CampaignId", "2f1ec965-2c99-4697-bd6b-cd0725156805")  TODO: Add campaign id
     // fileService.importIntern(formData)
 
     toast.success("Import successfully")
