@@ -199,3 +199,16 @@ export type InternEvlCriteriaRequest = {
   formCriteriaId: string
   score: number
 }
+
+export type CampaignQuestion = {
+  campaignQuestionId: string
+  campaignId: string
+  question: string
+  createDate: Date
+  modifyDate: Date
+}
+
+export type CampaignQuestionRequest = {
+  campaignQuestionId: string
+  campaignId: string
+}
