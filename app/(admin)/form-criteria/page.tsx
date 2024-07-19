@@ -42,7 +42,7 @@ export default function Page() {
       title: "No",
       dataIndex: "no",
       key: "no",
-      render: (_: string, __: FormCriteria, index: number) => index + 1,
+      render: (_: string, __: FormCriteria, index: number) => <text className="font-bold">{index + 1}</text>,
     },
     {
       title: "Name",

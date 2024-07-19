@@ -50,7 +50,7 @@ export default function Page() {
       title: "University",
       dataIndex: "university",
       key: "university",
-      render: (university: University) => <text className="font-bold">{university?.universityName}</text>,
+      render: (university: University) => university?.universityName,
     },
     {
       title: "Created Date",
