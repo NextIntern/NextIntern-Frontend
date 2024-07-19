@@ -44,13 +44,13 @@ export default function Page() {
       title: "No",
       dataIndex: "no",
       key: "no",
-      render: (_: string, __: EvaluationForm, index: number) => index + 1,
+      render: (_: string, __: EvaluationForm, index: number) => <text className="font-bold">{index + 1}</text>,
     },
     {
       title: "University",
       dataIndex: "university",
       key: "university",
-      render: (university: University) => university?.universityName,
+      render: (university: University) => <text className="font-bold">{university?.universityName}</text>,
     },
     {
       title: "Created Date",
@@ -66,7 +66,9 @@ export default function Page() {
       title: "Status",
       dataIndex: "isActive",
       key: "isActive",
-      render: (isActive: boolean) => (isActive ? "Active" : "Inactive"),
+      render: (isActive: boolean) => (
+        <span style={{ color: isActive ? "blue" : "silver" }}>{isActive ? "Active" : "Inactive"}</span>
+      ),
     },
     {
       title: "Action",
