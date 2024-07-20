@@ -7,13 +7,16 @@ import { useState } from "react"
 import toast from "react-hot-toast"
 
 import config from "@/config"
+import { useParam } from "@/hooks"
 import { campaignEvaluationService } from "@/services"
 import { CampaignEvaluation } from "@/types"
 
 export default function Page() {
+  const universityId = useParam("universityId")
+
   const { data: campaignEvaluations, refetch } = useQuery({
     queryKey: ["campaignEvaluations"],
-    queryFn: () => campaignEvaluationService.getCampaignEvaluations(),
+    queryFn: () => campaignEvaluationService.getCampaignEvlByUniversity(universityId),
     select: (data) => data.data.data.items,
   })
 

@@ -1,15 +1,11 @@
-import { useEffect, useState } from "react"
+'use client'
 
-const useUrlParameter = (paramName: string) => {
-  const [paramValue, setParamValue] = useState("")
+import { useSearchParams } from 'next/navigation'
 
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search)
-    const value = params.get(paramName) ?? ""
-    setParamValue(value)
-  }, [paramName])
+const useUrlParameter = (paramName: string): string => {
+  const searchParams = useSearchParams()
 
-  return paramValue
+  return searchParams.get(paramName) ?? ""
 }
 
 export default useUrlParameter

@@ -75,6 +75,7 @@ export type Intern = {
   modifyDate: Date
   deletedDate?: Date
   imgUrl: string
+  universityName: string
 }
 
 export type InternRequest = {
@@ -211,4 +212,15 @@ export type CampaignQuestion = {
 export type CampaignQuestionRequest = {
   campaignQuestionId: string
   campaignId: string
+}
+
+export type InternEvlCriteriaList = {
+  formCriteriaId: string
+  score: number
+}
+
+export type ScoreRequest = {
+  internEvaluationCriterias: InternEvlCriteriaList[],
+  internId: string
+  campaignEvaluationId: string
 }

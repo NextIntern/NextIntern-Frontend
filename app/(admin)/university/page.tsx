@@ -76,9 +76,12 @@ export default function Page() {
               alt={uni.universityName}
             />
             <div className="p-5">
-              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+              <Link
+                href={`${config.routes.manageUniversity}?universityId=${uni.universityId}`}
+                className="mb-2 text-2xl font-bold tracking-tight text-gray-900 hover:text-primary dark:text-white"
+              >
                 {uni.universityName}
-              </h5>
+              </Link>
               <p className="mb-3 flex items-center gap-1 font-normal text-gray-700 dark:text-gray-400">
                 <MdLocationOn />
                 {uni.address}

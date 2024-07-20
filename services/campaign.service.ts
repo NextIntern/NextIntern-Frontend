@@ -7,6 +7,7 @@ export const END_POINT = {
   GET_CAMPAIGN: "/api/v1/campaign",
   CREATE_CAMPAIGN: "/api/v1/campaign/create",
   UPDATE_CAMPAIGN: "/api/v1/campaign/update",
+  GET_CAMPAIGN_BY_UNIVERSITY: "/api/v1/campaign/university",
 }
 
 class CampaignService {
@@ -28,6 +29,10 @@ class CampaignService {
 
   deleteCampaign(campaignId: string) {
     return remove(`${END_POINT.GET_CAMPAIGN}/${campaignId}`)
+  }
+
+  getCampaignByUniversity(universityId: string): Promise<AxiosResponse<ResponseObject<Pagination<Campaign>>>> {
+    return get(`${END_POINT.GET_CAMPAIGN_BY_UNIVERSITY}/${universityId}`)
   }
 }
 

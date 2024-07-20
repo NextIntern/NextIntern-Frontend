@@ -7,20 +7,14 @@ import { useState } from "react"
 import toast from "react-hot-toast"
 
 import config from "@/config"
-import { useParam } from "@/hooks"
 import { evaluationFormService } from "@/services"
 import { EvaluationForm, University } from "@/types"
 
 export default function Page() {
-  const universityId = useParam("universityId")
-
-  console.log("universityId", universityId)
-
   const { data: evaluationForms, refetch } = useQuery({
     queryKey: ["evaluationForms"],
-    queryFn: () => evaluationFormService.getEvlFormByUniversity(universityId),
+    queryFn: () => evaluationFormService.getEvaluationForms(),
     select: (data) => data.data.data.items,
-    enabled: !!universityId,
   })
 
   const [searchTerm, setSearchTerm] = useState<string>("")
@@ -94,7 +88,7 @@ export default function Page() {
       <div className="sm:flex sm:items-center sm:justify-between">
         <div>
           <div className="flex items-center gap-x-3">
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Evaluation Form</h2>
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Campaign Questions</h2>
             <span className="rounded-full bg-blue-100 px-3 py-1 text-xs text-secondary dark:bg-gray-800 dark:text-blue-400">
               {filteredEvaluationForms?.length ?? 0} evaluation forms
             </span>
@@ -107,12 +101,12 @@ export default function Page() {
           value={searchTerm}
           onChange={handleSearch}
         />
-        <Link
+        {/* <Link
           href={config.routes.evaluationFormCreate}
           className="rounded-md bg-gradient-to-r from-primary to-secondary px-6 py-2.5 font-semibold leading-5 text-white transition-colors duration-300 focus:outline-none"
         >
           Add Evaluation Form
-        </Link>
+        </Link> */}
       </div>
 
       <div className="mt-8 flex flex-col overflow-x-auto">
