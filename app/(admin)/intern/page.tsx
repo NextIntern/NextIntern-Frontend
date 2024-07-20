@@ -6,14 +6,17 @@ import Link from "next/link"
 import { useState } from "react"
 import toast from "react-hot-toast"
 
-import { MdCake, MdMail, MdOutlineTransgender, MdPhone } from "react-icons/md"
+import { MdCake, MdMail, MdOutlineTransgender, MdPhone, MdSchool } from "react-icons/md"
 import config from "@/config"
+import { useParam } from "@/hooks"
 import { internService } from "@/services"
 
 export default function Page() {
+  const universityId = useParam("universityId")
+
   const { data: interns, refetch } = useQuery({
     queryKey: ["interns"],
-    queryFn: () => internService.getInterns(),
+    queryFn: () => internService.getInternByUniversity(universityId),
     select: (data) => data.data.data.items,
   })
 
@@ -89,6 +92,9 @@ export default function Page() {
               </span>
               <span className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
                 <MdPhone /> {intern.telephone}
+              </span>
+              <span className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
+                <MdSchool /> {intern.universityName}
               </span>
               <div className="mt-4 flex md:mt-6">
                 <Link

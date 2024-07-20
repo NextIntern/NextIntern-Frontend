@@ -7,13 +7,16 @@ import { useState } from "react"
 import toast from "react-hot-toast"
 
 import config from "@/config"
+import { useParam } from "@/hooks"
 import campaignService from "@/services/campaign.service"
 import { Campaign } from "@/types"
 
-export default function Page() {
+export default function Page({ setCampaignId }: { setCampaignId: Function }) {
+  const universityId = useParam("universityId")
+
   const { data: campaigns, refetch } = useQuery({
     queryKey: ["campaigns"],
-    queryFn: () => campaignService.getCampaigns(),
+    queryFn: () => campaignService.getCampaignByUniversity(universityId),
     select: (data) => data.data.data.items,
   })
 
@@ -48,6 +51,11 @@ export default function Page() {
       title: "Campaign Name",
       dataIndex: "campaignName",
       key: "campaignName",
+      render: (campaignName: string, record: Campaign) => (
+        <span className="cursor-pointer text-primary" onClick={() => setCampaignId(record.campaignId)}>
+          {campaignName}
+        </span>
+      ),
     },
     {
       title: "University",

@@ -39,10 +39,11 @@ const routes = {
   internEvlCriteriaCreate: "/intern-evaluation-criteria/create",
   internEvlCriteriaEdit: "/intern-evaluation-criteria/edit",
   // Campaign question
-  campaignQuestionList: "/hr/campaign-question",
-  campaignQuestionCreate: "/hr/campaign-question/create",
-  campaignQuestionEdit: "/hr/campaign-question/edit",
-
+  campaignQuestionList: "/campaign-question",
+  campaignQuestionCreate: "/campaign-question/create",
+  campaignQuestionEdit: "/campaign-question/edit",
+  // University management
+  universityMgmt: "/university/manage"
 }
 
 export default routes

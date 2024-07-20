@@ -84,6 +84,7 @@ export default function RootLayout() {
 
             <Form.Item>
               <Button
+                type="primary"
                 htmlType="submit"
                 className="background-transparent text-bold w-full bg-gradient-to-r from-secondary to-primary text-white shadow-lg"
               >
@@ -103,7 +104,7 @@ export default function RootLayout() {
               </ConfigProvider>
             </div>
             <div className="flex justify-center space-x-4 pt-4">
-              <Button className="text-bold w-full text-primary shadow-lg" onClick={loginGoogle}>
+              <Button type="primary" className="text-bold w-full text-primary shadow-lg" onClick={loginGoogle}>
                 Login with Google
               </Button>
             </div>

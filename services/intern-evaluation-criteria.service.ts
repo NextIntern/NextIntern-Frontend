@@ -1,11 +1,12 @@
 import { AxiosResponse } from "axios"
-import { InternEvaluationCriteria, InternEvlCriteriaRequest, Pagination, ResponseObject } from "@/types"
+import { InternEvaluationCriteria, InternEvlCriteriaRequest, Pagination, ResponseObject, ScoreRequest } from "@/types"
 import { get, post, put, remove } from "@/utils/axios"
 
 export const END_POINT = {
   GET_ALL_INTERN_EVALUATION_CRITERIA: "/api/v1/intern-evaluation-criteria/all",
   GET_INTERN_EVALUATION_CRITERIA: "/api/v1/intern-evaluation-criteria",
   CREATE_INTERN_EVALUATION_CRITERIA: "/api/v1/intern-evaluation-criteria/create",
+  EVALUATE_INTERN: "/api/v1/intern-evaluation-criteria/create-list",
   UPDATE_INTERN_EVALUATION_CRITERIA: "/api/v1/intern-evaluation-criteria/update",
 }
 
@@ -28,6 +29,10 @@ class EvaluateInternService {
 
   delete(internEvlId: string) {
     return remove(`${END_POINT.GET_INTERN_EVALUATION_CRITERIA}/${internEvlId}`)
+  }
+
+  evaluateIntern(scores: ScoreRequest) {
+    return post(END_POINT.EVALUATE_INTERN, scores)
   }
 }
 

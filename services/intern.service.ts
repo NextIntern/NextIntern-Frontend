@@ -7,6 +7,7 @@ export const END_POINT = {
   GET_INTERN: "/api/v1/intern",
   CREATE_INTERN: "/api/v1/intern/create",
   UPDATE_INTERN: "/api/v1/intern/update",
+  GET_INTERN_BY_UNIVERSITY: "/api/v1/intern/university"
 }
 
 class InternService {
@@ -28,6 +29,10 @@ class InternService {
 
   deleteIntern(internId: string) {
     return remove(`${END_POINT.GET_INTERN}/${internId}`)
+  }
+
+  getInternByUniversity(universityId: string): Promise<AxiosResponse<ResponseObject<Pagination<Intern>>>> {
+    return get(`${END_POINT.GET_INTERN_BY_UNIVERSITY}/${universityId}`)
   }
 }
 
