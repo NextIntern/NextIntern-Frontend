@@ -58,14 +58,11 @@ export default function InternshipList({ campaignId }: { campaignId: string }) {
     {
       title: "Action",
       key: "action",
-      render: (_: string, record: Intern) =>
-        record.state === "Completed" ? (
-          <span className="text-slate-500">Evaluate</span>
-        ) : (
-          <span className="cursor-pointer text-primary" onClick={() => setInternId(record.userId)}>
-            Evaluate
-          </span>
-        ),
+      render: (_: string, record: Intern) => (
+        <span className="cursor-pointer text-primary" onClick={() => setInternId(record.userId)}>
+          Evaluate
+        </span>
+      ),
     },
   ]
 
