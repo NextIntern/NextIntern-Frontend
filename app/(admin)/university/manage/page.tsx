@@ -28,7 +28,7 @@ export default function Page() {
     {
       key: "1",
       label: "Campaign Evaluation",
-      children: <CampaignEvaluationList />,
+      children: <CampaignEvaluationList campaignId={campaignId} />,
       icon: <MdOutlineSchool />,
     },
     {
