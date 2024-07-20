@@ -7,18 +7,15 @@ import { useState } from "react"
 
 import EvaluateInternForm from "../EvaluateInternForm"
 import config from "@/config"
-import { useParam } from "@/hooks"
 import { internService } from "@/services"
 import { Campaign, Intern } from "@/types"
 
-export default function InternshipList() {
+export default function InternshipList({ campaignId }: { campaignId: string }) {
   const [internId, setInternId] = useState("")
-
-  const universityId = useParam("universityId")
 
   const { data: interns } = useQuery({
     queryKey: ["interns"],
-    queryFn: () => internService.getInternByUniversity(universityId),
+    queryFn: () => internService.getInternByCampaign(campaignId),
     select: (data) => data.data.data.items,
   })
 
@@ -61,11 +58,14 @@ export default function InternshipList() {
     {
       title: "Action",
       key: "action",
-      render: (_: string, record: Intern) => (
-        <span className="cursor-pointer text-primary" onClick={() => setInternId(record.userId)}>
-          Evaluate
-        </span>
-      ),
+      render: (_: string, record: Intern) =>
+        record.state === "Completed" ? (
+          <span className="text-slate-500">Evaluate</span>
+        ) : (
+          <span className="cursor-pointer text-primary" onClick={() => setInternId(record.userId)}>
+            Evaluate
+          </span>
+        ),
     },
   ]
 

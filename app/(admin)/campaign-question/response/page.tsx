@@ -11,7 +11,6 @@ import { CampaignQuestionResponse } from "@/types"
 
 export default function Page() {
   const campaignQuestionId = useParam("campaignQuestionId")
-  console.log(campaignQuestionId)
 
   const { data: responses, refetch } = useQuery({
     queryKey: ["responses"],

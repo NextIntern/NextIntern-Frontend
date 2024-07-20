@@ -15,8 +15,6 @@ import { EvaluationForm, University } from "@/types"
 export default function Page() {
   const universityId = useParam("universityId")
 
-  console.log("universityId", universityId)
-
   const { data: evaluationForms, refetch } = useQuery({
     queryKey: ["evaluationForms"],
     queryFn: () => evaluationFormService.getEvlFormByUniversity(universityId),

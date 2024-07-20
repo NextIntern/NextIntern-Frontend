@@ -7,24 +7,20 @@ import type { TabsProps } from "antd"
 import { getCookie, setCookie } from "cookies-next"
 import { useState } from "react"
 import { MdArrowBack, MdChecklist, MdOutlineCampaign, MdOutlineSchool } from "react-icons/md"
+
 import CampaignEvaluationList from "@/app/(admin)/campaign-evaluation/page"
 import EvaluationFormList from "@/app/(admin)/evaluation-form/page"
 import InternshipUniList from "@/app/(admin)/intern/page"
 import CampaignList from "@/components/CampaignList"
 import InternshipEvlList from "@/components/InternshipList"
 import config from "@/config"
-import { useParam } from "@/hooks"
 
 const onChange = (key: string) => {
-  // localStorage.setItem(config.localStorage.tab, key)
   setCookie(config.localStorage.tab, key)
-  console.log(key)
 }
 
 export default function Page() {
   const [campaignId, setCampaignId] = useState("")
-  const universityId = useParam("universityId")
-  console.log(universityId, campaignId)
 
   const campaignItems: TabsProps["items"] = [
     {
@@ -36,7 +32,7 @@ export default function Page() {
     {
       key: "2",
       label: "Internship by Campaign",
-      children: <InternshipEvlList />,
+      children: <InternshipEvlList campaignId={campaignId} />,
       icon: <MdOutlineSchool />,
     },
   ]

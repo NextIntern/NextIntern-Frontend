@@ -106,7 +106,7 @@ export default function Page() {
         />
         <Link
           href={config.routes.campaignEvlCreate}
-          className="rounded-md bg-gradient-to-r from-primary to-secondary px-6 py-2.5 font-semibold leading-5 text-white transition-colors duration-300 focus:outline-none"
+          className="rounded-md bg-gradient-to-r from-primary to-secondary px-6 py-2.5 font-semibold leading-5 text-white transition-colors duration-300 hover:text-white focus:outline-none"
         >
           Add Campaign Evaluation
         </Link>

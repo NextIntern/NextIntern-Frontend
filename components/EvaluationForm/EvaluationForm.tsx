@@ -64,7 +64,7 @@ const EvaluationFormComponent = () => {
         await evaluationFormService.createEvaluationForm(data)
         toast.success("Evaluation form created successfully")
       }
-      router.push(config.routes.evaluationFormList)
+      router.push(config.routes.manageUniversity)
     } catch (error) {
       toast.error("An error occurred")
     }

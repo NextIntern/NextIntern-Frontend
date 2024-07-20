@@ -90,7 +90,7 @@ export default function Page() {
               </div>
               <div className="mb-3 flex items-center gap-1 font-normal text-gray-700 dark:text-gray-400">
                 <MdPhone />
-                <span>{uni.phone}</span>
+                <span>{uni.phone.replace(/(\d{4})(\d{3})(\d{3})/, "$1 $2 $3")}</span>
               </div>
               <div className="mt-4 flex md:mt-6">
                 <Link

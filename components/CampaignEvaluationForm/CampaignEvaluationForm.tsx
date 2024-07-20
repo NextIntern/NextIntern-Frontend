@@ -73,7 +73,7 @@ const CampaignForm = () => {
         await campaignEvaluationService.createCampaignEvaluation(data)
         toast.success("Campaign evaluation created successfully")
       }
-      router.push(config.routes.campaignEvlList)
+      router.push(config.routes.manageUniversity)
     } catch (error) {
       toast.error("Failed to create campaign evaluation")
     }

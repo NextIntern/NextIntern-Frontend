@@ -74,7 +74,7 @@ const CampaignForm = () => {
         await campaignService.createCampaign(data)
         toast.success("Campaign created successfully")
       }
-      router.push(config.routes.campaignList)
+      router.push(config.routes.manageUniversity)
     } catch (error) {
       toast.error("Failed to create campaign")
     }
