@@ -186,6 +186,7 @@ export type DashboardTop5Intern = {
   name: string
   score: number
   internMail: string
+  formCriteriaName: string
 }
 
 export type InternEvaluationCriteria = {
