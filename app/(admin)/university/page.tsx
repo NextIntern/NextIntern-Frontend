@@ -1,5 +1,7 @@
 "use client"
 
+import "./styles.css"
+
 import { useQuery } from "@tanstack/react-query"
 import { Image } from "antd"
 import Link from "next/link"
@@ -77,7 +79,7 @@ export default function Page() {
             />
             <div className="p-5">
               <Link
-                href={`${config.routes.universityMgmt}?universityId=${uni.universityId}`}
+                href={`${config.routes.manageUniversity}?universityId=${uni.universityId}`}
                 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 hover:text-primary dark:text-white"
               >
                 {uni.universityName}

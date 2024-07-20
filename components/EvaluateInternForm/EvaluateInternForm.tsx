@@ -86,7 +86,7 @@ const EvaluateInternForm = ({ internId }: { internId: string }) => {
               <div key={field.key} style={{ display: "flex", alignItems: "center" }}>
                 <Form.Item
                   label={`Form Criteria ${field.name + 1}`}
-                  name={[field.name, "criteria"]}
+                  name={[field.name, "formCriteriaId"]}
                   style={{ flex: 1 }}
                 >
                   <Select

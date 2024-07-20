@@ -43,7 +43,9 @@ const routes = {
   campaignQuestionCreate: "/campaign-question/create",
   campaignQuestionEdit: "/campaign-question/edit",
   // University management
-  universityMgmt: "/university/manage"
+  manageUniversity: "/university/manage",
+  // Campaign question response
+  campaignQuestionResponse: "/campaign-question/response",
 }
 
 export default routes

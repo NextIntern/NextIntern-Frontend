@@ -7,14 +7,18 @@ import { useState } from "react"
 import toast from "react-hot-toast"
 
 import config from "@/config"
+import { useParam } from "@/hooks"
 import { evaluateInternService } from "@/services"
 import { FormCriteria, InternEvaluation, InternEvaluationCriteria } from "@/types"
 
 export default function Page() {
+  const internId = useParam("internId")
+
   const { data: internScores, refetch } = useQuery({
     queryKey: ["intern-scores"],
     queryFn: () => evaluateInternService.getAll(),
-    select: (data) => data.data.data.items,
+    select: (data) =>
+      data.data.data.items.filter((internScore) => internScore.internEvaluationDto.internId === internId),
   })
 
   console.log(internScores)

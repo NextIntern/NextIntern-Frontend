@@ -38,6 +38,9 @@ export default function InternshipList() {
       title: "Fullname",
       dataIndex: "fullname",
       key: "fullname",
+      render: (fullname: string, record: Intern) => (
+        <Link href={`${config.routes.internEvlCriteriaList}?internId=${record.userId}`}>{fullname}</Link>
+      ),
     },
     {
       title: "Email",
@@ -49,6 +52,11 @@ export default function InternshipList() {
       dataIndex: "campaign",
       key: "campaign",
       render: (campaign: Campaign) => campaign?.campaignName,
+    },
+    {
+      title: "State",
+      dataIndex: "state",
+      key: "state",
     },
     {
       title: "Action",

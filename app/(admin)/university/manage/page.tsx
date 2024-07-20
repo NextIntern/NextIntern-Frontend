@@ -11,9 +11,11 @@ import CampaignEvaluationList from "@/app/(admin)/campaign-evaluation/page"
 import EvaluationFormList from "@/app/(admin)/evaluation-form/page"
 import InternshipUniList from "@/app/(admin)/intern/page"
 import InternshipEvlList from "@/components/InternshipList"
+import config from "@/config"
 import { useParam } from "@/hooks"
 
 const onChange = (key: string) => {
+  localStorage.setItem(config.localStorage.tab, key)
   console.log(key)
 }
 
@@ -26,7 +28,7 @@ export default function Page() {
     {
       key: "1",
       label: "Campaign Evaluation",
-      children: <CampaignEvaluationList />,
+      children: <CampaignEvaluationList campaignId={campaignId} />,
       icon: <MdOutlineSchool />,
     },
     {
@@ -58,7 +60,7 @@ export default function Page() {
           <Button onClick={() => setCampaignId("")} icon={<MdArrowBack />}>
             Back
           </Button>
-          <Tabs items={campaignItems} type="card" onChange={onChange} />
+          <Tabs items={campaignItems} type="card" />
         </>
       ) : (
         <CampaignList setCampaignId={setCampaignId} />
@@ -66,5 +68,12 @@ export default function Page() {
       icon: <MdOutlineCampaign />,
     },
   ]
-  return <Tabs items={items} type="card" onChange={onChange} />
+  return (
+    <Tabs
+      items={items}
+      type="card"
+      onChange={onChange}
+      defaultActiveKey={localStorage.getItem(config.localStorage.tab) ?? "1"}
+    />
+  )
 }

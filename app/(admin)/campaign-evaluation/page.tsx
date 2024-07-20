@@ -7,17 +7,14 @@ import { useState } from "react"
 import toast from "react-hot-toast"
 
 import config from "@/config"
-import { useParam } from "@/hooks"
 import { campaignEvaluationService } from "@/services"
 import { CampaignEvaluation } from "@/types"
 
-export default function Page() {
-  const universityId = useParam("universityId")
-
+export default function Page({ campaignId }: { campaignId: string }) {
   const { data: campaignEvaluations, refetch } = useQuery({
     queryKey: ["campaignEvaluations"],
-    queryFn: () => campaignEvaluationService.getCampaignEvlByUniversity(universityId),
-    select: (data) => data.data.data.items,
+    queryFn: () => campaignEvaluationService.getCampaignEvlByCampaign(campaignId),
+    select: (data) => data.data.data.items.filter((item: CampaignEvaluation) => item.campaignId === campaignId),
   })
 
   const [searchTerm, setSearchTerm] = useState<string>("")
