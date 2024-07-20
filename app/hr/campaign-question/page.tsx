@@ -35,7 +35,7 @@ export default function Page() {
 
   const filteredCampaignQuestion = Array.isArray(campaignQuestion)
     ? campaignQuestion.filter((campaignQuestion) =>
-      campaignQuestion.question.toLowerCase().includes(searchTerm.toLowerCase())
+        campaignQuestion.question.toLowerCase().includes(searchTerm.toLowerCase())
       )
     : []
 
@@ -46,7 +46,7 @@ export default function Page() {
       key: "no",
       render: (_: string, __: CampaignQuestion, index: number) => index + 1,
     },
-    
+
     {
       title: "Created Date",
       dataIndex: "createDate",
