@@ -72,8 +72,6 @@ const InternshipForm = () => {
       id: internId,
       roleName: "User",
       imgUrl,
-      campaignId: "33a1a8b8-dafa-4f46-bbba-a9628f36bd97", // TODO: Add campaign id
-      menterUsername: "mentor", // TODO: Add mentor username
     }
 
     try {
