@@ -4,6 +4,7 @@ import "./styles.css"
 
 import { useQuery } from "@tanstack/react-query"
 import { Col, Form, Row, Select, Switch } from "antd"
+import { getCookie } from "cookies-next"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 import toast from "react-hot-toast"
@@ -64,7 +65,9 @@ const EvaluationFormComponent = () => {
         await evaluationFormService.createEvaluationForm(data)
         toast.success("Evaluation form created successfully")
       }
-      router.push(config.routes.manageUniversity)
+
+      const universityId = getCookie("universityId")
+      router.push(`${config.routes.manageUniversity}?universityId=${universityId}`)
     } catch (error) {
       toast.error("An error occurred")
     }

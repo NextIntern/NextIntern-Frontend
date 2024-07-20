@@ -4,6 +4,7 @@ import "./styles.css"
 
 import { useQuery } from "@tanstack/react-query"
 import { Col, DatePicker, Form, Image, Input, Row, Select } from "antd"
+import { getCookie } from "cookies-next"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
@@ -79,7 +80,9 @@ const InternshipForm = () => {
         await internService.createIntern(data)
         toast.success("Intern created successfully")
       }
-      router.push(config.routes.manageUniversity)
+
+      const universityId = getCookie("universityId")
+      router.push(`${config.routes.manageUniversity}?universityId=${universityId}`)
     } catch (error) {
       toast.error("An error occurred")
     }
