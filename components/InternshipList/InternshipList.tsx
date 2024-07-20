@@ -54,6 +54,11 @@ export default function InternshipList() {
       render: (campaign: Campaign) => campaign?.campaignName,
     },
     {
+      title: "State",
+      dataIndex: "state",
+      key: "state",
+    },
+    {
       title: "Action",
       key: "action",
       render: (_: string, record: Intern) => (

@@ -2,6 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query"
 import { Table } from "antd"
+import dayjs from "dayjs"
 import Link from "next/link"
 import { useState } from "react"
 import toast from "react-hot-toast"
@@ -62,11 +63,13 @@ export default function Page() {
       title: "Created Date",
       dataIndex: "createDate",
       key: "createDate",
+      render: (createDate: Date) => dayjs(createDate).format("DD/MM/YYYY HH:mm"),
     },
     {
       title: "Modified Date",
       dataIndex: "modifyDate",
       key: "modifyDate",
+      render: (modifyDate: Date) => dayjs(modifyDate).format("DD/MM/YYYY HH:mm"),
     },
     {
       title: "Status",

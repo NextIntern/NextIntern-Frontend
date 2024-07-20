@@ -25,6 +25,7 @@ export type Campaign = {
   createDate: string
   modifyDate: string
   status: string
+  campaignState: string
 }
 
 export type Pagination<T> = {
@@ -76,6 +77,7 @@ export type Intern = {
   deletedDate?: Date
   imgUrl: string
   universityName: string
+  state: string
 }
 
 export type InternRequest = {

@@ -1,5 +1,5 @@
 const localStorage = {
-  // Add your local storage keys here
+  tab: "tab"
 }
 
 export default localStorage

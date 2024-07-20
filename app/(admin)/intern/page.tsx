@@ -6,7 +6,14 @@ import Link from "next/link"
 import { useState } from "react"
 import toast from "react-hot-toast"
 
-import { MdCake, MdMail, MdOutlineTransgender, MdPhone, MdSchool } from "react-icons/md"
+import {
+  MdCake,
+  MdMail,
+  MdOutlineSignalWifiStatusbar4Bar,
+  MdOutlineTransgender,
+  MdPhone,
+  MdSchool,
+} from "react-icons/md"
 import config from "@/config"
 import { useParam } from "@/hooks"
 import { internService } from "@/services"
@@ -95,6 +102,9 @@ export default function Page() {
               </span>
               <span className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
                 <MdSchool /> {intern.universityName}
+              </span>
+              <span className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
+                <MdOutlineSignalWifiStatusbar4Bar /> {intern.state}
               </span>
               <div className="mt-4 flex md:mt-6">
                 <Link

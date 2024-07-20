@@ -1,5 +1,7 @@
 "use client"
 
+import "./styles.css"
+
 import { useQuery } from "@tanstack/react-query"
 import { Image } from "antd"
 import Link from "next/link"

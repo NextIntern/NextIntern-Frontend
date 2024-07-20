@@ -75,6 +75,11 @@ export default function Page({ setCampaignId }: { setCampaignId: Function }) {
       sorter: (a: Campaign, b: Campaign) => new Date(a.endDate).getTime() - new Date(b.endDate).getTime(),
     },
     {
+      title: "State",
+      dataIndex: "campaignState",
+      key: "campaignState",
+    },
+    {
       title: "Action",
       key: "action",
       render: (_: string, record: Campaign) => (
