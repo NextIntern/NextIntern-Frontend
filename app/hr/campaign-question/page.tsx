@@ -7,13 +7,13 @@ import { useState } from "react"
 import toast from "react-hot-toast"
 
 import config from "@/config"
-import { evaluationFormService } from "@/services"
-import { EvaluationForm, University } from "@/types"
+import { campaignQuestionService } from "@/services"
+import { CampaignQuestion, Intern } from "@/types"
 
 export default function Page() {
-  const { data: evaluationForms, refetch } = useQuery({
-    queryKey: ["evaluationForms"],
-    queryFn: () => evaluationFormService.getEvaluationForms(),
+  const { data: campaignQuestion, refetch } = useQuery({
+    queryKey: ["campaignQuestion"],
+    queryFn: () => campaignQuestionService.getAll(),
     select: (data) => data.data.data.items,
   })
 
@@ -23,19 +23,19 @@ export default function Page() {
     setSearchTerm(e.target.value)
   }
 
-  const handleDelete = async (evaluationFormId: string) => {
+  const handleDelete = async (campaignQuestionId: string) => {
     try {
-      await evaluationFormService.deleteEvaluationForm(evaluationFormId)
-      toast.success("Evaluation form deleted successfully.")
+      await campaignQuestionService.delete(campaignQuestionId)
+      toast.success("Campaign question deleted successfully.")
       refetch()
     } catch (error) {
-      toast.error("Failed to delete evaluation form.")
+      toast.error("Failed to delete campaign question.")
     }
   }
 
-  const filteredEvaluationForms = Array.isArray(evaluationForms)
-    ? evaluationForms.filter((evaluationForm) =>
-        evaluationForm.university.universityName.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredCampaignQuestion = Array.isArray(campaignQuestion)
+    ? campaignQuestion.filter((campaignQuestion) =>
+        campaignQuestion.question.toLowerCase().includes(searchTerm.toLowerCase())
       )
     : []
 
@@ -44,18 +44,18 @@ export default function Page() {
       title: "No",
       dataIndex: "no",
       key: "no",
-      render: (_: string, __: EvaluationForm, index: number) => index + 1,
+      render: (_: string, __: CampaignQuestion, index: number) => index + 1,
     },
-    {
-      title: "University",
-      dataIndex: "university",
-      key: "university",
-      render: (university: University) => university?.universityName,
-    },
+
     {
       title: "Created Date",
       dataIndex: "createDate",
       key: "createDate",
+    },
+    {
+      title: "Question",
+      dataIndex: "question",
+      key: "question",
     },
     {
       title: "Modified Date",
@@ -71,11 +71,11 @@ export default function Page() {
     {
       title: "Action",
       key: "action",
-      render: (_: string, record: EvaluationForm) => (
+      render: (_: string, record: CampaignQuestion) => (
         <>
-          <Link href={`${config.routes.evaluationFormEdit}?evaluationFormId=${record.evaluationFormId}`}>Edit</Link>
+          <Link href={`${config.routes.evaluationFormEdit}?evaluationFormId=${record.campaignQuestionId}`}>Edit</Link>
           <span className="mx-2">|</span>
-          <span className="cursor-pointer text-primary" onClick={() => handleDelete(record.evaluationFormId)}>
+          <span className="cursor-pointer text-primary" onClick={() => handleDelete(record.campaignQuestionId)}>
             Delete
           </span>
         </>
@@ -90,10 +90,10 @@ export default function Page() {
           <div className="flex items-center gap-x-3">
             <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Campaign Questions</h2>
             <span className="rounded-full bg-blue-100 px-3 py-1 text-xs text-secondary dark:bg-gray-800 dark:text-blue-400">
-              {filteredEvaluationForms?.length ?? 0} evaluation forms
+              {filteredCampaignQuestion?.length ?? 0} campaign questions
             </span>
           </div>
-          <p className="mt-1 text-sm text-gray-500 dark:text-gray-300">These evaluation forms has been created.</p>
+          <p className="mt-1 text-sm text-gray-500 dark:text-gray-300">These campaign question has been created.</p>
         </div>
         <input
           className="my-2 mb-0 h-10 items-center rounded-lg bg-white pl-4 pr-9 outline-none drop-shadow dark:bg-gray-800"
@@ -110,7 +110,7 @@ export default function Page() {
       </div>
 
       <div className="mt-8 flex flex-col overflow-x-auto">
-        <Table dataSource={filteredEvaluationForms} columns={columns} />
+        <Table dataSource={filteredCampaignQuestion} columns={columns} />
       </div>
     </section>
   )
