@@ -75,7 +75,7 @@ const CampaignQuestionForm = () => {
       }
       router.push(config.routes.campaignQuestionList)
     } catch (error) {
-      toast.error("Failed to create campaign question")
+      toast.error("An error occured")
     }
   }
 
@@ -87,7 +87,7 @@ const CampaignQuestionForm = () => {
       Input: (
         <Select
           options={interns?.map((interns: Intern) => ({
-            value: interns.id,
+            value: interns.userId,
             label: interns.username,
           }))}
         />
