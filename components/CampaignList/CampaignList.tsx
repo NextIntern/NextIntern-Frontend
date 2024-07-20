@@ -12,7 +12,7 @@ import { useParam } from "@/hooks"
 import campaignService from "@/services/campaign.service"
 import { Campaign } from "@/types"
 
-function Page() {
+function CampaignList({ setCampaignId }: { setCampaignId: React.Dispatch<React.SetStateAction<string>> }) {
   const universityId = useParam("universityId")
 
   const { data: campaigns, refetch } = useQuery({
@@ -56,7 +56,7 @@ function Page() {
         <span
           className="cursor-pointer text-primary"
           onClick={() => {
-            // setCampaignId(record.campaignId)
+            setCampaignId(record.campaignId)
             // localStorage.setItem("campaignId", record.campaignId)
             setCookie("campaignId", record.campaignId)
           }}
@@ -138,4 +138,4 @@ function Page() {
   )
 }
 
-export default Page
+export default CampaignList

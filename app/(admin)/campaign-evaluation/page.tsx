@@ -2,6 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query"
 import { Table } from "antd"
+import { getCookie } from "cookies-next"
 import Link from "next/link"
 import { useState } from "react"
 import toast from "react-hot-toast"
@@ -10,7 +11,10 @@ import config from "@/config"
 import { campaignEvaluationService } from "@/services"
 import { CampaignEvaluation } from "@/types"
 
-export default function Page({ campaignId }: { campaignId: string }) {
+export default function Page() {
+  // const campaignId = localStorage.getItem("campaignId") ?? ""
+  const campaignId = getCookie("campaignId") ?? ""
+
   const { data: campaignEvaluations, refetch } = useQuery({
     queryKey: ["campaignEvaluations"],
     queryFn: () => campaignEvaluationService.getCampaignEvlByCampaign(campaignId),

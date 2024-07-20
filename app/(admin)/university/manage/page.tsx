@@ -4,18 +4,20 @@ import "./styles.css"
 
 import { Button, Tabs } from "antd"
 import type { TabsProps } from "antd"
+import { getCookie, setCookie } from "cookies-next"
 import { useState } from "react"
 import { MdArrowBack, MdChecklist, MdOutlineCampaign, MdOutlineSchool } from "react-icons/md"
-import CampaignList from "@/app/(admin)/campaign/page"
 import CampaignEvaluationList from "@/app/(admin)/campaign-evaluation/page"
 import EvaluationFormList from "@/app/(admin)/evaluation-form/page"
 import InternshipUniList from "@/app/(admin)/intern/page"
+import CampaignList from "@/components/CampaignList"
 import InternshipEvlList from "@/components/InternshipList"
 import config from "@/config"
 import { useParam } from "@/hooks"
 
 const onChange = (key: string) => {
-  localStorage.setItem(config.localStorage.tab, key)
+  // localStorage.setItem(config.localStorage.tab, key)
+  setCookie(config.localStorage.tab, key)
   console.log(key)
 }
 
@@ -28,7 +30,7 @@ export default function Page() {
     {
       key: "1",
       label: "Campaign Evaluation",
-      children: <CampaignEvaluationList campaignId={campaignId} />,
+      children: <CampaignEvaluationList />,
       icon: <MdOutlineSchool />,
     },
     {
@@ -73,7 +75,8 @@ export default function Page() {
       items={items}
       type="card"
       onChange={onChange}
-      defaultActiveKey={localStorage.getItem(config.localStorage.tab) ?? "1"}
+      // defaultActiveKey={localStorage.getItem(config.localStorage.tab) ?? "1"}
+      defaultActiveKey={getCookie(config.localStorage.tab) ?? "1"}
     />
   )
 }
