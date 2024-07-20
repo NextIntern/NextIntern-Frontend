@@ -5,6 +5,7 @@ import "./styles.css"
 import { useQuery } from "@tanstack/react-query"
 import { Col, DatePicker, Form, Image, Input, Row, Select } from "antd"
 import { getCookie } from "cookies-next"
+import dayjs from "dayjs"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
@@ -53,7 +54,10 @@ const InternshipForm = () => {
   useEffect(() => {
     if (!intern || !internId) return
 
-    form.setFieldsValue(intern)
+    form.setFieldsValue({
+      ...intern,
+      dob: intern.dob ? dayjs(intern.dob) : null,
+    })
   }, [form, intern, internId])
 
   // Input class name
