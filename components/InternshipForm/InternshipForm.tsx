@@ -57,6 +57,7 @@ const InternshipForm = () => {
     form.setFieldsValue({
       ...intern,
       dob: intern.dob ? dayjs(intern.dob) : null,
+      imgUrl: null,
     })
   }, [form, intern, internId])
 
