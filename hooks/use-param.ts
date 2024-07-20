@@ -1,6 +1,6 @@
-'use client'
+"use client"
 
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams } from "next/navigation"
 
 const useUrlParameter = (paramName: string): string => {
   const searchParams = useSearchParams()

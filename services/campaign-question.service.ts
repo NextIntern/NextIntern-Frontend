@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios"
-import { CampaignQuestion, CampaignQuestionRequest, Pagination, ResponseObject } from "@/types"
+import { CampaignQuestion, CampaignQuestionRequest, ResponseObject } from "@/types"
 import { get, post, put, remove } from "@/utils/axios"
 
 export const END_POINT = {
@@ -10,7 +10,7 @@ export const END_POINT = {
 }
 
 class CampaignQuestionService {
-  getAll(): Promise<AxiosResponse<ResponseObject<Pagination<CampaignQuestion>>>> {
+  getAll(): Promise<AxiosResponse<ResponseObject<CampaignQuestion[]>>> {
     return get(END_POINT.GET_ALL_CAMPAIGN_QUESTION, { pageNo: 1, pageSize: 999999 })
   }
 

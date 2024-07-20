@@ -220,7 +220,15 @@ export type InternEvlCriteriaList = {
 }
 
 export type ScoreRequest = {
-  internEvaluationCriterias: InternEvlCriteriaList[],
+  internEvaluationCriterias: InternEvlCriteriaList[]
   internId: string
   campaignEvaluationId: string
+}
+
+export type CampaignQuestionResponse = {
+  campaignQuestionResponseId: string
+  campaignQuestionId: string
+  internId: string
+  response: string
+  rating: number
 }

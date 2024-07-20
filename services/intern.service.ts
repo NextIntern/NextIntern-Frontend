@@ -7,7 +7,7 @@ export const END_POINT = {
   GET_INTERN: "/api/v1/intern",
   CREATE_INTERN: "/api/v1/intern/create",
   UPDATE_INTERN: "/api/v1/intern/update",
-  GET_INTERN_BY_UNIVERSITY: "/api/v1/intern/university"
+  GET_INTERN_BY_UNIVERSITY: "/api/v1/intern/university",
 }
 
 class InternService {

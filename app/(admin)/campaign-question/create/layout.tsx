@@ -1,7 +1,7 @@
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Create Evaluation Form | NextIntern",
+  title: "Create Campaign Question | NextIntern",
 }
 
 export default function Layout({ children }: { children: React.ReactNode }) {

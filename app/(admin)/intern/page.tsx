@@ -85,7 +85,7 @@ export default function Page() {
                 <MdMail /> {intern.email}
               </span>
               <span className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
-                <MdOutlineTransgender /> {intern.gender}
+                <MdOutlineTransgender /> {intern.gender.charAt(0).toUpperCase() + intern.gender.slice(1)}
               </span>
               <span className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
                 <MdCake /> {intern.dob}

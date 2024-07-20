@@ -1,5 +1,6 @@
-import campaignQuestionService from "./campaign-question.service"
 import campaignEvaluationService from "./campaign-evaluation.service"
+import questionResponseService from "./campaign-question-response.service"
+import campaignQuestionService from "./campaign-question.service"
 import campaignService from "./campaign.service"
 import dashboardService from "./dashboard.service"
 import evaluationFormService from "./evaluation-form.service"
@@ -26,4 +27,5 @@ export {
   dashboardService,
   evaluateInternService,
   campaignQuestionService,
+  questionResponseService,
 }

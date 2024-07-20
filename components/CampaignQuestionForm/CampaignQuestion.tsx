@@ -1,7 +1,7 @@
 "use client"
 
 import { useQuery } from "@tanstack/react-query"
-import { Col, Form, Row, Select, Input } from "antd"
+import { Col, Form, Input, Row, Select } from "antd"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 import toast from "react-hot-toast"
@@ -10,7 +10,6 @@ import config from "@/config"
 import { useParam } from "@/hooks"
 import { campaignQuestionService, campaignService, internService } from "@/services"
 import { Campaign, Intern } from "@/types"
-import * as constants from "@/utils/constants"
 
 const CampaignQuestionForm = () => {
   // Get campaigns
@@ -46,9 +45,7 @@ const CampaignQuestionForm = () => {
   useEffect(() => {
     if (!campaignQuestion || !campaignQuestionId) return
 
-    form.setFieldsValue({
-      campaignId: campaignQuestion.campaignQuestionId,
-    })
+    form.setFieldsValue(campaignQuestion)
   }, [campaignQuestion, campaignQuestionId, form])
 
   // Input class name
