@@ -84,14 +84,14 @@ export default function Page() {
               >
                 {uni.universityName}
               </Link>
-              <p className="mb-3 flex items-center gap-1 font-normal text-gray-700 dark:text-gray-400">
+              <div className="mb-3 flex items-center gap-1 font-normal text-gray-700 dark:text-gray-400">
                 <MdLocationOn />
-                {uni.address}
-              </p>
-              <p className="mb-3 flex items-center gap-1 font-normal text-gray-700 dark:text-gray-400">
+                <span>{uni.address}</span>
+              </div>
+              <div className="mb-3 flex items-center gap-1 font-normal text-gray-700 dark:text-gray-400">
                 <MdPhone />
-                {uni.phone}
-              </p>
+                <span>{uni.phone}</span>
+              </div>
               <div className="mt-4 flex md:mt-6">
                 <Link
                   href={`${config.routes.universityEdit}?universityId=${uni.universityId}`}

@@ -11,16 +11,23 @@ import toast from "react-hot-toast"
 import { InternshipFormType } from "./InternshipForm.type"
 import config from "@/config"
 import { useParam } from "@/hooks"
-import { evaluationFormService, fileService, internService } from "@/services"
+import { campaignService, fileService, internService, universityService } from "@/services"
 import { DATE_FORMAT, GENDERS } from "@/utils/constants"
 
 const InternshipForm = () => {
   const [imgUrl, setImgUrl] = useState("")
 
-  // Get all role
-  const { data: evaluationForms } = useQuery({
-    queryKey: ["evlForm"],
-    queryFn: () => evaluationFormService.getEvaluationForms(),
+  // Get all campaigns
+  const { data: campaingns } = useQuery({
+    queryKey: ["campaingns"],
+    queryFn: () => campaignService.getCampaigns(),
+    select: (data) => data.data.data.items,
+  })
+
+  // Get all universities
+  const { data: universities } = useQuery({
+    queryKey: ["universities"],
+    queryFn: () => universityService.getUniversities(),
     select: (data) => data.data.data.items,
   })
 
@@ -72,7 +79,7 @@ const InternshipForm = () => {
         await internService.createIntern(data)
         toast.success("Intern created successfully")
       }
-      router.push(config.routes.internshipList)
+      router.push(config.routes.manageUniversity)
     } catch (error) {
       toast.error("An error occurred")
     }
@@ -133,13 +140,13 @@ const InternshipForm = () => {
       Input: <DatePicker format="YYYY-MM-DD" />,
     },
     {
-      label: "Evaluation Form",
-      name: "evaluationFormId",
+      label: "Campaign",
+      name: "campaignId",
       Input: (
         <Select
-          options={evaluationForms?.map((evlForm) => ({
-            value: evlForm.evaluationFormId,
-            label: evlForm.university.universityName,
+          options={campaingns?.map((campaign) => ({
+            value: campaign.campaignId,
+            label: campaign.campaignName,
           }))}
         />
       ),
@@ -153,6 +160,18 @@ const InternshipForm = () => {
       label: "Avatar",
       name: "imgUrl",
       Input: <Input type="file" onChange={handleUploadFile} />,
+    },
+    {
+      label: "University",
+      name: "universityId",
+      Input: (
+        <Select
+          options={universities?.map((university) => ({
+            value: university.universityId,
+            label: university.universityName,
+          }))}
+        />
+      ),
     },
   ]
 

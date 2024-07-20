@@ -100,7 +100,7 @@ const EvaluationFormComponent = () => {
         ))}
       </Row>
       <div className="mt-8 flex justify-end">
-        <button className="rounded-md bg-gradient-to-r from-primary to-secondary px-8 py-2.5 font-semibold leading-5 text-white transition-colors duration-300 focus:outline-none">
+        <button className="rounded-md bg-gradient-to-r from-primary to-secondary px-8 py-2.5 font-semibold leading-5 text-white transition-colors duration-300 hover:text-white focus:outline-none">
           {evaluationFormId ? "Update" : "Create"}
         </button>
       </div>
