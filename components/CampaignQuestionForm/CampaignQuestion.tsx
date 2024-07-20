@@ -1,6 +1,6 @@
 "use client"
 
-import "./styles.css"
+
 
 import { useQuery } from "@tanstack/react-query"
 import { Col, Form, Row, Select, Input } from "antd"
