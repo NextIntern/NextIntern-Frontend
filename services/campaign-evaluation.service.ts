@@ -31,9 +31,7 @@ class CampaignEvaluationService {
     return remove(`${END_POINT.GET_CAMPAIGN_EVALUATION}/${campaignEvaluationId}`)
   }
 
-  getCampaignEvlByCampaign(
-    campaignId: string
-  ): Promise<AxiosResponse<ResponseObject<Pagination<CampaignEvaluation>>>> {
+  getCampaignEvlByCampaign(campaignId: string): Promise<AxiosResponse<ResponseObject<Pagination<CampaignEvaluation>>>> {
     return get(`${END_POINT.GET_CAMPAIGN_EVALUATION_BY_UNIVERSITY}/${campaignId}`)
   }
 }
