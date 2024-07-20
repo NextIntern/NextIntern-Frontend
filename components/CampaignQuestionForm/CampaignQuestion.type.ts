@@ -6,4 +6,5 @@ export type CampaignQuestionFormType = {
   rating: number
   campaign: string
   question: string
+  campaignId: string
 }
