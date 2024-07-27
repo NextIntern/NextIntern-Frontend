@@ -10,7 +10,6 @@ export const DEFAULT_FONT_WEIGHT = 600
 export const DEFAULT_FONT_SIZE = 16
 export const DEFAULT_FONT_SIZE_LG = 60
 
-
 // Date format
 export const DATE_FORMAT = "YYYY-MM-DD"
 export const DATE_TIME_FORMAT = "DD MMMM YYYY HH:mm"
