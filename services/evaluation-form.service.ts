@@ -7,6 +7,7 @@ export const END_POINT = {
   GET_EVALUATION_FORM: "/api/v1/evaluation-form",
   CREATE_EVALUATION_FORM: "/api/v1/evaluation-form/create",
   UPDATE_EVALUATION_FORM: "/api/v1/evaluation-form/update",
+  GET_EVALUATION_FORM_BY_UNIVERSITY: "/api/v1/evaluation-form/university",
 }
 
 class EvaluationFormService {
@@ -28,6 +29,10 @@ class EvaluationFormService {
 
   deleteEvaluationForm(evaluationFormId: string) {
     return remove(`${END_POINT.GET_EVALUATION_FORM}/${evaluationFormId}`)
+  }
+
+  getEvlFormByUniversity(universityId: string): Promise<AxiosResponse<ResponseObject<Pagination<EvaluationForm>>>> {
+    return get(`${END_POINT.GET_EVALUATION_FORM_BY_UNIVERSITY}/${universityId}`)
   }
 }
 

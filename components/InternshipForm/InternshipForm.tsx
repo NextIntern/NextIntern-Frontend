@@ -3,24 +3,32 @@
 import "./styles.css"
 import { useQuery } from "@tanstack/react-query"
 import { Col, DatePicker, Form, Image, Input, Row, Select } from "antd"
+import { getCookie } from "cookies-next"
+import dayjs from "dayjs"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
-import * as XLSX from "xlsx"
 
+import { InternshipFormType } from "./InternshipForm.type"
 import config from "@/config"
 import { useParam } from "@/hooks"
-import { evaluationFormService, fileService, internService } from "@/services"
+import { campaignService, fileService, internService, universityService } from "@/services"
 import { DATE_FORMAT, GENDERS } from "@/utils/constants"
-import { InternshipFormType } from "./InternshipForm.type"
 
 const InternshipForm = () => {
   const [imgUrl, setImgUrl] = useState("")
 
-  // Get all role
-  const { data: evaluationForms } = useQuery({
-    queryKey: ["evlForm"],
-    queryFn: () => evaluationFormService.getEvaluationForms(),
+  // Get all campaigns
+  const { data: campaingns } = useQuery({
+    queryKey: ["campaingns"],
+    queryFn: () => campaignService.getCampaigns(),
+    select: (data) => data.data.data.items,
+  })
+
+  // Get all universities
+  const { data: universities } = useQuery({
+    queryKey: ["universities"],
+    queryFn: () => universityService.getUniversities(),
     select: (data) => data.data.data.items,
   })
 
@@ -45,7 +53,11 @@ const InternshipForm = () => {
   useEffect(() => {
     if (!intern || !internId) return
 
-    form.setFieldsValue(intern)
+    form.setFieldsValue({
+      ...intern,
+      dob: intern.dob ? dayjs(intern.dob) : null,
+      imgUrl: null,
+    })
   }, [form, intern, internId])
 
   // Input class name
@@ -60,8 +72,6 @@ const InternshipForm = () => {
       id: internId,
       roleName: "User",
       imgUrl,
-      campaignId: "33a1a8b8-dafa-4f46-bbba-a9628f36bd97", // TODO: Add campaign id
-      menterUsername: "mentor", // TODO: Add mentor username
     }
 
     try {
@@ -72,7 +82,9 @@ const InternshipForm = () => {
         await internService.createIntern(data)
         toast.success("Intern created successfully")
       }
-      router.push(config.routes.internshipList)
+
+      const universityId = getCookie("universityId")
+      router.push(`${config.routes.manageUniversity}?universityId=${universityId}`)
     } catch (error) {
       toast.error("An error occurred")
     }
@@ -130,16 +142,16 @@ const InternshipForm = () => {
     {
       label: "Date of Birth",
       name: "dob",
-      Input: <DatePicker format="YYYY-MM-DD" />,
+      Input: <DatePicker format={DATE_FORMAT} />,
     },
     {
-      label: "Evaluation Form",
-      name: "evaluationFormId",
+      label: "Campaign",
+      name: "campaignId",
       Input: (
         <Select
-          options={evaluationForms?.map((evlForm) => ({
-            value: evlForm.evaluationFormId,
-            label: evlForm.university.universityName,
+          options={campaingns?.map((campaign) => ({
+            value: campaign.campaignId,
+            label: campaign.campaignName,
           }))}
         />
       ),
@@ -153,6 +165,18 @@ const InternshipForm = () => {
       label: "Avatar",
       name: "imgUrl",
       Input: <Input type="file" onChange={handleUploadFile} />,
+    },
+    {
+      label: "University",
+      name: "universityId",
+      Input: (
+        <Select
+          options={universities?.map((university) => ({
+            value: university.universityId,
+            label: university.universityName,
+          }))}
+        />
+      ),
     },
   ]
 

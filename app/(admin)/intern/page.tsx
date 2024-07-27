@@ -6,14 +6,25 @@ import Link from "next/link"
 import { useState } from "react"
 import toast from "react-hot-toast"
 
-import { MdCake, MdMail, MdOutlineTransgender, MdPhone } from "react-icons/md"
+import {
+  MdCake,
+  MdMail,
+  MdOutlineSignalWifiStatusbar4Bar,
+  MdOutlineTransgender,
+  MdPhone,
+  MdSchool,
+} from "react-icons/md"
 import config from "@/config"
+import { useParam } from "@/hooks"
 import { internService } from "@/services"
+import stringUtils from "@/utils/string-utils"
 
 export default function Page() {
+  const universityId = useParam("universityId")
+
   const { data: interns, refetch } = useQuery({
     queryKey: ["interns"],
-    queryFn: () => internService.getInterns(),
+    queryFn: () => internService.getInternByUniversity(universityId),
     select: (data) => data.data.data.items,
   })
 
@@ -31,11 +42,6 @@ export default function Page() {
     } catch (error) {
       toast.error("Failed to delete this internship.")
     }
-  }
-
-  const capitalizeFirstLetter = (text: string): string => {
-    if (!text) return text
-    return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase()
   }
 
   const filteredInternship = Array.isArray(interns)
@@ -87,13 +93,19 @@ export default function Page() {
                 <MdMail /> {intern.email}
               </span>
               <span className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
-                <MdOutlineTransgender /> {capitalizeFirstLetter(intern.gender)}
+                <MdOutlineTransgender /> {stringUtils.capitalizeFirstLetter(intern.gender)}
               </span>
               <span className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
                 <MdCake /> {intern.dob}
               </span>
               <span className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
-                <MdPhone /> {intern.telephone}
+                <MdPhone /> {intern.telephone.replace(/(\d{4})(\d{3})(\d{3})/, "$1 $2 $3")}
+              </span>
+              <span className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
+                <MdSchool /> {intern.universityName}
+              </span>
+              <span className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
+                <MdOutlineSignalWifiStatusbar4Bar /> {intern.state}
               </span>
               <div className="mt-4 flex md:mt-6">
                 <Link

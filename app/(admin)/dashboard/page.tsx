@@ -41,8 +41,8 @@ ChartJS.register(
 )
 
 const icons = [
-  <MdOutlinePeopleAlt key="people" />,
   <MdOutlineSchool key="school" />,
+  <MdOutlinePeopleAlt key="people" />,
   <MdOutlineLibraryAddCheck key="library" />,
   <MdOutlineCampaign key="campaign" />,
 ]
@@ -78,6 +78,11 @@ export default function Page() {
       title: "Full name",
       dataIndex: "name",
       key: "name",
+    },
+    {
+      title: "Form Criteria",
+      dataIndex: "formCriteriaName",
+      key: "formCriteriaName",
     },
     {
       title: "Score",

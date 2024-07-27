@@ -1,5 +1,7 @@
 "use client"
 
+import "./styles.css"
+
 import { useQuery } from "@tanstack/react-query"
 import { Image } from "antd"
 import Link from "next/link"
@@ -70,25 +72,22 @@ export default function Page() {
             key={uni.universityId}
             className="max-w-sm rounded-lg border border-gray-200 bg-white shadow dark:border-gray-700 dark:bg-gray-800"
           >
-            <Image
-              // className="mx-auto h-24 w-24 rounded-t-lg object-contain"
-              width={300}
-              height={300}
-              src={uni.imgUrl || "/logo.png"}
-              alt={uni.universityName}
-            />
+            <Image width={300} height={300} src={uni.imgUrl || "/logo.png"} alt={uni.universityName} />
             <div className="p-5">
-              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+              <Link
+                href={`${config.routes.manageUniversity}?universityId=${uni.universityId}`}
+                className="mb-2 text-2xl font-bold tracking-tight text-gray-900 hover:text-primary dark:text-white"
+              >
                 {uni.universityName}
-              </h5>
-              <p className="mb-3 flex items-center gap-1 font-normal text-gray-700 dark:text-gray-400">
+              </Link>
+              <div className="mb-3 flex items-center gap-1 font-normal text-gray-700 dark:text-gray-400">
                 <MdLocationOn />
-                {uni.address}
-              </p>
-              <p className="mb-3 flex items-center gap-1 font-normal text-gray-700 dark:text-gray-400">
+                <span>{uni.address}</span>
+              </div>
+              <div className="mb-3 flex items-center gap-1 font-normal text-gray-700 dark:text-gray-400">
                 <MdPhone />
-                {uni.phone}
-              </p>
+                <span>{uni.phone.replace(/(\d{4})(\d{3})(\d{3})/, "$1 $2 $3")}</span>
+              </div>
               <div className="mt-4 flex md:mt-6">
                 <Link
                   href={`${config.routes.universityEdit}?universityId=${uni.universityId}`}

@@ -12,7 +12,7 @@ import { useParam } from "@/hooks"
 import campaignService from "@/services/campaign.service"
 import { Campaign } from "@/types"
 
-function Page() {
+function CampaignList({ setCampaignId }: { setCampaignId: React.Dispatch<React.SetStateAction<string>> }) {
   const universityId = useParam("universityId")
 
   const { data: campaigns, refetch } = useQuery({
@@ -46,14 +46,20 @@ function Page() {
       title: "No",
       dataIndex: "no",
       key: "no",
-      render: (_: string, __: Campaign, index: number) => <text className="font-bold">{index + 1}</text>,
+      render: (_: string, __: Campaign, index: number) => index + 1,
     },
     {
       title: "Campaign Name",
       dataIndex: "campaignName",
       key: "campaignName",
       render: (campaignName: string, record: Campaign) => (
-        <span className="cursor-pointer text-primary" onClick={() => setCookie("campaignId", record.campaignId)}>
+        <span
+          className="cursor-pointer text-primary"
+          onClick={() => {
+            setCampaignId(record.campaignId)
+            setCookie("campaignId", record.campaignId)
+          }}
+        >
           {campaignName}
         </span>
       ),
@@ -118,7 +124,7 @@ function Page() {
         />
         <Link
           href={config.routes.campaignCreate}
-          className="rounded-md bg-gradient-to-r from-primary to-secondary px-6 py-2.5 font-semibold leading-5 text-white transition-colors duration-300 focus:outline-none"
+          className="rounded-md bg-gradient-to-r from-primary to-secondary px-6 py-2.5 font-semibold leading-5 text-white transition-colors duration-300 hover:text-white focus:outline-none"
         >
           Add Campaign
         </Link>
@@ -131,4 +137,4 @@ function Page() {
   )
 }
 
-export default Page
+export default CampaignList

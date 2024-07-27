@@ -25,6 +25,7 @@ export type Campaign = {
   createDate: string
   modifyDate: string
   status: string
+  campaignState: string
 }
 
 export type Pagination<T> = {
@@ -75,6 +76,8 @@ export type Intern = {
   modifyDate: Date
   deletedDate?: Date
   imgUrl: string
+  universityName: string
+  state: string
 }
 
 export type InternRequest = {
@@ -183,6 +186,7 @@ export type DashboardTop5Intern = {
   name: string
   score: number
   internMail: string
+  formCriteriaName: string
 }
 
 export type InternEvaluationCriteria = {
@@ -198,4 +202,36 @@ export type InternEvlCriteriaRequest = {
   internEvaluationId: string
   formCriteriaId: string
   score: number
+}
+
+export type CampaignQuestion = {
+  campaignQuestionId: string
+  campaignId: string
+  question: string
+  createDate: Date
+  modifyDate: Date
+}
+
+export type CampaignQuestionRequest = {
+  campaignQuestionId: string
+  campaignId: string
+}
+
+export type InternEvlCriteriaList = {
+  formCriteriaId: string
+  score: number
+}
+
+export type ScoreRequest = {
+  internEvaluationCriterias: InternEvlCriteriaList[]
+  internId: string
+  campaignEvaluationId: string
+}
+
+export type CampaignQuestionResponse = {
+  campaignQuestionResponseId: string
+  campaignQuestionId: string
+  internId: string
+  response: string
+  rating: number
 }
