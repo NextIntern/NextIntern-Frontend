@@ -1,0 +1,9 @@
+.ant-select.ant-select-outlined,
+.ant-picker.ant-picker-outlined {
+  height: 40px;
+  width: 100%;
+}
+
+input#file {
+  display: none;
+}
