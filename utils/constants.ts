@@ -6,6 +6,7 @@ export const TEXT_HEADING_COLOR = "rgba(0, 0, 0, 0.88)"
 export const BLACK_COLOR = "#000000"
 export const WHITE_COLOR = "#FFFFFF"
 export const CHART_COLORS = ["rgb(0, 88, 255)", "rgb(249, 151, 0)", "rgb(255, 199, 0)", "rgb(32, 214, 152)"]
+export const DEFUALT_BORDER_RADIUS = 12
 export const DEFAULT_FONT_WEIGHT = 600
 export const DEFAULT_FONT_SIZE = 16
 export const DEFAULT_FONT_SIZE_LG = 60

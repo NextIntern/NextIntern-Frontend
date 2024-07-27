@@ -3,6 +3,7 @@ import {
   DEFAULT_FONT_SIZE,
   DEFAULT_FONT_SIZE_LG,
   DEFAULT_FONT_WEIGHT,
+  DEFUALT_BORDER_RADIUS,
   PRIMARY_COLOR,
   SECONDARY_COLOR,
   TEXT_COLOR,
@@ -12,7 +13,7 @@ import {
 
 const theme = {
   token: {
-    borderRadius: 12,
+    borderRadius: DEFUALT_BORDER_RADIUS,
     colorPrimary: PRIMARY_COLOR,
     colorSecondary: SECONDARY_COLOR,
     colorLink: PRIMARY_COLOR,
