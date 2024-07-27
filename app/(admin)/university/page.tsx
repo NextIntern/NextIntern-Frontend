@@ -72,13 +72,7 @@ export default function Page() {
             key={uni.universityId}
             className="max-w-sm rounded-lg border border-gray-200 bg-white shadow dark:border-gray-700 dark:bg-gray-800"
           >
-            <Image
-              // className="mx-auto h-24 w-24 rounded-t-lg object-contain"
-              width={300}
-              height={300}
-              src={uni.imgUrl || "/logo.png"}
-              alt={uni.universityName}
-            />
+            <Image width={300} height={300} src={uni.imgUrl || "/logo.png"} alt={uni.universityName} />
             <div className="p-5">
               <Link
                 href={`${config.routes.manageUniversity}?universityId=${uni.universityId}`}

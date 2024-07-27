@@ -62,12 +62,6 @@ export default function Page() {
       key: "modifyDate",
       render: (modifyDate: Date) => dayjs(modifyDate).format("DD MMMM YYYY HH:mm"),
     },
-    // {
-    //   title: "Status",
-    //   dataIndex: "isActive",
-    //   key: "isActive",
-    //   render: (isActive: boolean) => (isActive ? "Active" : "Inactive"),
-    // },
     {
       title: "Action",
       key: "action",

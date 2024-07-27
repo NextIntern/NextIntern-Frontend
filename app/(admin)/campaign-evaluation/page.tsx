@@ -12,7 +12,6 @@ import { campaignEvaluationService } from "@/services"
 import { CampaignEvaluation } from "@/types"
 
 export default function Page() {
-  // const campaignId = localStorage.getItem("campaignId") ?? ""
   const campaignId = getCookie("campaignId") ?? ""
 
   const { data: campaignEvaluations, refetch } = useQuery({

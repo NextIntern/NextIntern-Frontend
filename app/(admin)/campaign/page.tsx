@@ -53,14 +53,7 @@ function Page() {
       dataIndex: "campaignName",
       key: "campaignName",
       render: (campaignName: string, record: Campaign) => (
-        <span
-          className="cursor-pointer text-primary"
-          onClick={() => {
-            // setCampaignId(record.campaignId)
-            // localStorage.setItem("campaignId", record.campaignId)
-            setCookie("campaignId", record.campaignId)
-          }}
-        >
+        <span className="cursor-pointer text-primary" onClick={() => setCookie("campaignId", record.campaignId)}>
           {campaignName}
         </span>
       ),

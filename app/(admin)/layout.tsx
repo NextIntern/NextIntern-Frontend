@@ -15,13 +15,6 @@ const NAV_LINKS = [
   { href: config.routes.dashboard, icon: MdOutlineSpaceDashboard, children: "Dashboard" },
   { href: config.routes.universityList, icon: MdOutlineSchool, children: "University Management" },
   { href: config.routes.campaignQuestionList, icon: MdOutlineLibraryAddCheck, children: "Question Management" },
-  // { href: config.routes.campaignList, icon: MdOutlineCampaign, children: "Training Campaign" },
-  // { href: config.routes.evaluationFormList, icon: MdOutlineLibraryAddCheck, children: "Evaluation Form" },
-  // { href: config.routes.formCriteriaList, icon: MdChecklist, children: "Form Criteria" },
-  // { href: config.routes.internshipList, icon: MdOutlinePeopleAlt, children: "Internships" },
-  // { href: config.routes.campaignEvlList, icon: MdOutlineFactCheck, children: "Campaign Evaluation" },
-  // { href: config.routes.internEvlList, icon: MdOutlinePlaylistAddCheck, children: "Intern Evaluation" },
-  // { href: config.routes.internEvlCriteriaList, icon: MdOutlineScoreboard, children: "Evaluate Internship" },
 ]
 
 export default function Layout({ children }: { children: React.ReactNode }) {

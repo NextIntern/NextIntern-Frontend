@@ -74,12 +74,6 @@ export default function Page() {
     },
   ]
   return (
-    <Tabs
-      items={items}
-      type="card"
-      onChange={onChange}
-      // defaultActiveKey={localStorage.getItem(config.localStorage.tab) ?? "1"}
-      defaultActiveKey={getCookie(config.localStorage.tab) ?? "1"}
-    />
+    <Tabs items={items} type="card" onChange={onChange} defaultActiveKey={getCookie(config.localStorage.tab) ?? "1"} />
   )
 }

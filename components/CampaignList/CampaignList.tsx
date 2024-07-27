@@ -57,7 +57,6 @@ function CampaignList({ setCampaignId }: { setCampaignId: React.Dispatch<React.S
           className="cursor-pointer text-primary"
           onClick={() => {
             setCampaignId(record.campaignId)
-            // localStorage.setItem("campaignId", record.campaignId)
             setCookie("campaignId", record.campaignId)
           }}
         >

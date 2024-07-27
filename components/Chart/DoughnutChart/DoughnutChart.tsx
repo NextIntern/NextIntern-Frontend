@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { Doughnut } from "react-chartjs-2"
 import { dashboardService } from "@/services"
+import { CHART_COLORS } from "@/utils/constants"
 
 const DoughnutChart = () => {
   // Get all reports
@@ -10,24 +11,11 @@ const DoughnutChart = () => {
     select: (data) => data.data.data,
   })
 
-  const colors = [
-    "rgb(0, 88, 255)",
-    "rgb(249, 151, 0)",
-    "rgb(255, 199, 0)",
-    "rgb(32, 214, 152)",
-    // "rgb(255, 0, 0)",
-    // "rgb(0, 255, 0)",
-    // "rgb(0, 0, 255)",
-    // "rgb(255, 255, 0)",
-    // "rgb(255, 0, 255)",
-    // "rgb(0, 255, 255)",
-  ]
-
   const START_INDEX = 0
   const MAX_NUMBER = 4
 
   const data = {
-    backgroundColor: colors,
+    backgroundColor: CHART_COLORS,
     labels: interns
       ?.sort((a, b) => b.count - a.count)
       ?.map((intern) => intern.university)
@@ -39,7 +27,7 @@ const DoughnutChart = () => {
           ?.sort((a, b) => b.count - a.count)
           ?.map((intern) => intern.count)
           .slice(START_INDEX, MAX_NUMBER),
-        backgroundColor: colors,
+        backgroundColor: CHART_COLORS,
         hoverOffset: 4,
       },
     ],

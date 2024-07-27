@@ -49,11 +49,6 @@ export default function Page() {
       dataIndex: "internName",
       key: "internName",
     },
-    // {
-    //   title: "Campaign Evaluation ID",
-    //   dataIndex: "campaignEvaluationId",
-    //   key: "campaignEvaluationId",
-    // },
     {
       title: "Feedback",
       dataIndex: "feedback",
