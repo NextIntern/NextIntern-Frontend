@@ -1,4 +1,4 @@
-import { BLACK_COLOR, PRIMARY_COLOR, SECONDARY_COLOR, TEXT_COLOR, TEXT_HEADING_COLOR } from "@/utils/constants"
+import { BLACK_COLOR, DEFAULT_FONT_SIZE, DEFAULT_FONT_SIZE_LG, DEFAULT_FONT_WEIGHT, PRIMARY_COLOR, SECONDARY_COLOR, TEXT_COLOR, TEXT_HEADING_COLOR, WHITE_COLOR } from "@/utils/constants"
 
 const theme = {
   token: {
@@ -18,11 +18,11 @@ const theme = {
     Button: {
       primaryBg: `linear-gradient(to right, ${PRIMARY_COLOR}, ${SECONDARY_COLOR})`,
       primaryHoverBg: `linear-gradient(to left, ${PRIMARY_COLOR}, ${SECONDARY_COLOR})`,
-      primaryColor: "white",
+      primaryColor: WHITE_COLOR,
       primaryHoverColor: BLACK_COLOR,
-      fontWeight: 600,
-      contentFontSize: 16,
-      contentFontSizeLG: 60,
+      fontWeight: DEFAULT_FONT_WEIGHT,
+      contentFontSize: DEFAULT_FONT_SIZE,
+      contentFontSizeLG: DEFAULT_FONT_SIZE_LG,
     },
   },
 }

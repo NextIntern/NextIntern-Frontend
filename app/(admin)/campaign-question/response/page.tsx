@@ -71,15 +71,9 @@ export default function Page() {
       title: "Action",
       key: "action",
       render: (_: string, record: CampaignQuestionResponse) => (
-        <>
-          {/* <Link href={`${config.routes.campaignQuestionEdit}?campaignQuestionId=${record.campaignQuestionId}`}>
-            Edit
-          </Link>
-          <span className="mx-2">|</span> */}
-          <span className="cursor-pointer text-primary" onClick={() => handleDelete(record.campaignQuestionResponseId)}>
-            Delete
-          </span>
-        </>
+        <span className="cursor-pointer text-primary" onClick={() => handleDelete(record.campaignQuestionResponseId)}>
+          Delete
+        </span>
       ),
     },
   ]
@@ -104,12 +98,6 @@ export default function Page() {
           value={searchTerm}
           onChange={handleSearch}
         />
-        {/* <Link
-          href={config.routes.campaignQuestionCreate}
-          className="rounded-md bg-gradient-to-r from-primary to-secondary px-6 py-2.5 font-semibold leading-5 text-white transition-colors duration-300 focus:outline-none"
-        >
-          Add Campaign Question
-        </Link> */}
       </div>
 
       <div className="mt-8 flex flex-col overflow-x-auto">

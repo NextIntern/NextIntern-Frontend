@@ -142,7 +142,7 @@ const InternshipForm = () => {
     {
       label: "Date of Birth",
       name: "dob",
-      Input: <DatePicker format="YYYY-MM-DD" />,
+      Input: <DatePicker format={DATE_FORMAT} />,
     },
     {
       label: "Campaign",

@@ -10,6 +10,7 @@ import toast from "react-hot-toast"
 import config from "@/config"
 import { campaignQuestionService } from "@/services"
 import { CampaignQuestion } from "@/types"
+import { DATE_TIME_FORMAT } from "@/utils/constants"
 
 export default function Page() {
   const { data: campaignQuestion, refetch } = useQuery({
@@ -54,13 +55,13 @@ export default function Page() {
       title: "Created Date",
       dataIndex: "createDate",
       key: "createDate",
-      render: (createDate: Date) => dayjs(createDate).format("DD MMMM YYYY HH:mm"),
+      render: (createDate: Date) => dayjs(createDate).format(DATE_TIME_FORMAT),
     },
     {
       title: "Modified Date",
       dataIndex: "modifyDate",
       key: "modifyDate",
-      render: (modifyDate: Date) => dayjs(modifyDate).format("DD MMMM YYYY HH:mm"),
+      render: (modifyDate: Date) => dayjs(modifyDate).format(DATE_TIME_FORMAT),
     },
     {
       title: "Action",
