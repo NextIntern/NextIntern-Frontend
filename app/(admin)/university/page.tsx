@@ -71,7 +71,9 @@ export default function Page() {
             className="max-w-sm rounded-lg border border-gray-200 bg-white shadow dark:border-gray-700 dark:bg-gray-800"
           >
             <Image
-              className="mx-auto h-24 w-24 rounded-t-lg"
+              // className="mx-auto h-24 w-24 rounded-t-lg object-contain"
+              width={300}
+              height={300}
               src={uni.imgUrl || "/logo.png"}
               alt={uni.universityName}
             />

@@ -1,18 +1,18 @@
 "use client"
 
 import "./styles.css"
-
 import { useQuery } from "@tanstack/react-query"
 import { Col, DatePicker, Form, Image, Input, Row, Select } from "antd"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
+import * as XLSX from "xlsx"
 
-import { InternshipFormType } from "./InternshipForm.type"
 import config from "@/config"
 import { useParam } from "@/hooks"
 import { evaluationFormService, fileService, internService } from "@/services"
 import { DATE_FORMAT, GENDERS } from "@/utils/constants"
+import { InternshipFormType } from "./InternshipForm.type"
 
 const InternshipForm = () => {
   const [imgUrl, setImgUrl] = useState("")
@@ -168,8 +168,19 @@ const InternshipForm = () => {
     const file = event.target.files?.[0]
     if (file) {
       formData.append("File", file)
+
+      const validTypes = [
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "application/vnd.ms-excel",
+      ]
+      if (!validTypes.includes(file.type)) {
+        toast.error("Please upload a valid Excel file")
+        return
+      }
     }
-    formData.append("CampaignId", "2f1ec965-2c99-4697-bd6b-cd0725156805") // TODO: Add campaign id
+    // formData.append("CampaignId", "2f1ec965-2c99-4697-bd6b-cd0725156805")  TODO: Add campaign id
+    // fileService.importIntern(formData)
+
     toast.success("Import successfully")
     router.push(config.routes.internshipList)
   }

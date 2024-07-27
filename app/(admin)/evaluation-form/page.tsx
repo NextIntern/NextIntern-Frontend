@@ -50,7 +50,7 @@ export default function Page() {
       title: "No",
       dataIndex: "no",
       key: "no",
-      render: (_: string, __: EvaluationForm, index: number) => index + 1,
+      render: (_: string, __: EvaluationForm, index: number) => <text className="font-bold">{index + 1}</text>,
     },
     {
       title: "University",
@@ -72,7 +72,9 @@ export default function Page() {
       title: "Status",
       dataIndex: "isActive",
       key: "isActive",
-      render: (isActive: boolean) => (isActive ? "Active" : "Inactive"),
+      render: (isActive: boolean) => (
+        <span style={{ color: isActive ? "blue" : "silver" }}>{isActive ? "Active" : "Inactive"}</span>
+      ),
     },
     {
       title: "Action",

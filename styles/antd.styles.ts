@@ -1,4 +1,4 @@
-import { PRIMARY_COLOR, SECONDARY_COLOR } from "@/utils/constants"
+import { PRIMARY_COLOR, SECONDARY_COLOR, TEXT_COLOR, TEXT_HEADING_COLOR } from "@/utils/constants"
 
 const theme = {
   token: {
@@ -7,7 +7,8 @@ const theme = {
     colorSecondary: SECONDARY_COLOR, // blue
     colorLink: PRIMARY_COLOR,
     colorLinkHover: PRIMARY_COLOR,
-    colorText: "#9a9fa9",
+    colorText: TEXT_COLOR,
+    colorTextHeading: TEXT_HEADING_COLOR,
   },
   components: {
     Input: {

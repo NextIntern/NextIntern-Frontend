@@ -47,7 +47,7 @@ export default function Page() {
       title: "No",
       dataIndex: "no",
       key: "no",
-      render: (_: string, __: CampaignEvaluation, index: number) => index + 1,
+      render: (_: string, __: CampaignEvaluation, index: number) => <text className="font-bold">{index + 1}</text>,
     },
     {
       title: "Campaign Name",
