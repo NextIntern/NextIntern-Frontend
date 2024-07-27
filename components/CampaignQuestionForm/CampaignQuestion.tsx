@@ -1,39 +1,38 @@
 "use client"
 
-import "./styles.css"
-
 import { useQuery } from "@tanstack/react-query"
-import { Col, DatePicker, Form, Row, Select } from "antd"
-import { getCookie } from "cookies-next"
-import dayjs from "dayjs"
+import { Col, Form, Input, Row, Select } from "antd"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 import toast from "react-hot-toast"
-
-import { CampaignEvlFormType } from "./CampaignEvaluationForm.type"
+import { CampaignQuestionFormType } from "./CampaignQuestion.type"
 import config from "@/config"
 import { useParam } from "@/hooks"
-import { campaignEvaluationService, campaignService } from "@/services"
-import { Campaign } from "@/types"
-import * as constants from "@/utils/constants"
+import { campaignQuestionService, campaignService, internService } from "@/services"
+import { Campaign, Intern } from "@/types"
 
-const CampaignForm = () => {
+const CampaignQuestionForm = () => {
   // Get campaigns
   const { data: campaigns } = useQuery({
     queryKey: ["campaigns"],
     queryFn: () => campaignService.getCampaigns(),
     select: (data) => data.data.data.items,
   })
-
+  //Get interns
+  const { data: interns } = useQuery({
+    queryKey: ["interns"],
+    queryFn: () => internService.getInterns(),
+    select: (data) => data.data.data.items,
+  })
   // Get campaign evaluation id from query params
-  const campaignEvlId = useParam("campaignEvaluationId")
+  const campaignQuestionId = useParam("campaignQuestionId")
 
   // Get campaign evaluation by id
-  const { data: campaignEvl } = useQuery({
-    queryKey: ["campaignEvl"],
-    queryFn: () => campaignEvaluationService.getCampaignEvaluationById(campaignEvlId),
+  const { data: campaignQuestion } = useQuery({
+    queryKey: ["campaignQuestion"],
+    queryFn: () => campaignQuestionService.getById(campaignQuestionId),
     select: (data) => data.data.data,
-    enabled: !!campaignEvlId,
+    enabled: !!campaignQuestionId,
   })
 
   // Router instance
@@ -44,56 +43,61 @@ const CampaignForm = () => {
 
   // Populate form with campaign evaluation data
   useEffect(() => {
-    if (!campaignEvl || !campaignEvlId) return
+    if (!campaignQuestion || !campaignQuestionId) return
 
     form.setFieldsValue({
-      startDate: dayjs(campaignEvl.startDate ?? Date.now()),
-      endDate: dayjs(campaignEvl.endDate ?? Date.now()),
-      campaignId: campaignEvl.campaignName,
+      ...campaignQuestion,
+      campaignQuestion: campaignQuestion.question,
     })
-  }, [campaignEvl, campaignEvlId, form])
+  }, [campaignQuestion, campaignQuestionId, form])
 
   // Input class name
   const className =
     "h-[40px] focus:ring-opacity-40/40 mt-2 block w-full cursor-pointer rounded-md border bg-white px-4 py-2 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:focus:border-blue-300"
 
   // Form submit handler
-  const onFinish = async (values: CampaignEvlFormType) => {
+  const onFinish = async (values: CampaignQuestionFormType) => {
     const data = {
       ...values,
-      startDate: values.startDate?.format(constants.DATE_FORMAT),
-      endDate: values.endDate?.format(constants.DATE_FORMAT),
-      id: campaignEvlId,
+      id: campaignQuestionId,
+      campaignId: values.campaignId,
+      campaignQuestionId: campaignQuestionId,
     }
 
     try {
-      if (campaignEvlId) {
-        await campaignEvaluationService.updateCampaignEvaluation(data)
-        toast.success("Campaign evaluation updated successfully")
+      if (campaignQuestionId) {
+        await campaignQuestionService.update(data)
+        toast.success("Campaign question updated successfully")
       } else {
-        await campaignEvaluationService.createCampaignEvaluation(data)
-        toast.success("Campaign evaluation created successfully")
+        await campaignQuestionService.create(data)
+        toast.success("Campaign question created successfully")
       }
-
-      const universityId = getCookie("universityId")
-      router.push(`${config.routes.manageUniversity}?universityId=${universityId}`)
+      router.push(config.routes.campaignQuestionList)
     } catch (error) {
-      toast.error("Failed to create campaign evaluation")
+      toast.error("An error occured")
     }
   }
 
   // Form elements
   const FORM_ELEMENTS = [
     {
-      label: "Start Date",
-      name: "startDate",
-      Input: <DatePicker format={constants.DATE_FORMAT} className={className} />,
+      label: "Intern",
+      name: "internId",
+      Input: (
+        <Select
+          options={interns?.map((interns: Intern) => ({
+            value: interns.userId,
+            label: interns.email,
+          }))}
+        />
+      ),
     },
     {
-      label: "End Date",
-      name: "endDate",
-      Input: <DatePicker format={constants.DATE_FORMAT} className={className} />,
+      label: "Question",
+      name: "campaignQuestion",
+      Input: <Input type="text" className={className} />,
     },
+
     {
       label: "Campaign",
       name: "campaignId",
@@ -121,10 +125,10 @@ const CampaignForm = () => {
       </Row>
       <div className="mt-8 flex justify-end">
         <button className="rounded-md bg-gradient-to-r from-primary to-secondary px-8 py-2.5 font-semibold leading-5 text-white transition-colors duration-300 focus:outline-none">
-          {campaignEvlId ? "Update" : "Create"}
+          {campaignQuestionId ? "Update" : "Create"}
         </button>
       </div>
     </Form>
   )
 }
-export default CampaignForm
+export default CampaignQuestionForm

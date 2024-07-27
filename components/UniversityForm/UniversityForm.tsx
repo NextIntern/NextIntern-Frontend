@@ -47,7 +47,7 @@ const UniversityForm = () => {
       ...values,
       createdDate: values.createdDate?.format(constants.DATE_FORMAT),
       id: universityId,
-      imgUrl,
+      imgUrl: imgUrl || university?.imgUrl,
     }
 
     try {

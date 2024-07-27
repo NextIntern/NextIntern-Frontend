@@ -1,10 +1,10 @@
-import { PRIMARY_COLOR, SECONDARY_COLOR, TEXT_COLOR, TEXT_HEADING_COLOR } from "@/utils/constants"
+import { BLACK_COLOR, PRIMARY_COLOR, SECONDARY_COLOR, TEXT_COLOR, TEXT_HEADING_COLOR } from "@/utils/constants"
 
 const theme = {
   token: {
     borderRadius: 12,
-    colorPrimary: PRIMARY_COLOR, // green
-    colorSecondary: SECONDARY_COLOR, // blue
+    colorPrimary: PRIMARY_COLOR,
+    colorSecondary: SECONDARY_COLOR,
     colorLink: PRIMARY_COLOR,
     colorLinkHover: PRIMARY_COLOR,
     colorText: TEXT_COLOR,
@@ -19,7 +19,7 @@ const theme = {
       primaryBg: `linear-gradient(to right, ${PRIMARY_COLOR}, ${SECONDARY_COLOR})`,
       primaryHoverBg: `linear-gradient(to left, ${PRIMARY_COLOR}, ${SECONDARY_COLOR})`,
       primaryColor: "white",
-      primaryHoverColor: "#000",
+      primaryHoverColor: BLACK_COLOR,
       fontWeight: 600,
       contentFontSize: 16,
       contentFontSizeLG: 60,

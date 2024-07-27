@@ -7,18 +7,15 @@ import { useState } from "react"
 
 import EvaluateInternForm from "../EvaluateInternForm"
 import config from "@/config"
-import { useParam } from "@/hooks"
 import { internService } from "@/services"
 import { Campaign, Intern } from "@/types"
 
-export default function InternshipList() {
+export default function InternshipList({ campaignId }: { campaignId: string }) {
   const [internId, setInternId] = useState("")
-
-  const universityId = useParam("universityId")
 
   const { data: interns } = useQuery({
     queryKey: ["interns"],
-    queryFn: () => internService.getInternByUniversity(universityId),
+    queryFn: () => internService.getInternByCampaign(campaignId),
     select: (data) => data.data.data.items,
   })
 
@@ -38,6 +35,9 @@ export default function InternshipList() {
       title: "Fullname",
       dataIndex: "fullname",
       key: "fullname",
+      render: (fullname: string, record: Intern) => (
+        <Link href={`${config.routes.internEvlCriteriaList}?internId=${record.userId}`}>{fullname}</Link>
+      ),
     },
     {
       title: "Email",
@@ -49,6 +49,11 @@ export default function InternshipList() {
       dataIndex: "campaign",
       key: "campaign",
       render: (campaign: Campaign) => campaign?.campaignName,
+    },
+    {
+      title: "State",
+      dataIndex: "state",
+      key: "state",
     },
     {
       title: "Action",
@@ -82,7 +87,7 @@ export default function InternshipList() {
           />
           <Link
             href={config.routes.internshipCreate}
-            className="rounded-md bg-gradient-to-r from-primary to-secondary px-6 py-2.5 font-semibold leading-5 text-white transition-colors duration-300 focus:outline-none"
+            className="rounded-md bg-gradient-to-r from-primary to-secondary px-6 py-2.5 font-semibold leading-5 text-white transition-colors duration-300 hover:text-white focus:outline-none"
           >
             Add Internship
           </Link>

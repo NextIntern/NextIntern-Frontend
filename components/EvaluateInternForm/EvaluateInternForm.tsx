@@ -44,7 +44,7 @@ const EvaluateInternForm = ({ internId }: { internId: string }) => {
 
     form.setFieldsValue({
       ...internScore,
-      fromCriteriaId: internScore.formCriteriaDto.formCriteriaId,
+      formCriteriaId: internScore.formCriteriaDto.formCriteriaId,
       internEvaluationId: internScore.internEvaluationDto.internEvaluationId,
     })
   }, [form, internEvlCriteriaId, internScore])
@@ -83,10 +83,10 @@ const EvaluateInternForm = ({ internId }: { internId: string }) => {
         {(fields, { add, remove }) => (
           <div style={{ display: "flex", rowGap: 16, flexDirection: "column" }}>
             {fields.map((field) => (
-              <div key={field.key} style={{ display: "flex", alignItems: "center" }}>
+              <div key={field.key} style={{ display: "flex" }}>
                 <Form.Item
                   label={`Form Criteria ${field.name + 1}`}
-                  name={[field.name, "criteria"]}
+                  name={[field.name, "formCriteriaId"]}
                   style={{ flex: 1 }}
                 >
                   <Select
@@ -94,9 +94,10 @@ const EvaluateInternForm = ({ internId }: { internId: string }) => {
                       value: formCriteria.formCriteriaId,
                       label: formCriteria.name,
                     }))}
+                    style={{ display: "flex", flex: 1 }}
                   />
                 </Form.Item>
-                <Form.Item name={[field.name, "score"]}>
+                <Form.Item name={[field.name, "score"]} className="flex flex-1">
                   <Input className={className} />
                 </Form.Item>
                 <Button onClick={() => remove(field.name)}>Remove</Button>

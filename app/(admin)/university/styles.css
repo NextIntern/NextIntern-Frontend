@@ -1,0 +1,9 @@
+.ant-image img.ant-image-img {
+  display: flex;
+  --size: 18rem;
+  object-fit: contain;
+  padding: 12px;
+  margin: auto;
+  width: var(--size);
+  height: var(--size);
+}

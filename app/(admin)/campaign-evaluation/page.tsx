@@ -2,22 +2,23 @@
 
 import { useQuery } from "@tanstack/react-query"
 import { Table } from "antd"
+import { getCookie } from "cookies-next"
 import Link from "next/link"
 import { useState } from "react"
 import toast from "react-hot-toast"
 
 import config from "@/config"
-import { useParam } from "@/hooks"
 import { campaignEvaluationService } from "@/services"
 import { CampaignEvaluation } from "@/types"
 
 export default function Page() {
-  const universityId = useParam("universityId")
+  // const campaignId = localStorage.getItem("campaignId") ?? ""
+  const campaignId = getCookie("campaignId") ?? ""
 
   const { data: campaignEvaluations, refetch } = useQuery({
     queryKey: ["campaignEvaluations"],
-    queryFn: () => campaignEvaluationService.getCampaignEvlByUniversity(universityId),
-    select: (data) => data.data.data.items,
+    queryFn: () => campaignEvaluationService.getCampaignEvlByCampaign(campaignId),
+    select: (data) => data.data.data.items.filter((item: CampaignEvaluation) => item.campaignId === campaignId),
   })
 
   const [searchTerm, setSearchTerm] = useState<string>("")
@@ -105,7 +106,7 @@ export default function Page() {
         />
         <Link
           href={config.routes.campaignEvlCreate}
-          className="rounded-md bg-gradient-to-r from-primary to-secondary px-6 py-2.5 font-semibold leading-5 text-white transition-colors duration-300 focus:outline-none"
+          className="rounded-md bg-gradient-to-r from-primary to-secondary px-6 py-2.5 font-semibold leading-5 text-white transition-colors duration-300 hover:text-white focus:outline-none"
         >
           Add Campaign Evaluation
         </Link>

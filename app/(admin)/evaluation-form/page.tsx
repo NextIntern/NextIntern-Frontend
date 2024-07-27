@@ -2,6 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query"
 import { Table } from "antd"
+import dayjs from "dayjs"
 import Link from "next/link"
 import { useState } from "react"
 import toast from "react-hot-toast"
@@ -13,8 +14,6 @@ import { EvaluationForm, University } from "@/types"
 
 export default function Page() {
   const universityId = useParam("universityId")
-
-  console.log("universityId", universityId)
 
   const { data: evaluationForms, refetch } = useQuery({
     queryKey: ["evaluationForms"],
@@ -62,11 +61,13 @@ export default function Page() {
       title: "Created Date",
       dataIndex: "createDate",
       key: "createDate",
+      render: (createDate: Date) => dayjs(createDate).format("DD/MM/YYYY HH:mm"),
     },
     {
       title: "Modified Date",
       dataIndex: "modifyDate",
       key: "modifyDate",
+      render: (modifyDate: Date) => dayjs(modifyDate).format("DD/MM/YYYY HH:mm"),
     },
     {
       title: "Status",
@@ -111,7 +112,7 @@ export default function Page() {
         />
         <Link
           href={config.routes.evaluationFormCreate}
-          className="rounded-md bg-gradient-to-r from-primary to-secondary px-6 py-2.5 font-semibold leading-5 text-white transition-colors duration-300 focus:outline-none"
+          className="rounded-md bg-gradient-to-r from-primary to-secondary px-6 py-2.5 font-semibold leading-5 text-white transition-colors duration-300 hover:text-white focus:outline-none"
         >
           Add Evaluation Form
         </Link>
