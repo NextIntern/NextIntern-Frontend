@@ -98,7 +98,7 @@ export default function Page() {
                 <MdCake /> {intern.dob}
               </span>
               <span className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
-                <MdPhone /> {intern.telephone}
+                <MdPhone /> {intern.telephone.replace(/(\d{4})(\d{3})(\d{3})/, "$1 $2 $3")}
               </span>
               <span className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
                 <MdSchool /> {intern.universityName}

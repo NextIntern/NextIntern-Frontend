@@ -4,6 +4,7 @@ import "./styles.css"
 
 import { useQuery } from "@tanstack/react-query"
 import { Col, Form, Row, Select, Switch } from "antd"
+import { getCookie } from "cookies-next"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 import toast from "react-hot-toast"
@@ -64,7 +65,9 @@ const EvaluationFormComponent = () => {
         await evaluationFormService.createEvaluationForm(data)
         toast.success("Evaluation form created successfully")
       }
-      router.push(config.routes.evaluationFormList)
+
+      const universityId = getCookie("universityId")
+      router.push(`${config.routes.manageUniversity}?universityId=${universityId}`)
     } catch (error) {
       toast.error("An error occurred")
     }
@@ -100,7 +103,7 @@ const EvaluationFormComponent = () => {
         ))}
       </Row>
       <div className="mt-8 flex justify-end">
-        <button className="rounded-md bg-gradient-to-r from-primary to-secondary px-8 py-2.5 font-semibold leading-5 text-white transition-colors duration-300 focus:outline-none">
+        <button className="rounded-md bg-gradient-to-r from-primary to-secondary px-8 py-2.5 font-semibold leading-5 text-white transition-colors duration-300 hover:text-white focus:outline-none">
           {evaluationFormId ? "Update" : "Create"}
         </button>
       </div>

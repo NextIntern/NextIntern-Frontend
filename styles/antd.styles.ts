@@ -6,7 +6,6 @@ const theme = {
     colorPrimary: PRIMARY_COLOR, // green
     colorSecondary: SECONDARY_COLOR, // blue
     colorLink: PRIMARY_COLOR,
-    colorLinkHover: PRIMARY_COLOR,
     colorText: "#9a9fa9",
   },
   components: {

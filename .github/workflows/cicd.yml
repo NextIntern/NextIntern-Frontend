@@ -12,6 +12,7 @@ on:
     branches:
       - main
       - development
+      - hotfix/dev/checkpoint-3
 
 jobs:
   deploy-image:

@@ -4,6 +4,7 @@ import "./styles.css"
 
 import { useQuery } from "@tanstack/react-query"
 import { Col, DatePicker, Form, Input, Row, Select } from "antd"
+import { getCookie } from "cookies-next"
 import dayjs from "dayjs"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
@@ -74,9 +75,11 @@ const CampaignForm = () => {
         await campaignService.createCampaign(data)
         toast.success("Campaign created successfully")
       }
-      router.push(config.routes.campaignList)
+
+      const universityId = getCookie("universityId")
+      router.push(`${config.routes.manageUniversity}?universityId=${universityId}`)
     } catch (error) {
-      toast.error("Failed to create campaign")
+      toast.error("An error occured")
     }
   }
 

@@ -21,8 +21,6 @@ export default function Page() {
       data.data.data.items.filter((internScore) => internScore.internEvaluationDto.internId === internId),
   })
 
-  console.log(internScores)
-
   const [searchTerm, setSearchTerm] = useState<string>("")
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {

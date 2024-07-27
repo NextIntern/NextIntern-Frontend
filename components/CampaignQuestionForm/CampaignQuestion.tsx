@@ -45,7 +45,10 @@ const CampaignQuestionForm = () => {
   useEffect(() => {
     if (!campaignQuestion || !campaignQuestionId) return
 
-    form.setFieldsValue(campaignQuestion)
+    form.setFieldsValue({
+      ...campaignQuestion,
+      campaignQuestion: campaignQuestion.question,
+    })
   }, [campaignQuestion, campaignQuestionId, form])
 
   // Input class name
@@ -57,7 +60,8 @@ const CampaignQuestionForm = () => {
     const data = {
       ...values,
       id: campaignQuestionId,
-      campaignId: values.campaign,
+      campaignId: values.campaignId,
+      campaignQuestionId: campaignQuestionId,
     }
 
     try {
@@ -83,14 +87,14 @@ const CampaignQuestionForm = () => {
         <Select
           options={interns?.map((interns: Intern) => ({
             value: interns.userId,
-            label: interns.username,
+            label: interns.email,
           }))}
         />
       ),
     },
     {
       label: "Question",
-      name: "question",
+      name: "campaignQuestion",
       Input: <Input type="text" className={className} />,
     },
 

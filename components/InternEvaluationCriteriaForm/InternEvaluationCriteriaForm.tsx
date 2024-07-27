@@ -52,7 +52,7 @@ const InternEvaluationCriteriaForm = () => {
 
     form.setFieldsValue({
       ...internScore,
-      fromCriteriaId: internScore.formCriteriaDto.formCriteriaId,
+      formCriteriaId: internScore.formCriteriaDto.formCriteriaId,
       internEvaluationId: internScore.internEvaluationDto.internEvaluationId,
     })
   }, [form, internEvlCriteriaId, internScore])
@@ -98,7 +98,7 @@ const InternEvaluationCriteriaForm = () => {
     },
     {
       label: "Form Criteria",
-      name: "fromCriteriaId",
+      name: "formCriteriaId",
       Input: (
         <Select
           options={formCriterias?.map((formCriteria: FormCriteria) => ({

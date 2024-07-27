@@ -15,8 +15,6 @@ import { EvaluationForm, University } from "@/types"
 export default function Page() {
   const universityId = useParam("universityId")
 
-  console.log("universityId", universityId)
-
   const { data: evaluationForms, refetch } = useQuery({
     queryKey: ["evaluationForms"],
     queryFn: () => evaluationFormService.getEvlFormByUniversity(universityId),
@@ -112,7 +110,7 @@ export default function Page() {
         />
         <Link
           href={config.routes.evaluationFormCreate}
-          className="rounded-md bg-gradient-to-r from-primary to-secondary px-6 py-2.5 font-semibold leading-5 text-white transition-colors duration-300 focus:outline-none"
+          className="rounded-md bg-gradient-to-r from-primary to-secondary px-6 py-2.5 font-semibold leading-5 text-white transition-colors duration-300 hover:text-white focus:outline-none"
         >
           Add Evaluation Form
         </Link>
